@@ -1,5 +1,5 @@
-from django.forms import ModelForm
-from .models import SampleModel
+from django.forms import ModelForm, DateInput
+from .models import SampleModel, MSHModel
 from users.models import SiteUser
 
 class SampleForm(ModelForm):
@@ -8,4 +8,35 @@ class SampleForm(ModelForm):
         fields = ['charfield', 'textfield']
 
 
-AVAILABLE_FORMS = [SampleForm,]
+class MSHForm(ModelForm):
+    class Meta:
+        model = MSHModel
+        fields = ['roll_number',
+                  'programme',
+                  'department',
+                  'address_present',
+                  'pincode_present',
+                  'phone_number_present',
+                  'address_permanent',
+                  'pincode_permanent',
+                  'phone_number_permanent',
+                  'name_of_spouse',
+                  'age_of_spouse',
+                  'date_of_marriage',
+                  'occupation_of_spouse',
+                  'place_of_employment_of_spouse',
+                  'date_by_which_you_intend_to_bring_family',]
+
+        widgets = {
+            'date_of_marriage': DateInput(format=('%d/%m/%Y'),
+                                            attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                    'type': 'date'}),
+            'date_by_which_you_intend_to_bring_family': DateInput(format=('%d/%m/%Y'),
+                                            attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                    'type': 'date'}),
+        }
+
+
+
+AVAILABLE_FORMS = [SampleForm, MSHForm]
+ALL_FORMS = [SampleForm, MSHForm]

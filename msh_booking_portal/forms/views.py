@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
-from .forms import AVAILABLE_FORMS, SampleForm
-from .models import SampleModel
+from .forms import AVAILABLE_FORMS, SampleForm, MSHForm
+from .models import SampleModel, MSHModel
 
 from users.models import SiteUser
 
@@ -13,7 +13,7 @@ def index(request):
 
 def MSHCreate(request):
     if request.method == 'POST':
-        form = SampleForm(request.POST)
+        form = MSHForm(request.POST)
 
         if form.is_valid():
             application = form.save(commit=False)
@@ -22,23 +22,23 @@ def MSHCreate(request):
             return redirect('../thanks/')
 
     elif request.method == 'GET':
-        form = SampleForm()
+        form = MSHForm()
 
     return render(request,
                   'forms/msh.html',
                   {'form': form, 'url':'add'})
 
 def MSHEdit(request):
-    form_instance = SampleModel.objects.get(user__user__pk=request.user.id)
+    form_instance = MSHModel.objects.get(user__user__pk=request.user.id)
     if request.method == 'POST':
-        form = SampleForm(request.POST, instance=form_instance)
+        form = MSHForm(request.POST, instance=form_instance)
 
         if form.is_valid() and (form_instance.locked == False):
             form.save()
             return redirect('../thanks/')
 
     elif request.method == 'GET':
-        form = SampleForm(instance=form_instance)
+        form = MSHForm(instance=form_instance)
 
         if form_instance.locked:
             for field in form.fields:
