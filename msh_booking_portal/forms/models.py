@@ -8,6 +8,8 @@ class SampleModel(models.Model):
     charfield = models.CharField(max_length=256, blank=True)
     textfield = models.TextField(blank=True)
 
+    locked = models.BooleanField(default=False)
+
     def __str__(self):
         return self.user.user.username + ': ' + self.charfield
 

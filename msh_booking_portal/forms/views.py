@@ -33,16 +33,20 @@ def MSHEdit(request):
     if request.method == 'POST':
         form = SampleForm(request.POST, instance=form_instance)
 
-        if form.is_valid():
+        if form.is_valid() and (form_instance.locked == False):
             form.save()
             return redirect('../thanks/')
 
     elif request.method == 'GET':
         form = SampleForm(instance=form_instance)
 
+        if form_instance.locked:
+            for field in form.fields:
+                form.fields[field].disabled = True
+
     return render(request,
                   'forms/msh.html',
-                  {'form': form, 'url':'edit'})
+                  {'form': form, 'url':'edit', 'locked': form_instance.locked})
 
 def MSHThanks(request):
     return render(request,
