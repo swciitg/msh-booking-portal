@@ -24,6 +24,22 @@ def MSHCreate(request):
                   'forms/msh.html',
                   {'form': form})
 
+# def MSHEdit(request):
+#     form_instance = SampleModel.objects.get(user__user__pk=request.user.id)
+#     if request.method == 'POST':
+#         form = SampleForm(request.POST, instance=form_instance)
+#
+#         if form.is_valid():
+#             form.save()
+#             return redirect('../thanks/')
+#
+#     elif request.method == 'GET':
+#         form = SampleForm(instance=form_instance)
+#
+#     return render(request,
+#                   'forms/msh.html',
+#                   {'form': form})
+
 def MSHThanks(request):
     return render(request,
                   'forms/msh-thanks.html')
