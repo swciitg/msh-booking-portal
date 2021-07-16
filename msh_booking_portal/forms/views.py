@@ -7,9 +7,11 @@ from .models import SampleModel, MSHModel
 
 from users.models import SiteUser
 
+
 @login_required(login_url='/accounts/login/')
 def index(request):
     return render(request, 'index.html', {})
+
 
 def MSHCreate(request):
     if request.method == 'POST':
@@ -21,23 +23,24 @@ def MSHCreate(request):
             application.save()
             return redirect('../thanks/')
 
-    elif request.method == 'GET':
+    else:
         form = MSHForm()
 
     return render(request,
                   'forms/msh.html',
-                  {'form': form, 'url':'add'})
+                  {'form': form, 'url': 'add'})
+
 
 def MSHEdit(request):
     form_instance = MSHModel.objects.get(user__user__pk=request.user.id)
     if request.method == 'POST':
         form = MSHForm(request.POST, instance=form_instance)
 
-        if form.is_valid() and (form_instance.locked == False):
+        if form.is_valid() and (not form_instance.locked):
             form.save()
             return redirect('../thanks/')
 
-    elif request.method == 'GET':
+    else:
         form = MSHForm(instance=form_instance)
 
         if form_instance.locked:
@@ -46,7 +49,8 @@ def MSHEdit(request):
 
     return render(request,
                   'forms/msh.html',
-                  {'form': form, 'url':'edit', 'locked': form_instance.locked})
+                  {'form': form, 'url': 'edit', 'locked': form_instance.locked})
+
 
 def MSHThanks(request):
     return render(request,
