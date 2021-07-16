@@ -16,6 +16,8 @@ class SampleModel(models.Model):
 class MSHModel(models.Model):
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE)
 
+    time_of_submission = models.DateTimeField(auto_now_add=True)
+
     roll_number = models.IntegerField('Roll No.')
     programme = models.CharField('Programme', max_length=256)
     department = models.CharField('Department', max_length=256)
