@@ -1,4 +1,4 @@
-from django.forms import ModelForm, DateInput
+from django.forms import ModelForm, DateInput, HiddenInput
 from .models import SampleModel, MSHModel
 from users.models import SiteUser
 
@@ -25,6 +25,7 @@ class MSHForm(ModelForm):
                   'date_of_marriage',
                   'occupation_of_spouse',
                   'place_of_employment_of_spouse',
+                  'dependents',
                   'date_by_which_you_intend_to_bring_family',]
 
         widgets = {
@@ -34,6 +35,7 @@ class MSHForm(ModelForm):
             'date_by_which_you_intend_to_bring_family': DateInput(format=('%d/%m/%Y'),
                                             attrs={'class': 'form-control', 'placeholder': 'Select a date',
                                                     'type': 'date'}),
+            'dependents': HiddenInput(),
         }
 
 

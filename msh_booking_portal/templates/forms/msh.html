@@ -3,12 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <script>
+        dependents = [];
+        function drawDependentsDiv() {
+            document.getElementById('dependents-div').innerHTML = '';
+            for (var i = 1; i < dependents.length+1; i++) {
+                document.getElementById('dependents-div').appendChild(document.createElement('br'));
+                dependents[i-1].setAttribute('name', 'dependent' + i.toString());
+                dependents[i-1].setAttribute('placeholder', 'Dependent ' + i.toString());
+                document.getElementById('dependents-div').appendChild(dependents[i-1]);
+
+                var delete_button = document.createElement('button');
+                delete_button.setAttribute('onclick', 'remove_dependent(' + i.toString() + ');');
+                delete_button.textContent = 'Delete';
+
+                document.getElementById('dependents-div').appendChild(delete_button);
+            }
+        }
+
+        function add() {
+            var element = document.createElement('input');
+            element.setAttribute('name', 'dependent' + (dependents.length+1).toString());
+            element.setAttribute('placeholder', 'Dependent ' + (dependents.length+1).toString());
+            dependents.push(element);
+            drawDependentsDiv();
+        }
+
+        function remove_dependent(index) {
+            dependents.splice(index-1, 1);
+            drawDependentsDiv();
+        }
+
+        function sendDependents() {
+            var listOfDependents = [];
+            for (var i = 0; i < dependents.length; i++) {
+                listOfDependents.push(dependents[i].value);
+            }
+            document.getElementById('id_dependents').value = JSON.stringify(listOfDependents);
+        }
+    </script>
+
 </head>
 <body>
     <form action="../{{ url }}/" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" {% if locked %}disabled{% endif %}>Submit</button>
+
+        <label>Dependents:</label>
+        <button onclick="add()" type="button">Add</button>
+        <div id="dependents-div"></div>
+
+        <input type="submit" {% if locked %}disabled{% endif %} onclick="return sendDependents();">
     </form>
 </body>
 </html>

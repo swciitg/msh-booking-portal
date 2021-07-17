@@ -36,11 +36,13 @@ class MSHModel(models.Model):
     occupation_of_spouse = models.CharField('Occupation of Spouse', max_length=256, blank=True)
     place_of_employment_of_spouse = models.TextField('Place of Employment of Spouse', blank=True)
 
+    dependents = models.TextField('Dependents', blank=True)
+
     date_by_which_you_intend_to_bring_family = models.DateField('Date by which you intend to bring your Family')
 
     locked = models.BooleanField(default=False)
 
-    status = models.CharField(max_length=256)
+    status = models.CharField(max_length=256, blank=True)
 
     def __str__(self):
         return self.user.user.username
