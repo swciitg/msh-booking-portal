@@ -22,6 +22,19 @@
             }
         }
 
+        function initializeDependents() {
+            if (document.getElementById('id_dependents').value === '') return;
+            var listOfDependents = JSON.parse(document.getElementById('id_dependents').value);
+            for (var i = 0; i < listOfDependents.length; i++) {
+                var element = document.createElement('input');
+                element.setAttribute('name', 'dependent' + (dependents.length+1).toString());
+                element.setAttribute('placeholder', 'Dependent ' + (dependents.length+1).toString());
+                element.setAttribute('value', listOfDependents[i]);
+                dependents.push(element);
+            }
+            drawDependentsDiv();
+        }
+
         function add() {
             var element = document.createElement('input');
             element.setAttribute('name', 'dependent' + (dependents.length+1).toString());
@@ -56,5 +69,10 @@
 
         <input type="submit" {% if locked %}disabled{% endif %} onclick="return sendDependents();">
     </form>
+
+    <script>
+        initializeDependents();
+    </script>
+
 </body>
 </html>
