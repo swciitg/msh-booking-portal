@@ -3,6 +3,6 @@
 This repository contains the code for the MSH application portal.
 
 
-shrihari check
-
-dhruvsomani check
+- shrihari check
+- dhruvsomani check
+- chandrabhushan check
