@@ -3,12 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <script>
+        dependents = [];
+        function drawDependentsDiv() {
+            document.getElementById('dependents-div').innerHTML = '';
+            for (var i = 1; i < dependents.length+1; i++) {
+                document.getElementById('dependents-div').appendChild(document.createElement('br'));
+                dependents[i-1][0].setAttribute('name', 'dependent' + i.toString());
+                dependents[i-1][0].setAttribute('placeholder', 'Dependent ' + i.toString());
+                dependents[i-1][0].setAttribute('required', true);
+                document.getElementById('dependents-div').appendChild(dependents[i-1][0]);
+
+                dependents[i-1][1].setAttribute('name', 'age' + i.toString());
+                dependents[i-1][1].setAttribute('placeholder', 'Age');
+                dependents[i-1][1].setAttribute('type', 'number');
+                dependents[i-1][1].setAttribute('required', true);
+                document.getElementById('dependents-div').appendChild(dependents[i-1][1]);
+
+                dependents[i-1][2].setAttribute('name', 'relation' + i.toString());
+                dependents[i-1][2].setAttribute('placeholder', 'Relation');
+                dependents[i-1][2].setAttribute('required', true);
+                document.getElementById('dependents-div').appendChild(dependents[i-1][2]);
+
+                var delete_button = document.createElement('button');
+                delete_button.setAttribute('onclick', 'remove_dependent(' + i.toString() + ');');
+                delete_button.textContent = 'Delete';
+
+                document.getElementById('dependents-div').appendChild(delete_button);
+            }
+        }
+
+        function initializeDependents() {
+            if (document.getElementById('id_dependents').value === '') return;
+
+            var listOfDependents = JSON.parse(document.getElementById('id_dependents').value);
+
+            for (var i = 0; i < listOfDependents.length; i++) {
+                var element1 = document.createElement('input');
+                element1.setAttribute('name', 'dependent' + (dependents.length+1).toString());
+                element1.setAttribute('placeholder', 'Dependent ' + (dependents.length+1).toString());
+                element1.setAttribute('value', listOfDependents[i][0]);
+                element1.setAttribute('required', true);
+
+                var element2 = document.createElement('input');
+                element2.setAttribute('name', 'age' + (dependents.length+1).toString());
+                element2.setAttribute('placeholder', 'Age');
+                element2.setAttribute('value', listOfDependents[i][1]);
+                element2.setAttribute('required', true);
+
+                var element3 = document.createElement('input');
+                element3.setAttribute('name', 'relation' + (dependents.length+1).toString());
+                element3.setAttribute('placeholder', 'Relation');
+                element3.setAttribute('value', listOfDependents[i][2]);
+                element3.setAttribute('required', true);
+
+                dependents.push([element1, element2, element3]);
+            }
+
+            drawDependentsDiv();
+        }
+
+        function add() {
+            var element1 = document.createElement('input');
+            var element2 = document.createElement('input');
+            var element3 = document.createElement('input');
+            dependents.push([element1, element2, element3]);
+
+            drawDependentsDiv();
+        }
+
+        function remove_dependent(index) {
+            dependents.splice(index-1, 1);
+            drawDependentsDiv();
+        }
+
+        function sendDependents() {
+            var listOfDependents = [];
+            for (var i = 0; i < dependents.length; i++) {
+                listOfDependents.push([dependents[i][0].value, dependents[i][1].value, dependents[i][2].value]);
+            }
+            document.getElementById('id_dependents').value = JSON.stringify(listOfDependents);
+        }
+    </script>
+
 </head>
 <body>
     <form action="../{{ url }}/" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" {% if locked %}disabled{% endif %}>Submit</button>
+
+        <label>Dependents:</label>
+        <button onclick="add()" type="button">Add</button>
+        <div id="dependents-div"></div>
+
+        <input type="submit" {% if locked %}disabled{% endif %} onclick="return sendDependents();">
     </form>
+
+    <script>
+        initializeDependents();
+    </script>
+
 </body>
 </html>

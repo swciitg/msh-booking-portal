@@ -55,3 +55,9 @@ def MSHEdit(request):
 def MSHThanks(request):
     return render(request,
                   'forms/msh-thanks.html')
+
+
+def MSHView(request):
+    return render(request,
+                  'forms/msh-view.html',
+                  {'applications': MSHModel.objects.all(),})
