@@ -29,15 +29,14 @@ class MSHForm(ModelForm):
                   'date_by_which_you_intend_to_bring_family',]
 
         widgets = {
-            'date_of_marriage': DateInput(format=('%d/%m/%Y'),
+            'date_of_marriage': DateInput(format='%d/%m/%Y',
                                             attrs={'class': 'form-control', 'placeholder': 'Select a date',
                                                     'type': 'date'}),
-            'date_by_which_you_intend_to_bring_family': DateInput(format=('%d/%m/%Y'),
+            'date_by_which_you_intend_to_bring_family': DateInput(format='%d/%m/%Y',
                                             attrs={'class': 'form-control', 'placeholder': 'Select a date',
                                                     'type': 'date'}),
             'dependents': HiddenInput(),
         }
-
 
 
 AVAILABLE_FORMS = [SampleForm, MSHForm]
