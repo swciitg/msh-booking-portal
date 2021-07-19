@@ -22,6 +22,6 @@ urlpatterns = [
     path('accounts/login/', LoginView.as_view(template_name='admin/login.html')),
     path('accounts/logout/', LogoutView.as_view(template_name='admin/logout.html')),
     path('forms/', include('forms.urls')),
-    path('oauth2/', include('django_auth_adfs.urls')),
+    # path('oauth2/', include('django_auth_adfs.urls')),
     path('', LoginView.as_view(template_name='admin/login.html')),
 ]

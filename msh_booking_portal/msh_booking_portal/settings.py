@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'forms',
-    'django_auth_adfs',
+    # 'django_auth_adfs',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_auth_adfs.middleware.LoginRequiredMiddleware',
+    # 'django_auth_adfs.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'msh_booking_portal.urls'
@@ -106,32 +106,32 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    'django_auth_adfs.backend.AdfsAuthCodeBackend',
-    'django_auth_adfs.backend.AdfsAccessTokenBackend',
-]
+# AUTHENTICATION_BACKENDS = [
+#     'django_auth_adfs.backend.AdfsAuthCodeBackend',
+#     'django_auth_adfs.backend.AdfsAccessTokenBackend',
+# ]
+#
+# client_id = 'c2bd5dda-a57a-48b7-ae93-d39a01e276df'
+# client_secret = '.KGVgz~9bFDRi7yhh92dRJvm_kQ0q.oJ~1'
+# tenant_id = '850aa78d-94e1-4bc6-9cf3-8c11b530701c'
 
-client_id = 'c2bd5dda-a57a-48b7-ae93-d39a01e276df'
-client_secret = '.KGVgz~9bFDRi7yhh92dRJvm_kQ0q.oJ~1'
-tenant_id = '850aa78d-94e1-4bc6-9cf3-8c11b530701c'
+# AUTH_ADFS ={
+#     "AUDIENCE": 'c2bd5dda-a57a-48b7-ae93-d39a01e276df',
+#     "CLIENT_ID": "c2bd5dda-a57a-48b7-ae93-d39a01e276df",
+#     "RELYING_PARTY_ID": "c2bd5dda-a57a-48b7-ae93-d39a01e276df",
+#     "CLIENT_SECRET": ".KGVgz~9bFDRi7yhh92dRJvm_kQ0q.oJ~1",
+#     "GROUPS_CLAIM": "roles",
+#     "MIRROR_GROUPS": True,
+#     "USERNAME_CLAIM": "upn",
+#     "TENANT_ID": "850aa78d-94e1-4bc6-9cf3-8c11b530701c",
+#     "CLAIM_MAPPING": {"first_name": "given_name",
+#                       "last_name": "family_name",
+#                       "email": "upn"},
+# }
 
-AUTH_ADFS ={
-    "AUDIENCE": 'c2bd5dda-a57a-48b7-ae93-d39a01e276df',
-    "CLIENT_ID": "c2bd5dda-a57a-48b7-ae93-d39a01e276df",
-    "RELYING_PARTY_ID": "c2bd5dda-a57a-48b7-ae93-d39a01e276df",
-    "CLIENT_SECRET": ".KGVgz~9bFDRi7yhh92dRJvm_kQ0q.oJ~1",
-    "GROUPS_CLAIM": "roles",
-    "MIRROR_GROUPS": True,
-    "USERNAME_CLAIM": "upn",
-    "TENANT_ID": "850aa78d-94e1-4bc6-9cf3-8c11b530701c",
-    "CLAIM_MAPPING": {"first_name": "given_name",
-                      "last_name": "family_name",
-                      "email": "upn"},
-}
+# LOGIN_URL =  "django_auth_adfs:login"
 
-LOGIN_URL =  "django_auth_adfs:login"
-
-LOGIN_REDIRECT_URL = "/"
+# LOGIN_REDIRECT_URL = "/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
