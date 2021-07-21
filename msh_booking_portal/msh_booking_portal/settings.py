@@ -16,8 +16,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-LOGIN_REDIRECT_URL = '/forms/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -28,8 +26,7 @@ SECRET_KEY = 'django-insecure-wgti)prp10r#@v9q02@ek&mmhro0346b7$txovudq+^6os(jha
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+SITE_ID = 1
 
 # Application definition
 
@@ -40,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'users',
     'forms',
-    # 'django_auth_adfs',
+    'microsoft_auth',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +51,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django_auth_adfs.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'msh_booking_portal.urls'
@@ -69,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'microsoft_auth.context_processors.microsoft',
             ],
         },
     },
@@ -106,32 +104,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# AUTHENTICATION_BACKENDS = [
-#     'django_auth_adfs.backend.AdfsAuthCodeBackend',
-#     'django_auth_adfs.backend.AdfsAccessTokenBackend',
-# ]
-#
-# client_id = 'c2bd5dda-a57a-48b7-ae93-d39a01e276df'
-# client_secret = '.KGVgz~9bFDRi7yhh92dRJvm_kQ0q.oJ~1'
-# tenant_id = '850aa78d-94e1-4bc6-9cf3-8c11b530701c'
+AUTHENTICATION_BACKENDS = [
+    'microsoft_auth.backends.MicrosoftAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
-# AUTH_ADFS ={
-#     "AUDIENCE": 'c2bd5dda-a57a-48b7-ae93-d39a01e276df',
-#     "CLIENT_ID": "c2bd5dda-a57a-48b7-ae93-d39a01e276df",
-#     "RELYING_PARTY_ID": "c2bd5dda-a57a-48b7-ae93-d39a01e276df",
-#     "CLIENT_SECRET": ".KGVgz~9bFDRi7yhh92dRJvm_kQ0q.oJ~1",
-#     "GROUPS_CLAIM": "roles",
-#     "MIRROR_GROUPS": True,
-#     "USERNAME_CLAIM": "upn",
-#     "TENANT_ID": "850aa78d-94e1-4bc6-9cf3-8c11b530701c",
-#     "CLAIM_MAPPING": {"first_name": "given_name",
-#                       "last_name": "family_name",
-#                       "email": "upn"},
-# }
+MICROSOFT_AUTH_CLIENT_ID = '0f9be505-2599-4971-8d38-6c80890df161'
+MICROSOFT_AUTH_CLIENT_SECRET = 'i5K_Q9C0-sbJy1n5.OB21Sb5~dWyH.49Fi'
+MICROSOFT_AUTH_TENANT_ID = '850aa78d-94e1-4bc6-9cf3-8c11b530701c'
+MICROSOFT_AUTH_REDIRECT_URI = 'http://localhost:8000/forms/'
+MICROSOFT_AUTH_LOGIN_TYPE = 'ma'
 
-# LOGIN_URL =  "django_auth_adfs:login"
+LOGIN_REDIRECT_URL = '/forms/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+REDIRECT_URI = '/forms/'
 
-# LOGIN_REDIRECT_URL = "/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
