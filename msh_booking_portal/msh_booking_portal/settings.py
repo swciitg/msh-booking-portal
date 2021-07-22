@@ -25,7 +25,6 @@ SECRET_KEY = 'django-insecure-wgti)prp10r#@v9q02@ek&mmhro0346b7$txovudq+^6os(jha
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 SITE_ID = 1
 
 # Application definition
@@ -58,7 +57,7 @@ ROOT_URLCONF = 'msh_booking_portal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -21,9 +21,9 @@ urlpatterns = [
     path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
     path('admin/', admin.site.urls),
     path('accounts/login/', LoginView.as_view(template_name='login.html',
-                                              next='forms/')),
+                                              redirect_field_name='forms/')),
     path('accounts/logout/', LogoutView.as_view(template_name='admin/logout.html')),
     path('forms/', include('forms.urls')),
     path('', LoginView.as_view(template_name='login.html',
-                                next='forms/')),
+                                redirect_field_name='forms/')),
 ]
