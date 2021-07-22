@@ -10,6 +10,7 @@ from users.models import SiteUser
 
 @login_required(login_url='/accounts/login/')
 def index(request):
+    user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
     return render(request, 'index.html', {})
 
 
@@ -19,7 +20,7 @@ def MSHCreate(request):
 
         if form.is_valid():
             application = form.save(commit=False)
-            application.user = SiteUser.objects.get(pk=request.user.id)
+            application.user = SiteUser.objects.get(user__pk=request.user.id)
             application.save()
             return redirect('../thanks/')
 
