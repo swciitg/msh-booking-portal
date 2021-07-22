@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'users',
     'forms',
+    'hab_portal',
     'microsoft_auth',
 ]
 
