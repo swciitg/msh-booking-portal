@@ -19,3 +19,5 @@ class HABModel(models.Model):
     date_of_arrival = models.DateField('Date of Arrival')
     fee_paid = models.IntegerField('Fee Paid')
     fee_receipt = models.FileField('Fee Receipt')
+
+    approved = models.BooleanField(default=False)
