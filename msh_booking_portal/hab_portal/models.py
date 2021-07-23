@@ -18,6 +18,8 @@ class HABModel(models.Model):
 
     date_of_arrival = models.DateField('Date of Arrival')
     fee_paid = models.IntegerField('Fee Paid')
-    fee_receipt = models.FileField('Fee Receipt')
+    fee_receipt = models.FileField('Fee Receipt', blank=True)
 
     approved = models.BooleanField(default=False)
+
+    locked = models.BooleanField(default=False)

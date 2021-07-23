@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HAB Form</title>
+</head>
+<body>
+    <form action="../{{ url }}/" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" {% if locked %}disabled{% endif %}>
+    </form>
+</body>
+</html>
