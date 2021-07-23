@@ -5,6 +5,15 @@ from .forms import HABForm
 from .models import HABModel
 
 from users.models import SiteUser
+from django.views import generic
+
+class HABList(generic.ListView):
+    queryset = HABModel.objects.filter(status=1).order_by('-date_of_arrival')
+    template_name = 'index.html'
+
+class StudentDetail(generic.DetailView):
+    model = HABModel
+    template_name = 'student_detail.html'
 
 
 @login_required(login_url='/accounts/login/')
