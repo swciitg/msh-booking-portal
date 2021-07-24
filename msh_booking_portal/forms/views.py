@@ -14,6 +14,7 @@ def index(request):
     return render(request, 'index.html', {})
 
 
+@login_required(login_url='/accounts/login/')
 def MSHCreate(request):
     if request.method == 'POST':
         form = MSHForm(request.POST)
@@ -32,6 +33,7 @@ def MSHCreate(request):
                   {'form': form, 'url': 'add'})
 
 
+@login_required(login_url='/accounts/login/')
 def MSHEdit(request):
     form_instance = MSHModel.objects.get(user__user__pk=request.user.id)
     if request.method == 'POST':
@@ -53,11 +55,13 @@ def MSHEdit(request):
                   {'form': form, 'url': 'edit', 'locked': form_instance.locked})
 
 
+@login_required(login_url='/accounts/login/')
 def MSHThanks(request):
     return render(request,
                   'forms/msh-thanks.html')
 
 
+@login_required(login_url='/accounts/login/')
 def MSHView(request):
     return render(request,
                   'forms/msh-view.html',

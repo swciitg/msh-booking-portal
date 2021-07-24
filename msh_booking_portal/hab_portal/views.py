@@ -13,13 +13,15 @@ def index(request):
     return render(request, 'index.html', {})
 
 
+@login_required(login_url='/accounts/login/')
 def HABCreate(request):
     if request.method == 'POST':
-        form = HABForm(request.POST)
+        form = HABForm(request.POST, request.FILES)
 
         if form.is_valid():
             application = form.save(commit=False)
             application.user = SiteUser.objects.get(user__pk=request.user.id)
+            application.fee_receipt = request.FILES['fee_receipt']
             application.save()
             return redirect('../thanks/')
 
@@ -31,10 +33,11 @@ def HABCreate(request):
                   {'form': form, 'url': 'add'})
 
 
+@login_required(login_url='/accounts/login/')
 def HABEdit(request):
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
     if request.method == 'POST':
-        form = HABForm(request.POST, instance=form_instance)
+        form = HABForm(request.POST, request.FILES, instance=form_instance)
 
         if form.is_valid() and (not form_instance.locked):
             form.save()
@@ -52,13 +55,14 @@ def HABEdit(request):
                   {'form': form, 'url': 'edit', 'locked': form_instance.locked})
 
 
+@login_required(login_url='/accounts/login/')
 def HABThanks(request):
     return render(request,
                   'forms/hab-thanks.html')
 
 
+@login_required(login_url='/accounts/login/')
 def HABView(request):
     return render(request,
                   'forms/hab-view.html',
                   {'applications': HABModel.objects.all(), })
-
