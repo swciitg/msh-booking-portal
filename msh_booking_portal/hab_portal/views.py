@@ -9,7 +9,7 @@ from django.views import generic
 
 class HABList(generic.ListView):
     queryset = HABModel.objects.filter(status=1).order_by('-date_of_arrival')
-    template_name = 'index.html'
+    template_name = 'hab_portal/hab-view.html'
 
 class StudentDetail(generic.DetailView):
     model = HABModel
