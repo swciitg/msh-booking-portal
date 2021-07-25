@@ -18,8 +18,12 @@
         </thead>
         {% for item in applications %}
         <tr>
-            <td>{{ item.user.user.username }}</td>
             <td>{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</td>
+            <td>{{ item.roll_number }}</td>
+            <td>#</td>
+            <td>#</td>
+            <td>Link for detail</td>
+            <td>{{ item.date_of_arrival }}</td>
             <td>{{ item.time_of_submission }}</td>
         </tr>
         {% endfor %}
