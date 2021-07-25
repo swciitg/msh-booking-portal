@@ -14,7 +14,7 @@ HOSTELS = [
 
 
 def upload_file_name(instance, filename):
-    return 'hab_portal/user_{0}.pdf'.format(instance.user.user.username)
+    return 'hab_portal/user_{0}.pdf'.format(instance.user.pk)
 
 
 def validate_file_size(value):
@@ -50,7 +50,6 @@ class HABModel(models.Model):
     approved = models.BooleanField(default=False)
 
     locked = models.BooleanField(default=False)
-
 
     def __str__(self):
         return self.user.user.username
