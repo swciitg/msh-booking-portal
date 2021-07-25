@@ -7,13 +7,13 @@ from .models import HABModel
 from users.models import SiteUser
 from django.views import generic
 
-class HABList(generic.ListView):
-    queryset = HABModel.objects.filter(status=1).order_by('-date_of_arrival')
-    template_name = 'hab_portal/hab-view.html'
+#class HABList(generic.ListView):
+#    queryset = HABModel.objects.filter(status=1).order_by('-date_of_arrival')
+#    template_name = 'hab_portal/hab-view.html'
 
-class StudentDetail(generic.DetailView):
-    model = HABModel
-    template_name = 'student_detail.html'
+#class StudentDetail(generic.DetailView):
+#    model = HABModel
+#    template_name = 'student_detail.html'
 
 
 @login_required(login_url='/accounts/login/')
@@ -68,6 +68,6 @@ def HABThanks(request):
 
 def HABView(request):
     return render(request,
-                  'forms/hab-view.html',
+                  'hab_portal/hab-view.html',
                   {'applications': HABModel.objects.all(), })
 
