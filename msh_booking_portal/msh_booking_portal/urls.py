@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 
+from .views import index
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/login/', LoginView.as_view(template_name='login.html',
@@ -26,6 +29,5 @@ urlpatterns = [
 
     path('forms/', include('forms.urls')),
     path('hab/', include('hab_portal.urls')),
-    path('', LoginView.as_view(template_name='login.html',
-                                redirect_field_name='forms/')),
+    path('', index),
 ]

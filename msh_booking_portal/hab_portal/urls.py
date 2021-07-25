@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index),
-    path('hab/add/', views.HABCreate),
-    path('hab/edit/', views.HABEdit),
-    path('hab/view/', views.HABView),
-    path('hab/thanks/', views.HABThanks),
+    path('add/', views.HABCreate),
+    path('edit/', views.HABEdit),
+    path('view/', views.HABView),
+    path('thanks/', views.HABThanks),
 ]

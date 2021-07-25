@@ -120,6 +120,11 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 REDIRECT_URI = '/forms/'
 
 
+# Media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
