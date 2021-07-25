@@ -6,12 +6,14 @@
 </head>
 <body>
     Here are all the submissions to the HAB Form for {{ hostel }}:
+     <br> <br>
     <table border="1px" cellpadding="10">
         <thead>
             <td>User</td>
             <td>Roll No.</td>
             <td>No. of days calculated</td>
             <td>Fees for that number of days</td>
+            <td>Hostel</td>
             <td>Details</td>
             <td>Date of Arrival</td>
             <td>Date of Submission</td>
@@ -22,6 +24,7 @@
             <td>{{ item.roll_number }}</td>
             <td>#</td>
             <td>#</td>
+            <td>{{ item.hostel }}</td>
             <td>Link for detail</td>
             <td>{{ item.date_of_arrival }}</td>
             <td>{{ item.time_of_submission }}</td>
