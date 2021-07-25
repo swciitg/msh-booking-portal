@@ -69,5 +69,6 @@ def HABThanks(request):
 def HABView(request):
     return render(request,
                   'hab_portal/hab-view.html',
-                  {'applications': HABModel.objects.all(), })
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
 

@@ -41,7 +41,7 @@ class HABModel(models.Model):
     locked = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['-date_of_arrival']
+        ordering = ['status','-date_of_arrival']
 
     def __str__(self):
         return self.title
