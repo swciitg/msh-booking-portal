@@ -74,3 +74,80 @@ def HABDetail(request, slug):
     HABform = HABModel.objects.get(slug=slug)
     return render(request, 'hab_portal/hab-detail.html', { 'HABform': HABform })                   
 
+def LohitView(request):
+    return render(request,
+                  'hab_portal/lohit.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def BrahmaView(request):
+    return render(request,
+                  'hab_portal/brahmaputra.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def SiangView(request):
+    return render(request,
+                  'hab_portal/siang.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def ManasView(request):
+    return render(request,
+                  'hab_portal/manas.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def DisangView(request):
+    return render(request,
+                  'hab_portal/disang.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def KamengView(request):
+    return render(request,
+                  'hab_portal/kameng.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def UmiamView(request):
+    return render(request,
+                  'hab_portal/umiam.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def BarakView(request):
+    return render(request,
+                  'hab_portal/barak.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def KapiliView(request):
+    return render(request,
+                  'hab_portal/kapili.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def DihingView(request):
+    return render(request,
+                  'hab_portal/dihing.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def SubanView(request):
+    return render(request,
+                  'hab_portal/subansiri.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def DhanView(request):
+    return render(request,
+                  'hab_portal/dhansiri.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
+
+def MSHView(request):
+    return render(request,
+                  'hab_portal/msh.html',
+                  {'applications': HABModel.objects.all(),
+                   'hostels': HABModel.hostel, })
