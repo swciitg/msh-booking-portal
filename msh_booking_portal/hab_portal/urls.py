@@ -1,11 +1,14 @@
 from django.urls import path
+from django.conf.urls import url
 from . import views
 
+app_name = 'hab_portal'
+
 urlpatterns = [
-    path('view/', views.HABView, name='all-view'),
+    url(r'^view/$', views.HABView, name='hab_list'),
     path('add/', views.HABCreate),
     path('edit/', views.HABEdit),
-    #path('<roll_number>/', views.StudentDetail.as_view(), name='stud-detail'),
     path('thanks/', views.HABThanks),
-    path('', views.index)
+    path('', views.index),
+    url(r'^view/(?P<slug>[\w-]+)/$', views.HABDetail, name='hab_detail'),
 ]

@@ -14,7 +14,7 @@
         <a href="msh/add/"><li>MSH Form</li></a>
     </ul>
 
-    <p><a href="/hab/view/">View all submissions of HAB Form.</a></p>
-    <p><a href="msh/view/">View all submissions of MSH Form.</a></p>
+    <p><a href="{% url 'hab_portal:hab_list' %}">View all submissions of HAB Form.</a></p>
+    <p><a href="{% url 'forms:msh_list' %}">View all submissions of MSH Form.</a></p>
 </body>
 </html>

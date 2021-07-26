@@ -5,7 +5,7 @@
     <title>HAB Form Submissions</title>
 </head>
 <body>
-    Here are all the submissions to the HAB Form for {{ hostel }}:
+    Here are all the submissions to the HAB Form :
     <table border="1px" cellpadding="10">
         <thead>
             <td>User</td>
@@ -16,15 +16,15 @@
             <td>Date of Arrival</td>
             <td>Date of Submission</td>
         </thead>
-        {% for item in applications %}
+        {% for apps in applications %}
         <tr>
-            <td>{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</td>
-            <td>{{ item.roll_number }}</td>
+            <td>{{ apps.user.user.first_name|add:" "|add:apps.user.user.last_name }}</td>
+            <td>{{ apps.roll_number }}</td>
             <td>#</td>
             <td>#</td>
-            <td>Link for detail</td>
-            <td>{{ item.date_of_arrival }}</td>
-            <td>{{ item.time_of_submission }}</td>
+            <td><a href="{% url 'hab_portal:hab_detail' slug=apps.slug %}">Details</a></td>
+            <td>{{ apps.date_of_arrival }}</td>
+            <td>{{ apps.time_of_submission }}</td>
         </tr>
         {% endfor %}
     </table>

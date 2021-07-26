@@ -5,15 +5,6 @@ from .forms import HABForm
 from .models import HABModel
 
 from users.models import SiteUser
-from django.views import generic
-
-#class HABList(generic.ListView):
-#    queryset = HABModel.objects.filter(status=1).order_by('-date_of_arrival')
-#    template_name = 'hab_portal/hab-view.html'
-
-#class StudentDetail(generic.DetailView):
-#    model = HABModel
-#    template_name = 'student_detail.html'
 
 
 @login_required(login_url='/accounts/login/')
@@ -22,13 +13,15 @@ def index(request):
     return render(request, 'index.html', {})
 
 
+@login_required(login_url='/accounts/login/')
 def HABCreate(request):
     if request.method == 'POST':
-        form = HABForm(request.POST)
+        form = HABForm(request.POST, request.FILES)
 
         if form.is_valid():
             application = form.save(commit=False)
             application.user = SiteUser.objects.get(user__pk=request.user.id)
+            application.fee_receipt = request.FILES['fee_receipt']
             application.save()
             return redirect('../thanks/')
 
@@ -40,10 +33,11 @@ def HABCreate(request):
                   {'form': form, 'url': 'add'})
 
 
+@login_required(login_url='/accounts/login/')
 def HABEdit(request):
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
     if request.method == 'POST':
-        form = HABForm(request.POST, instance=form_instance)
+        form = HABForm(request.POST, request.FILES, instance=form_instance)
 
         if form.is_valid() and (not form_instance.locked):
             form.save()
@@ -61,14 +55,22 @@ def HABEdit(request):
                   {'form': form, 'url': 'edit', 'locked': form_instance.locked})
 
 
+@login_required(login_url='/accounts/login/')
 def HABThanks(request):
     return render(request,
                   'forms/hab-thanks.html')
 
 
+@login_required(login_url='/accounts/login/')
 def HABView(request):
     return render(request,
                   'hab_portal/hab-view.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+                  {'applications': HABModel.objects.all().order_by('time_of_submission'),
+                   'hostels': HABModel.hostel })
+
+
+@login_required(login_url='/accounts/login/')
+def HABDetail(request, slug):
+    HABform = HABModel.objects.get(slug=slug)
+    return render(request, 'hab_portal/hab-detail.html', { 'HABform': HABform })                   
 

@@ -5,11 +5,12 @@
     <title>HAB Form</title>
 </head>
 <body>
-    <form action="../{{ url }}/" method="POST">
+    <form action="../{{ url }}/" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-
         <input type="submit" {% if locked %}disabled{% endif %}>
     </form>
+
+    <script src="/static/slugify.js"></script>
 </body>
 </html>

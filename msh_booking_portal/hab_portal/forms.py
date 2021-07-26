@@ -9,7 +9,8 @@ class HABForm(ModelForm):
                   'hostel',
                   'date_of_arrival',
                   'fee_paid',
-                  'fee_receipt',]
+                  'fee_receipt',
+                  'slug',]
 
         widgets = {
             'date_of_arrival': DateInput(format='%d/%m/%Y',
