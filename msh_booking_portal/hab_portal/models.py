@@ -2,19 +2,19 @@ from django.db import models
 from users.models import SiteUser
 
 HOSTELS = [
-    ('Lohit', 'Lohit'),
-    ('Brahmaputra', 'Brahmaputra'),
-    ('Siang', 'Siang'),
-    ('Manas', 'Manas'),
-    ('Disang', 'Disang'),
-    ('Kameng', 'Kameng'),
-    ('Umiam', 'Umiam'),
-    ('Barak', 'Barak'),
-    ('Kapili', 'Kapili'),
-    ('Dihing', 'Dihing'),
-    ('Subansiri', 'Subansiri'),
-    ('Dhansiri', 'Dhansiri'),
-    ('Married Scholar Hostel', 'Married Scholar Hostel'),
+    ('1', 'Lohit'),
+    ('2', 'Brahmaputra'),
+    ('3', 'Siang'),
+    ('4', 'Manas'),
+    ('5', 'Disang'),
+    ('6', 'Kameng'),
+    ('7', 'Umiam'),
+    ('8', 'Barak'),
+    ('9', 'Kapili'),
+    ('10', 'Dihing'),
+    ('11', 'Subansiri'),
+    ('12', 'Dhansiri'),
+    ('13', 'Married Scholar Hostel'),
     # add all other hostels
 ]
 
@@ -41,7 +41,7 @@ class HABModel(models.Model):
     locked = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['-status','date_of_arrival']
+        ordering = ['hostel','-status','date_of_arrival']
 
     def __str__(self):
         return self.title
