@@ -71,7 +71,22 @@ class HABModel(models.Model):
     locked = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['hostel','-status','-time_of_submission']
+        ordering = ['hostel','-status','date_of_arrival']
+        permissions = (
+            ('can_view_lohit_hostel_data', 'can view lohit hostel data'),
+            ('can_view_brahma_hostel_data', 'can view brahma hostel data'),
+            ('can_view_siang_hostel_data', 'can view siang hostel data'),
+            ('can_view_manas_hostel_data', 'can view manas hostel data'),
+            ('can_view_disang_hostel_data', 'can view disang hostel data'),
+            ('can_view_kameng_hostel_data', 'can view kameng hostel data'),
+            ('can_view_umiam_hostel_data', 'can view umiam hostel data'),
+            ('can_view_barak_hostel_data', 'can view barak hostel data'),
+            ('can_view_kapili_hostel_data', 'can view kapili hostel data'),
+            ('can_view_dihing_hostel_data', 'can view dihing hostel data'),
+            ('can_view_suban_hostel_data', 'can view subansiri hostel data'),
+            ('can_view_dhan_hostel_data', 'can view dhansiri hostel data'),
+            ('can_view_msh_hostel_data', 'can view msh hostel data'),
+        )
 
     def __str__(self):
         return self.user.user.first_name+" "+self.user.user.last_name

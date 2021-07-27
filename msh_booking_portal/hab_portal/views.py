@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 
 from .forms import HABForm
 from .models import HABModel
@@ -79,6 +80,7 @@ def HABDetail(request, slug):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_lohit_hostel_data')
 def LohitView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -105,6 +107,7 @@ def LohitView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_brahma_hostel_data')
 def BrahmaView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -130,6 +133,7 @@ def BrahmaView(request):
     return render(request, 'hab_portal/brahmaputra.html', context=ctx)
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_siang_hostel_data')
 def SiangView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -156,6 +160,7 @@ def SiangView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_manas_hostel_data')
 def ManasView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -182,6 +187,7 @@ def ManasView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_disang_hostel_data')
 def DisangView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -208,6 +214,7 @@ def DisangView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_kameng_hostel_data')
 def KamengView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -234,6 +241,7 @@ def KamengView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_umiam_hostel_data')
 def UmiamView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -260,6 +268,7 @@ def UmiamView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_barak_hostel_data')
 def BarakView(request):
 
     ctx = {}
@@ -287,6 +296,7 @@ def BarakView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_kapili_hostel_data')
 def KapiliView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -313,6 +323,7 @@ def KapiliView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_dihing_hostel_data')
 def DihingView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -339,6 +350,7 @@ def DihingView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_suban_hostel_data')
 def SubanView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -365,6 +377,7 @@ def SubanView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_dhan_hostel_data')
 def DhanView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
@@ -391,6 +404,7 @@ def DhanView(request):
 
 
 @login_required(login_url='/accounts/login/')
+@permission_required('hab_portal.can_view_dhan_hostel_data')
 def MSHView(request):
     ctx = {}
     url_parameter = request.GET.get("q")
