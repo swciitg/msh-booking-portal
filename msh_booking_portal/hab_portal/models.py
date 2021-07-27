@@ -33,6 +33,10 @@ def validate_file_extension(value):
         raise ValidationError('Upload a PDF File.')
 
 
+HAB_FIELDS = {'roll_number': 'roll_number',
+              'hostel': 'hostel'}
+
+
 class HABModel(models.Model):
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE)
 
