@@ -1,0 +1,32 @@
+<div id="replaceable-content">
+    <table border="1px" cellpadding="10">
+
+        <thead>
+            <td>User</td>
+            <td>Roll No.</td>
+            <td>No. of days calculated</td>
+            <td>Fees for that number of days</td>
+            <td>Details</td>
+            <td>Date of Arrival</td>
+            <td>Status</td>
+            <td>Date of Submission</td>
+        </thead>
+
+        {% for item in HABforms %}
+        {% if item.hostel == '6' %}
+        <tr>
+            <td>{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</td>
+            <td>{{ item.roll_number }}</td>
+            <td>#</td>
+            <td>#</td>
+            <td><a href="{% url 'hab_portal:hab_detail' slug=item.slug %}" >Details</a></td>
+            <td>{{ item.date_of_arrival }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.time_of_submission }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+
+
+    </table>
+</div>

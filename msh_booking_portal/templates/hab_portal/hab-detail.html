@@ -15,6 +15,7 @@
             <td>Date of Arrival</td>
             <td>Date of Submission</td>
             <td>Fee Receipt</td>
+            <td>Status</td>
         </thead>
      
         <tr>
@@ -25,12 +26,39 @@
             <td>{{ HABform.date_of_arrival }}</td>
             <td>{{ HABform.time_of_submission }}</td>
             <td><a href = "../../../media/hab_portal/user_{{ HABform.user.pk }}.pdf" target = "_blank">Fee Receipt</a></td>
+            <td>{{ HABform.status }}</td>
         </tr>   
-    </table>
+    </table><br><br>
 
     <button type="submit">Approve</button>
-    <button type="submit">Reject</button><br>
+    <button type="submit">Reject</button><br><br><br>
+    {% if HABform.hostel == '1' %}  
+    <a href="{% url 'hab_portal:lohit-view' %}">Go back</a>
+    {% elif HABform.hostel == '2' %}  
+    <a href="{% url 'hab_portal:brahmaputra-view' %}">Go back</a>
+    {% elif HABform.hostel == '3' %}  
+    <a href="{% url 'hab_portal:siang-view' %}">Go back</a>
+    {% elif HABform.hostel == '4' %}  
+    <a href="{% url 'hab_portal:manas-view' %}">Go back</a>
+    {% elif HABform.hostel == '5' %}  
+    <a href="{% url 'hab_portal:disang-view' %}">Go back</a>
+    {% elif HABform.hostel == '6' %}  
+    <a href="{% url 'hab_portal:kameng-view' %}">Go back</a>
+    {% elif HABform.hostel == '7' %}  
+    <a href="{% url 'hab_portal:umiam-view' %}">Go back</a>
+    {% elif HABform.hostel == '8' %}  
+    <a href="{% url 'hab_portal:barak-view' %}">Go back</a>
+    {% elif HABform.hostel == '9' %}  
+    <a href="{% url 'hab_portal:kapili-view' %}">Go back</a>
+    {% elif HABform.hostel == '10' %}  
+    <a href="{% url 'hab_portal:dihing-view' %}">Go back</a>
+    {% elif HABform.hostel == '11' %}  
+    <a href="{% url 'hab_portal:subansiri-view' %}">Go back</a>
+    {% elif HABform.hostel == '12' %}  
+    <a href="{% url 'hab_portal:dhansiri-view' %}">Go back</a>
+    {% elif HABform.hostel == '13' %}  
+    <a href="{% url 'hab_portal:msh-view' %}">Go back</a>
+    {% endif %}
 
-    <a href="../">Go back</a>
 </body>
 </html>

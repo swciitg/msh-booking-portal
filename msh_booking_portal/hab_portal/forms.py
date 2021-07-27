@@ -5,7 +5,8 @@ from .models import HABModel
 class HABForm(ModelForm):
     class Meta:
         model = HABModel
-        fields = ['roll_number',
+        fields = [
+                   'roll_number',
                   'hostel',
                   'date_of_arrival',
                   'fee_paid',

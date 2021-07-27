@@ -5,13 +5,13 @@
     <title>MSH Portal</title>
 </head>
 <p>
-    <p>Hi {{ user.username }}!</p>
+    <p>Hi {{ user.first_name }} {{ user.last_name }}!</p>
     <p><a href="/accounts/logout/">Logout</a></p>
 
     Here's the list of all the forms on this website:
     <ul>
-        <a href="/hab/add"><li>HAB Form</li></a>
-        <a href="msh/add/"><li>MSH Form</li></a>
+        <a href="{% url 'hab_portal:hab_create' %}"><li>HAB Form</li></a>
+        <a href="{% url 'forms:msh_create' %}"><li>MSH Form</li></a>
     </ul>
 
     <p><a href="{% url 'hab_portal:hab_list' %}">View all submissions of HAB Form.</a></p>

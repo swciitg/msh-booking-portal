@@ -6,6 +6,9 @@ from .models import HABModel
 
 from users.models import SiteUser
 
+from django.template.loader import render_to_string
+from django.http import JsonResponse
+
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -74,80 +77,340 @@ def HABDetail(request, slug):
     HABform = HABModel.objects.get(slug=slug)
     return render(request, 'hab_portal/hab-detail.html', { 'HABform': HABform })                   
 
+
+@login_required(login_url='/accounts/login/')
 def LohitView(request):
-    return render(request,
-                  'hab_portal/lohit.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_lohit.html", 
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/lohit.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def BrahmaView(request):
-    return render(request,
-                  'hab_portal/brahmaputra.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_brahmaputra.html", 
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/brahmaputra.html', context=ctx)
+
+@login_required(login_url='/accounts/login/')
 def SiangView(request):
-    return render(request,
-                  'hab_portal/siang.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_siang.html", 
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/siang.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def ManasView(request):
-    return render(request,
-                  'hab_portal/manas.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_manas.html", 
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/manas.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def DisangView(request):
-    return render(request,
-                  'hab_portal/disang.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_disang.html",
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/disang.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def KamengView(request):
-    return render(request,
-                  'hab_portal/kameng.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_kameng.html",
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/kameng.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def UmiamView(request):
-    return render(request,
-                  'hab_portal/umiam.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_umiam.html", 
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/umiam.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def BarakView(request):
-    return render(request,
-                  'hab_portal/barak.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
 
+    ctx = {}
+    url_parameter = request.GET.get("q")
+
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_barak.html", 
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/barak.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def KapiliView(request):
-    return render(request,
-                  'hab_portal/kapili.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_kapili.html",
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/kapili.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def DihingView(request):
-    return render(request,
-                  'hab_portal/dihing.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_dihing.html",
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/dihing.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def SubanView(request):
-    return render(request,
-                  'hab_portal/subansiri.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_subansiri.html",
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/subansiri.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def DhanView(request):
-    return render(request,
-                  'hab_portal/dhansiri.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
 
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_dhansiri.html", 
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/dhansiri.html', context=ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def MSHView(request):
-    return render(request,
-                  'hab_portal/msh.html',
-                  {'applications': HABModel.objects.all(),
-                   'hostels': HABModel.hostel, })
+    ctx = {}
+    url_parameter = request.GET.get("q")
+
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+    ctx["HABforms"] = HABforms
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_msh.html", 
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, 'hab_portal/msh.html', context=ctx)

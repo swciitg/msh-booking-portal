@@ -49,9 +49,12 @@ def validate_file_extension(value):
 class HABModel(models.Model):
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE)
 
+
     time_of_submission = models.DateTimeField(auto_now_add=True)
 
     roll_number = models.IntegerField('Roll No.')
+
+
     hostel = models.CharField('Hostel', max_length=256, choices=HOSTELS)
 
     date_of_arrival = models.DateField('Date of Arrival')
@@ -68,7 +71,9 @@ class HABModel(models.Model):
     locked = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['hostel','-status','date_of_arrival']
+        ordering = ['hostel','-status','-time_of_submission']
 
     def __str__(self):
-        return self.user.user.username
+        return self.user.user.first_name+" "+self.user.user.last_name
+
+
