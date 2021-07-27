@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from .forms import HABForm
-from .models import HABModel
+from .models import HABModel, HAB_FIELDS
 
 from users.models import SiteUser
+from users.utils import load_from_user_data, save_to_user_data
 
 
 @login_required(login_url='/accounts/login/')
@@ -23,10 +24,11 @@ def HABCreate(request):
             application.user = SiteUser.objects.get(user__pk=request.user.id)
             application.fee_receipt = request.FILES['fee_receipt']
             application.save()
+            save_to_user_data(application.user, request.POST, HAB_FIELDS)
             return redirect('../thanks/')
 
     else:
-        form = HABForm()
+        form = load_from_user_data(SiteUser.objects.get(user__pk=request.user.id), HABForm(), HAB_FIELDS)
 
     return render(request,
                   'forms/hab.html',
@@ -41,6 +43,7 @@ def HABEdit(request):
 
         if form.is_valid() and (not form_instance.locked):
             form.save()
+            save_to_user_data(form.user, request.POST, HAB_FIELDS)
             return redirect('../thanks/')
 
     else:
