@@ -25,39 +25,41 @@
             <td>#</td>
             <td>{{ HABform.date_of_arrival }}</td>
             <td>{{ HABform.time_of_submission }}</td>
-            <td><a href = "../../../media/hab_portal/user_{{ HABform.user.pk }}.pdf" target = "_blank">Fee Receipt</a></td>
+            <td><a href = "../../../../../../media/hab_portal/user_{{ HABform.user.pk }}.pdf" target = "_blank">Fee Receipt</a></td>
             <td>{{ HABform.status }}</td>
         </tr>   
     </table><br><br>
 
-    <button type="submit">Approve</button>
-    <button type="submit">Reject</button><br><br><br>
+    <!-- <button type="submit">Approve</button>
+    <button type="submit">Reject</button><br><br><br> -->
     {% if HABform.hostel == '1' %}  
-    <a href="{% url 'hab_portal:lohit-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='lohit' %}">Go back</a>
     {% elif HABform.hostel == '2' %}  
-    <a href="{% url 'hab_portal:brahmaputra-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-status-accept' hostel='brahmaputra' status=HABform.status id=HABform.id %}">Accept Request</a><br>
+    <a href="{% url 'hab_portal:hostel-status-decline' hostel='brahmaputra' id=HABform.id %}">Decline</a><br><br>
+    <a href="{% url 'hab_portal:hostel-view' hostel='brahmaputra' %}">Go back</a>
     {% elif HABform.hostel == '3' %}  
-    <a href="{% url 'hab_portal:siang-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='siang' %}">Go back</a>
     {% elif HABform.hostel == '4' %}  
-    <a href="{% url 'hab_portal:manas-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='manas' %}">Go back</a>
     {% elif HABform.hostel == '5' %}  
-    <a href="{% url 'hab_portal:disang-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='disang' %}">Go back</a>
     {% elif HABform.hostel == '6' %}  
-    <a href="{% url 'hab_portal:kameng-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='kameng' %}">Go back</a>
     {% elif HABform.hostel == '7' %}  
-    <a href="{% url 'hab_portal:umiam-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='umiam' %}">Go back</a>
     {% elif HABform.hostel == '8' %}  
-    <a href="{% url 'hab_portal:barak-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='barak' %}">Go back</a>
     {% elif HABform.hostel == '9' %}  
-    <a href="{% url 'hab_portal:kapili-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='kapili' %}">Go back</a>
     {% elif HABform.hostel == '10' %}  
-    <a href="{% url 'hab_portal:dihing-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='dihing' %}">Go back</a>
     {% elif HABform.hostel == '11' %}  
-    <a href="{% url 'hab_portal:subansiri-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='subansiri' %}">Go back</a>
     {% elif HABform.hostel == '12' %}  
-    <a href="{% url 'hab_portal:dhansiri-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='dhansiri' %}">Go back</a>
     {% elif HABform.hostel == '13' %}  
-    <a href="{% url 'hab_portal:msh-view' %}">Go back</a>
+    <a href="{% url 'hab_portal:hostel-view' hostel='msh' %}">Go back</a>
     {% endif %}
 
 </body>

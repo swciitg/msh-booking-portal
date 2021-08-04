@@ -11,7 +11,7 @@
 
 </head>
 <body>
-    <h2>Here are all the submissions to the HAB Form for Brahmaputra:</h2>
+    <h2>Here are all the rejected HAB Forms for Brahmaputra:</h2>
 
 
     <div>
@@ -22,16 +22,11 @@
     </div>
     <br>
 
-     {% include 'hab_portal/partial/partial_brahmaputra.html' %}
+     {% include 'hab_portal/partial/partial_rejected/brahmaputra.html' %}
     <br>
-    <a href="{% url 'hab_portal:hostel-approved' hostel='brahmaputra' %}">View all the accepted forms</a><br>
-    <a href="{% url 'hab_portal:hostel-pending' hostel='brahmaputra' %}">View all the pending forms</a><br>
-    <a href="{% url 'hab_portal:hostel-rejected' hostel='brahmaputra' %}">View all the declined forms</a><br><br>
 
     <a href="../">Go back</a>
 
-    <script src="{% static 'javascript/brahmaputra.js' %}"></script>
+    <script src="{% static 'rejected/brahmaputra.js' %}"></script>
 </body>
 </html>
-
-

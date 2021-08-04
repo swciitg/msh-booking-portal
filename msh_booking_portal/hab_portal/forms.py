@@ -6,7 +6,7 @@ class HABForm(ModelForm):
     class Meta:
         model = HABModel
         fields = [
-                   'roll_number',
+                  'roll_number',
                   'hostel',
                   'date_of_arrival',
                   'fee_paid',
@@ -19,3 +19,4 @@ class HABForm(ModelForm):
                                                     'type': 'date'}),
         }
 
+        
