@@ -20,7 +20,7 @@
                 <td>{{ item.roll_number }}</td>
                 <td>#</td>
                 <td>#</td>
-                <td><a href="{% url 'hab_portal:hab_detail' slug=item.slug %}" >Details</a></td>
+                <td><a href="{% url 'hab_portal:hab_detail' pk=item.id %}" >Details</a></td>
                 <td>{{ item.date_of_arrival }}</td>
                 <td>{{ item.status }}</td>
                 <td>{{ item.time_of_submission }}</td>

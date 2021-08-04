@@ -6,6 +6,8 @@ from .models import HABModel
 from users.models import SiteUser
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.views.generic import DetailView
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -70,10 +72,9 @@ def HABView(request):
                    'hostels': HABModel.hostel })
 
 
-@login_required(login_url='/accounts/login/')
-def HABDetail(request, slug):
-    HABform = HABModel.objects.get(slug=slug)
-    return render(request, 'hab_portal/hab-detail.html', { 'HABform': HABform })                   
+# @login_required(login_url='/accounts/login/')
+class HABDetailView(DetailView):
+    model=HABModel                 
 
 
 @login_required(login_url='/accounts/login/')
@@ -128,6 +129,7 @@ def HostelApproved(request, hostel):
         return JsonResponse(data=data_dict, safe=False)
 
     return render(request, 'hab_portal/approved/{}.html'.format(hostel), context=ctx)
+
 
 @login_required(login_url='/accounts/login/')
 # @permission_required('hab_portal.can_view_brahma_hostel_data')

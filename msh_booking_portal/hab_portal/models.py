@@ -63,7 +63,6 @@ class HABModel(models.Model):
                                    validators=[validate_file_size, validate_file_extension],
                                    help_text='Upload a .PDF file not greater than 10 MB in size.')
 
-    slug = models.SlugField(null=True, blank=True)
     status = models.CharField(max_length=256, choices=STATUS, default='Pending', null=True)                               
 
     approved = models.BooleanField(default=False, null=True)
