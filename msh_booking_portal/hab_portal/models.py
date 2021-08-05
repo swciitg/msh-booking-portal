@@ -6,19 +6,19 @@ from .storage import OverwriteStorage
 from django.contrib.auth.models import User
 
 HOSTELS = [
-    ('1', 'Lohit'),
-    ('2', 'Brahmaputra'),
-    ('3', 'Siang'),
-    ('4', 'Manas'),
-    ('5', 'Disang'),
-    ('6', 'Kameng'),
-    ('7', 'Umiam'),
-    ('8', 'Barak'),
-    ('9', 'Kapili'),
-    ('10', 'Dihing'),
-    ('11', 'Subansiri'),
-    ('12', 'Dhansiri'),
-    ('13', 'Married Scholar Hostel'),
+    ('lohit', 'Lohit'),
+    ('brahmaputra', 'Brahmaputra'),
+    ('siang', 'Siang'),
+    ('manas', 'Manas'),
+    ('disang', 'Disang'),
+    ('kameng', 'Kameng'),
+    ('umiam', 'Umiam'),
+    ('barak', 'Barak'),
+    ('kapili', 'Kapili'),
+    ('dihing', 'Dihing'),
+    ('subansiri', 'Subansiri'),
+    ('dhansiri', 'Dhansiri'),
+    ('msh', 'Married Scholar Hostel'),
 ]
 
 STATUS = [

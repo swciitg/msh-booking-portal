@@ -1,7 +1,8 @@
 const user_input = $("#user-input")
 // const user_input_date = $("#user-input-date")
 const forms_div = $('#replaceable-content')
-const endpoint = '/hab/view/dihing/'
+var HostelVar = document.baseURI
+var endpoint = HostelVar
 const delay_by_in_ms = 0
 let scheduled_function = false
 
@@ -27,16 +28,3 @@ user_input.on('keyup', function () {
 
     scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
 })
-
-// user_input_date.on('keyup', function () {
-
-//     const request_parameters = {
-//         q: $(this).val() 
-//     }
-
-//     if (scheduled_function) {
-//         clearTimeout(scheduled_function)
-//     }
-
-//     scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
-// })

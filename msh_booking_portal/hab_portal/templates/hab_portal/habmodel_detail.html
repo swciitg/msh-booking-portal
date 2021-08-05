@@ -30,37 +30,10 @@
         </tr>   
     </table><br><br>
 
-    <!-- <button type="submit">Approve</button>
-    <button type="submit">Reject</button><br><br><br> -->
-    {% if object.hostel == '1' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='lohit' %}">Go back</a>
-    {% elif object.hostel == '2' %}  
-    <a href="{% url 'hab_portal:hostel-status-accept' hostel='brahmaputra' status=object.status id=object.id %}">Accept Request</a><br>
-    <a href="{% url 'hab_portal:hostel-status-decline' hostel='brahmaputra' id=object.id %}">Decline</a><br><br>
-    <a href="{% url 'hab_portal:hostel-view' hostel='brahmaputra' %}">Go back</a>
-    {% elif object.hostel == '3' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='siang' %}">Go back</a>
-    {% elif object.hostel == '4' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='manas' %}">Go back</a>
-    {% elif object.hostel == '5' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='disang' %}">Go back</a>
-    {% elif Hobject.hostel == '6' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='kameng' %}">Go back</a>
-    {% elif object.hostel == '7' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='umiam' %}">Go back</a>
-    {% elif object.hostel == '8' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='barak' %}">Go back</a>
-    {% elif object.hostel == '9' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='kapili' %}">Go back</a>
-    {% elif object.hostel == '10' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='dihing' %}">Go back</a>
-    {% elif object.hostel == '11' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='subansiri' %}">Go back</a>
-    {% elif object.hostel == '12' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='dhansiri' %}">Go back</a>
-    {% elif object.hostel == '13' %}  
-    <a href="{% url 'hab_portal:hostel-view' hostel='msh' %}">Go back</a>
-    {% endif %}
+    <a href="{% url 'hab_portal:hostel-status-accept' hostel=object.hostel status=object.status id=object.id %}">Accept Request</a><br>
+    <a href="{% url 'hab_portal:hostel-status-decline' hostel=object.hostel id=object.id %}">Decline</a><br><br> 
+    <a href="{% url 'hab_portal:hostel-view' hostel=object.hostel %}">Go back</a>
+
 
 </body>
 </html>

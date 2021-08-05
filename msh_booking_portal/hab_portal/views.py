@@ -26,7 +26,7 @@ def HABCreate(request):
             application.user = SiteUser.objects.get(user__pk=request.user.id)
             application.fee_receipt = request.FILES['fee_receipt']
             application.save()
-            return redirect('../thanks/')
+            return redirect("hab_portal:hab_thanks")
 
     else:
         form = HABForm()
@@ -44,7 +44,7 @@ def HABEdit(request):
 
         if form.is_valid() and (not form_instance.locked):
             form.save()
-            return redirect('../thanks/')
+            return redirect("hab_portal:hab_thanks")
 
     else:
         form = HABForm(instance=form_instance)
@@ -80,7 +80,7 @@ class HABDetailView(DetailView):
 @login_required(login_url='/accounts/login/')
 # @permission_required('hab_portal.can_view_siang_hostel_data')
 def HostelView(request,hostel):
-    ctx = {}
+    ctx = {'Hostel':hostel}
     url_parameter = request.GET.get("q")
 
     if url_parameter:
@@ -93,21 +93,21 @@ def HostelView(request,hostel):
 
     if request.is_ajax():
         html = render_to_string(
-            template_name="hab_portal/partial/partial_{}.html".format(hostel), 
-            context={"HABforms": HABforms}
+            template_name="hab_portal/partial/partial_hostels.html", 
+            context={"HABforms": HABforms, 'Hostel':hostel}
         )
 
         data_dict = {"html_from_view": html}
 
         return JsonResponse(data=data_dict, safe=False)
 
-    return render(request, 'hab_portal/{}.html'.format(hostel), context=ctx)
+    return render(request, 'hab_portal/complete/hostels.html', context=ctx)
 
 
 @login_required(login_url='/accounts/login/')
 # @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelApproved(request, hostel):
-    ctx = {}
+    ctx = {'Hostel':hostel}
     url_parameter = request.GET.get("q")
 
     if url_parameter:
@@ -120,21 +120,21 @@ def HostelApproved(request, hostel):
 
     if request.is_ajax():
         html = render_to_string(
-            template_name="hab_portal/partial/partial_approved/{}.html".format(hostel), 
-            context={"HABforms": HABforms}
+            template_name="hab_portal/partial/partial_approved.html", 
+            context={"HABforms": HABforms,'Hostel':hostel}
         )
 
         data_dict = {"html_from_view": html}
 
         return JsonResponse(data=data_dict, safe=False)
 
-    return render(request, 'hab_portal/approved/{}.html'.format(hostel), context=ctx)
+    return render(request, 'hab_portal/complete/approved.html', context=ctx)
 
 
 @login_required(login_url='/accounts/login/')
 # @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelPending(request,hostel):
-    ctx = {}
+    ctx = {'Hostel':hostel}
     url_parameter = request.GET.get("q")
 
     if url_parameter:
@@ -147,21 +147,21 @@ def HostelPending(request,hostel):
 
     if request.is_ajax():
         html = render_to_string(
-            template_name="hab_portal/partial/partial_pending/{}.html".format(hostel), 
-            context={"HABforms": HABforms}
+            template_name="hab_portal/partial/partial_pending.html", 
+            context={"HABforms": HABforms, 'Hostel':hostel}
         )
 
         data_dict = {"html_from_view": html}
 
         return JsonResponse(data=data_dict, safe=False)
 
-    return render(request, 'hab_portal/pending/{}.html'.format(hostel), context=ctx)
+    return render(request, 'hab_portal/complete/pending.html', context=ctx)
 
 
 @login_required(login_url='/accounts/login/')
 @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelRejected(request,hostel):
-    ctx = {}
+    ctx = {'Hostel':hostel}
     url_parameter = request.GET.get("q")
 
     if url_parameter:
@@ -172,15 +172,15 @@ def HostelRejected(request,hostel):
     ctx["HABforms"] = HABforms
     if request.is_ajax():
         html = render_to_string(
-            template_name="hab_portal/partial/partial_rejected/{}.html".format(hostel), 
-            context={"HABforms": HABforms}
+            template_name="hab_portal/partial/partial_rejected.html", 
+            context={"HABforms": HABforms, 'Hostel':hostel}
         )
 
         data_dict = {"html_from_view": html}
 
         return JsonResponse(data=data_dict, safe=False)
 
-    return render(request, 'hab_portal/rejected/{}.html'.format(hostel), context=ctx)
+    return render(request, 'hab_portal/complete/rejected.html', context=ctx)
 
 
 @login_required(login_url='/accounts/login/')

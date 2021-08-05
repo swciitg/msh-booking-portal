@@ -1,0 +1,18 @@
+{% extends 'hab_portal/complete/base.html' %}
+
+{% block content %}
+    <h2>Here are all the pending HAB Forms for {{ Hostel }}:</h2>
+
+
+    <div>
+        <h3>Search for a roll number:</h3>
+        <input id="user-input" placeholder="Search">
+        <!-- <h3>Date filter:</h3>
+        <input type="date" id="user-input-date"> -->
+    </div>
+    <br>
+
+     {% include 'hab_portal/partial/partial_pending.html' %}
+    <br>
+
+{% endblock %}

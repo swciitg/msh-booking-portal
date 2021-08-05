@@ -1,0 +1,21 @@
+{% extends 'hab_portal/complete/base.html' %}
+
+{% block content %}
+    <h2>Here are all the submissions to the HAB Form for {{ Hostel }}:</h2>
+
+
+    <div>
+        <h3>Search for a roll number:</h3>
+        <input id="user-input" placeholder="Search">
+        <!-- <h3>Date filter:</h3>
+        <input type="date" id="user-input-date"> -->
+    </div>
+    <br>
+
+     {% include 'hab_portal/partial/partial_hostels.html' %}
+    <br>
+    <a href="{% url 'hab_portal:hostel-approved' hostel=Hostel %}">View all the accepted forms</a><br>
+    <a href="{% url 'hab_portal:hostel-pending' hostel=Hostel %}">View all the pending forms</a><br>
+    <a href="{% url 'hab_portal:hostel-rejected' hostel=Hostel %}">View all the declined forms</a><br><br>
+
+{% endblock %}

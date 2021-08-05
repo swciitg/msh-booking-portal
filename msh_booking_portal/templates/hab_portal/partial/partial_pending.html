@@ -1,0 +1,15 @@
+<div id="replaceable-content">
+    <table border="1px" cellpadding="10">
+
+        {% include 'hab_portal/partial/partial_base.html' %}
+
+        {% for item in HABforms %}
+        {% if item.hostel == Hostel and item.status == 'Pending' %}
+
+        {% include 'hab_portal/partial/partial_base2.html' %}
+
+        {% endif %}
+        {% endfor %}
+
+    </table>
+</div>

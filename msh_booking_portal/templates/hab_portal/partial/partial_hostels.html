@@ -13,7 +13,7 @@
         </thead>
 
         {% for item in HABforms %}
-        {% if item.hostel == '3' %}
+        {% if item.hostel == Hostel %}
         <tr>
             <td>{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</td>
             <td>{{ item.roll_number }}</td>
