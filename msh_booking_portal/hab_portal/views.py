@@ -159,7 +159,7 @@ def HostelPending(request,hostel):
 
 
 @login_required(login_url='/accounts/login/')
-@permission_required('hab_portal.can_view_brahma_hostel_data')
+# @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelRejected(request,hostel):
     ctx = {'Hostel':hostel}
     url_parameter = request.GET.get("q")

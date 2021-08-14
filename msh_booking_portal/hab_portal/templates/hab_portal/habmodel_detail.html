@@ -1,8 +1,11 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>HAB Form Submissions</title>
+    <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}">
 </head>
 <body>
     <h2>Detailed form of {{ object.user }}:</h2>
@@ -33,7 +36,6 @@
     <a href="{% url 'hab_portal:hostel-status-accept' hostel=object.hostel status=object.status id=object.id %}">Accept Request</a><br>
     <a href="{% url 'hab_portal:hostel-status-decline' hostel=object.hostel id=object.id %}">Decline</a><br><br> 
     <a href="{% url 'hab_portal:hostel-view' hostel=object.hostel %}">Go back</a>
-
 
 </body>
 </html>

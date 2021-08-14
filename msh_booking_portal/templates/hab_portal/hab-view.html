@@ -1,25 +1,31 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>HAB Form Submissions</title>
+    <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}">
 </head>
 <body>
 
-    <a href="{% url 'hab_portal:hostel-view' hostel='lohit' %}">Lohit</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='brahmaputra' %}">Brahmaputra</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='siang' %}">Siang</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='manas' %}">Manas</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='disang' %}">Disang</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='kameng' %}">Kameng</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='umiam' %}">Umiam</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='barak' %}">Barak</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='kapili' %}">Kapili</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='dihing' %}">Dihing</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='subansiri' %}">Subansiri</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='dhansiri' %}">Dhansiri</a>
-    <a href="{% url 'hab_portal:hostel-view' hostel='msh' %}">Married Scholars Hostel</a>
-    <br><br><br>
+    <h3>Hostels</h3>
+    <ul>
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='lohit' %}">Lohit</a></li>   
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='brahmaputra' %}">Brahmaputra</a></li>    
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='siang' %}">Siang</a></li>    
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='manas' %}">Manas</a></li>    
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='disang' %}">Disang</a></li>    
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='kameng' %}">Kameng</a></li>    
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='umiam' %}">Umiam</a></li>    
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='barak' %}">Barak</a></li>    
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='kapili' %}">Kapili</a></li>    
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='dihing' %}">Dihing</a></li>    
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='subansiri' %}">Subansiri</a></li>   
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='dhansiri' %}">Dhansiri</a></li>    
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='msh' %}">Married Scholars Hostel</a></li>    
+    </ul>
+    <br>
     <a href="../">Go back</a>
 </body>
 </html>

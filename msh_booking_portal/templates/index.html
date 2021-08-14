@@ -1,20 +1,25 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MSH Portal</title>
+    <title>HAB Portal</title>
+    <!-- <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}"> -->
 </head>
-<p>
-    <p>Hi {{ user.first_name }} {{ user.last_name }}!</p>
-    <p><a href="/accounts/logout/">Logout</a></p>
+<body>
+    <div>
+        <p>Hi {{ user.first_name }} {{ user.last_name }}!</p>
+        <p><a href="/accounts/logout/">Logout</a></p>
 
-    Here's the list of all the forms on this website:
-    <ul>
-        <a href="{% url 'hab_portal:hab_create' %}"><li>HAB Form</li></a>
-        <a href="{% url 'forms:msh_create' %}"><li>MSH Form</li></a>
-    </ul>
+        Here's the list of all the forms on this website:
+        <ul>
+            <li><a href="{% url 'hab_portal:hab_create' %}">HAB Form</a></li>
+            <li><a href="{% url 'forms:msh_create' %}">MSH Form</a></li>
+        </ul>
 
-    <p><a href="{% url 'hab_portal:hab_list' %}">View all submissions of HAB Form.</a></p>
-    <p><a href="{% url 'forms:msh_list' %}">View all submissions of MSH Form.</a></p>
+        <p><a href="{% url 'hab_portal:hab_list' %}">View all submissions of HAB Form.</a></p>
+        <p><a href="{% url 'forms:msh_list' %}">View all submissions of MSH Form.</a></p>
+    </div>
 </body>
 </html>
