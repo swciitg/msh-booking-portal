@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <title>MSH Portal</title>
+    </head>
+    <body>
+        <div class="min-h-screen bg-gray-100 flex items-center">
+          <div class="container mx-auto px-20">
+            <div class="bg-white p-8 rounded-lg shadow-lg relative hover:shadow-2xl transition duration-500">
+                <h1 class="text-2xl text-gray-800 font-semibold mb-3 text-center">HAB Form</h1>
+                <img src="https://event.iitg.ac.in/icann2019/Proceedings_LaTeX/2019/IITG_logo.png" class="w-32 h-40 mx-auto py-4">
+
+                <div class="flex-grow bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative my-5 inline" role="alert">
+                    <strong class="font-bold">Eligibility to Fill the Form</strong>
+                    <span class="block sm:inline">All IIT-G Students</span>
+                </div>
+                <div class="flex-grow bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative my-5 inline" role="alert">
+                    <strong class="font-bold">Documents Required</strong>
+                    <span class="block sm:inline">Fee Receipt</span>
+                </div>
+
+                <p class="text-gray-600 leading-6 tracking-normal text-center"></p>
+
+                <div style="text-align: center;">
+                    <a href="add/"><button class="py-2 px-4 mt-8 bg-indigo-600 mx-auto text-white rounded-md shadow-xl">Fill Form</button></a>
+                </div>
+                <div>
+                    <a href="/forms/"><span class="absolute py-2 px-8 text-sm text-white top-0 right-0 bg-indigo-600 rounded-md transform translate-x-2 -translate-y-3 shadow-xl">Cancel</span></a>
+                </div>
+
+
+                <div class="flex-grow" style="text-align: center; margin-top: 24px;">
+                    Filling the form as {{ user.email }}
+                </div>
+            </div>
+          </div>
+        </div>
+    </body>
+</html>

@@ -1,20 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet"
+      href=" https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.0/tailwind.min.css ">
+    <link rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <meta charset="UTF-8">
-    <title>MSH Portal</title>
+    <title>Hostel Affairs Board, IIT Guwahati</title>
 </head>
+<body>
 <p>
-    <p>Hi {{ user.username }}!</p>
-    <p><a href="/accounts/logout/">Logout</a></p>
+<!--    <p>Hi {{ user.username }}!</p>-->
+<!--    <p><a href="/accounts/logout/">Logout</a></p>-->
 
-    Here's the list of all the forms on this website:
-    <ul>
-        <a href="/hab/add"><li>HAB Form</li></a>
-        <a href="msh/add/"><li>MSH Form</li></a>
-    </ul>
 
-    <p><a href="/hab/view/">View all submissions of HAB Form.</a></p>
-    <p><a href="msh/view/">View all submissions of MSH Form.</a></p>
+    <div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+        <!--Card 1-->
+        <div class="rounded overflow-hidden shadow-lg">
+          <img class="w-full" src="/static/index-carousel-1.jpg" alt="Mountain">
+          <div class="px-6 py-2">
+            <div class="font-bold text-xl mb-2">Hostel: Temporary Hostel Allocation Form</div>
+            <p class="text-gray-700 text-base">
+              Get your hostel allocated. Recommended for freshers to fill before the deadline.
+            </p>
+          </div>
+          <div class="px-6 pt-2 pb-2">
+              <span class="inline-block font-semibold py-1 text-blue-400 mr-2 mb-2">Hostel Affairs Board</span>
+              <span class="inline-block font-semibold text-blue-400 mr-2 mb-2">Verified by Caretaker</span>
+              <a href="/hab/"><button class="float-right inline-block bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 rounded-full px-3 py-1 font-semibold text-gray-100 mr-2 mb-2">Fill Form</button></a>
+          </div>
+        </div>
+
+        <!--Card 2-->
+        <div class="rounded overflow-hidden shadow-lg">
+          <img class="w-full" src="/static/index-carousel-2.jpg" alt="Mountain">
+          <div class="px-6 py-2">
+            <div class="font-bold text-xl mb-2">Married Scholar's Hostel Application Form</div>
+            <p class="text-gray-700 text-base">
+              Get your hostel allocated. Recommended for applicants to fill before the deadline.
+            </p>
+          </div>
+          <div class="px-6 pt-2 pb-2">
+              <span class="inline-block font-semibold py-1 text-blue-400 mr-2 mb-2">Hostel Affairs Board</span>
+              <span class="inline-block font-semibold text-blue-400 mr-2 mb-2">Verified by Caretaker</span>
+              <a href="/forms/msh/add/"><button class="float-right inline-block bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 rounded-full px-3 py-1 font-semibold text-gray-100 mr-2 mb-2">Fill Form</button></a>
+          </div>
+        </div>
+    </div>
 </body>
 </html>

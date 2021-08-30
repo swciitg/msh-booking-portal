@@ -11,7 +11,7 @@ from users.utils import load_from_user_data, save_to_user_data
 @login_required(login_url='/accounts/login/')
 def index(request):
     user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
-    return render(request, 'index.html', {})
+    return render(request, 'forms/hab-landing.html', {})
 
 
 @login_required(login_url='/accounts/login/')
