@@ -22,7 +22,7 @@ class HABForm(ModelForm):
             'date_of_payment': DateInput(format='%d/%m/%Y',
                                             attrs={'class':  "form-control", 'placeholder': 'Select a date',
                                                     'type': 'date'}),
-            'fee_to_be_paid':NumberInput(attrs={'class': "form-control",'id':'fee'}),
+            'fee_to_be_paid':NumberInput(attrs={'class': "form-control", 'id':'fee', 'readonly': 'readonly'}),
             'name': TextInput(attrs={
                 'class': "form-control",
                 }),
@@ -36,7 +36,6 @@ class HABForm(ModelForm):
             'department': TextInput(attrs={
                     'class': "form-control",
                 }),
-
             'email': TextInput(attrs={
                     'class': "form-control",
                 }),

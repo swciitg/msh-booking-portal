@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='habmodel',
             name='date_of_payment',
-            field=models.DateField(default='dd-mm-yyyy', verbose_name='Date of Payment'),
+            field=models.DateField(verbose_name='Date of Payment'),
         ),
         migrations.AddField(
             model_name='habmodel',

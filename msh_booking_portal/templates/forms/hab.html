@@ -171,35 +171,28 @@ Fee Receipt
 
 <input type="submit" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" {% if locked %}disabled{% endif %}>
 </form>
-</div>
-
-
-</div>
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 
     <script>
+        function updateFees() {
+            var date = $('#doa').val();
 
-  $(document).ready(function() {
-    $('#doa').change(function() {
-    var date = $(this).val();
+            start_date = new Date(date)
+            end_date = new Date('2021-11-27')
+            var timediff = end_date.getTime()-start_date.getTime();
+            var days = timediff/(1000*3600*24);
+            fee_per_day = 150;
+            fee_amount = days*fee_per_day;
+            $('#fee').val(fee_amount);
+        }
 
-      start_date=new Date(date)
-      end_date=new Date('2021-11-27')
-      var timediff=end_date.getTime()-start_date.getTime();
-      var days=timediff/(1000*3600*24);
-      fee_per_day=150
-      fee_amount=days*fee_per_day
-      $('#fee').val(fee_amount)
+        $(document).ready(function() {
+            $('#doa').change(updateFees);
+        });
 
-});
-
-});
-
-
-
-
+        updateFees();
     </script>
 </body>
 </html>
