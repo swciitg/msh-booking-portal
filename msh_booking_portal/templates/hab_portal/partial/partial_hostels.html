@@ -1,12 +1,11 @@
 <div id="replaceable-content">
 
     {% for item in HABforms %}
-    {% if item.hostel == Hostel %}
+        {% if item.hostel == Hostel %}
 
-    {% include 'hab_portal/partial/partial_base.html' %}
+            {% include 'hab_portal/partial/partial_base.html' %}
 
-
-    {% endif %}
+        {% endif %}
     {% endfor %}
 
 </div>

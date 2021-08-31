@@ -46,7 +46,52 @@
             </div>    
             <div class="gama justify-start font-medium delta text-tertiary-800 w-full h-1/5">Status</div>
         </div>
-        <div class="w-1/12 min-h-full md:flex flex-row justify-center items-center text-xs leading-5 font-medium font-hab text-tertiary-900"><a href="{% url 'hab_portal:hab_detail' pk=item.id %}" >View Receipt</a></div>
+        <div class="w-1/12 min-h-full md:flex flex-row justify-center items-center text-xs leading-5 font-medium font-hab text-tertiary-900">
+            <a href="{% url 'hab_portal:hab_detail' pk=item.id %}">LL</a>
+            <a href="#" class="trigger">View Receipt</a>
+            <div id="dialog" style="display:none; width: 1214px;" class="md:flex"  >
+                <iframe src="https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf" width="80%" height="100%" title="Fee-Receipt" ></iframe>
+                <table style="flex: auto; display: right;">
+                        <td>
+                            <table>
+                                <tr>
+                                    <div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</div>
+                                    <div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">{{ item.user }}</div>
+                                </tr>
+                                <hr>
+                                <tr>
+                                    <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Hostel</div></td>
+                                    <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Arriving On</div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">{{ Hostel }}</div></td>
+                                    <td><div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">{{ item.date_of_arrival }}</div></td>
+                                </tr>
+                                <hr>
+                                <tr>
+                                    <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Date of Arrival</div></td>
+                                    <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Fee Amount</div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">#</div></td>
+                                    <td><div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">#</div></td>
+                                </tr>
+                                <hr>
+                                <tr>
+                                    <div class="grid grid-cols-2 gap-x-4 sm:gap-x-6 px-4 sm:px-6 py-4">
+                                        <td><div class="text-base font-medium rounded-lg bg-red-400 text-white py-3 text-center cursor-pointer"><a href="{% url 'hab_portal:hostel-status-decline' hostel=item.hostel id=item.id %}">Decline</a></div></td>
+                                        <td><div class="text-base font-medium rounded-lg bg-blue-400 text-white py-3 text-center cursor-pointer"><a href="{% url 'hab_portal:hostel-status-accept' hostel=item.hostel status=item.status id=item.id %}">Accept</a></div></td>
+                                    </div>
+                                </tr>
+                                
+                            </table>
+                            
+                            
+                            
+                        </td>
+                </table>
+            </div> 
+        </div>
     </div>
     <div class="w-full h-px absolute bottom-0 border-solid bg-secondary"></div>
 </div>
