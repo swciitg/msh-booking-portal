@@ -1,0 +1,25 @@
+{
+  "name": "msh-booking-portal",
+  "version": "1.0.0",
+  "description": "This repository contains the code for the MSH application portal.",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "tailwindcss build -i src/styles.css -o msh_booking_portal/static_files/hab_portal/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swciitg/msh-booking-portal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swciitg/msh-booking-portal/issues"
+  },
+  "homepage": "https://github.com/swciitg/msh-booking-portal#readme",
+  "dependencies": {
+    "autoprefixer": "^10.3.1",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.7"
+  }
+}

@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HAB Form Submissions</title>
+    <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}">
+</head>
+<body>
+    <h2>Detailed form of {{ object.user }}:</h2>
+    <table border="1px" cellpadding="10">
+        <thead>
+            <td>User</td>
+            <td>Roll No.</td>
+            <td>No. of days calculated</td>
+            <td>Fees for that number of days</td>
+            <td>Date of Arrival</td>
+            <td>Date of Submission</td>
+            <td>Fee Receipt</td>
+            <td>Status</td>
+        </thead>
+     
+        <tr>
+            <td>{{ object.user.user.first_name|add:" "|add:object.user.user.last_name }}</td>
+            <td>{{ object.roll_number }}</td>
+            <td>#</td>
+            <td>#</td>
+            <td>{{ object.date_of_arrival }}</td>
+            <td>{{ object.time_of_submission }}</td>
+            <td><a href = "/media/hab_portal/user_{{ object.user.pk }}.pdf" target = "_blank">Fee Receipt</a></td>
+            <td>{{ object.status }}</td>
+        </tr>   
+    </table><br><br>
+
+    <a href="{% url 'hab_portal:hostel-status-accept' hostel=object.hostel status=object.status id=object.id %}">Accept Request</a><br>
+    <a href="{% url 'hab_portal:hostel-status-decline' hostel=object.hostel id=object.id %}">Decline</a><br><br> 
+    <a href="{% url 'hab_portal:hostel-view' hostel=object.hostel %}">Go back</a>
+
+</body>
+</html>

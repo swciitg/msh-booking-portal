@@ -1,0 +1,117 @@
+<div class="h-96 md:flex justify-center items-center w-90/100 md:h-20 relative left-1/20 ">
+    <div class="md:flex flex-row w-95/100 h-16 font-body">
+        <div class="flex flex-col justify-between items-start w-1/4 min-h-full">
+            <div class="gama font-medium delta text-tertiary-700 uppercase w-full h-4/5">{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</div>
+            <div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">{{ item.user }}</div>
+        </div>
+        <div class="md:flex flex-row justify-end min-h-full w-3/24"><div class="alpha w-4/5">{{ item.roll_number }}</div></div>
+        <div class="alpha w-1/24">#</div>
+        <div class="alpha w-1/12">#</div>
+        <div class="beta w-1/6">
+            <div class="w-2/5 h-4/5 gama">
+                <div class="gama w-10/12 h-1/2 bg-tertiary-100 bg-opacity-30 text-tertiary-200 rounded-xl">
+                    <svg class="w-2 h-2 m-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>
+                    <div class="gama text-xs leading-4 w-full h-full font-medium">Filled</div>
+                </div>
+            </div>
+            <div class="gama justify-start font-medium delta text-tertiary-800 w-full h-1/5">{{ item.time_of_submission }}</div>
+        </div>
+        <div class="beta w-3/24" >
+            <div class="w-10/12 h-4/5 gama">
+                <div class="gama w-10/12 h-1/2 bg-hab-100 bg-opacity-30 text-hab-200 rounded-xl">
+                    <svg class="w-2 h-2 m-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>
+                    <div class="gama text-xs leading-4 w-full h-full font-medium">Arrival Date</div>
+                </div>
+            </div>    
+            <div class="gama justify-start font-medium delta text-tertiary-800 w-full h-1/5">{{ item.date_of_arrival }}</div>
+        </div>
+        <div class="beta w-3/24">
+            <div class="w-4/5 h-4/5 gama">
+                {% if item.status != 'Accepted' and item.status != 'Declined' %}
+                    <div class="gama w-10/12 h-1/2 pending rounded-xl">
+                        <svg class="w-2 h-2 m-2"  aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>
+                        <div class="gama text-xs leading-4 w-full h-full font-medium" class="menu" >{{ item.status }}</div>
+                    </div>
+                {% elif item.hostel != 'Pending' and item.status != 'Declined' %}
+                    <div class="gama w-10/12 h-1/2 accepted rounded-xl">
+                        <svg class="w-2 h-2 m-2"  aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>
+                        <div class="gama text-xs leading-4 w-full h-full font-medium" class="menu" >{{ item.status }}</div>
+                    </div>
+                {% elif item.hostel != 'Accepted' and item.status != 'Pending' %}
+                    <div class="gama w-10/12 h-1/2 declined rounded-xl">
+                        <svg class="w-2 h-2 m-2"  aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>
+                        <div class="gama text-xs leading-4 w-full h-full font-medium" class="menu" >{{ item.status }}</div>
+                    </div>
+                {% endif %}                    
+            </div>    
+            <div class="gama justify-start font-medium delta text-tertiary-800 w-full h-1/5">Status</div>
+        </div>
+        <div class="w-1/12 min-h-full md:flex flex-row justify-center items-center text-xs leading-5 font-medium font-hab text-tertiary-900">
+            <a href="#" id="trigger_{{ item.user.pk }}">View Receipt</a>
+            <div id="dialog_{{ item.user.pk }}" style="display:none; position: relative; overflow: hidden;" title="{{ item.user.user.first_name|add:' '|add:item.user.user.last_name }}'s fee receipt" class="md:flex" >
+                <iframe src="{{ item.fee_receipt.url }}" height="100%" title="Fee-Receipt"  class="w-4/6"></iframe>
+                <div class="w-1/3 h-full flex flex-row items-center justify-center">
+                    <div class="w-11/12 h-11/12 bg-white relative">
+                        <div class="gama font-medium text-sm leading-5 text-tertiary-700 capitalize w-full">{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</div>
+                        <div class="gama font-normal text-sm leading-5 text-tertiary-800 tracking-wider w-full">{{ item.user }}</div><br>
+                        <div class="w-full h-px border-solid bg-secondary"></div><br>
+                        <div class="flex flex-col items-start justify-between w-full h-1/6">
+                            <div class="flex flex-row items-start w-full h-2/5">
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Hostel Name</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">{{ item.hostel }}</div>
+                                </div>
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Department</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">#</div>
+                                </div>
+                            </div>
+                            <div class=" w-full h-2/5">
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Arriving On</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base">{{ item.date_of_arrival }}</div>
+                                </div> 
+                            </div>
+                        </div><br>
+                        <div class="w-full h-px border-solid bg-secondary"></div><br>
+                        <div class="flex flex-col items-start justify-between w-full h-1/6">
+                            <div class="flex flex-row items-start w-full h-2/5">
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Fees Status</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">Paid</div>
+                                </div>
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Date of Payment</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">#</div>
+                                </div>
+                            </div>
+                            <div class="flex flex-row items-start w-full h-2/5">
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Fee Amount</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base">#</div>
+                                </div>
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Fee Paid</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">Rs {{ item.fee_paid }}</div>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="w-full h-px border-solid bg-secondary"></div><br><br><br>
+                        <div class="w-full h-1/6 flex flex-row justify-center">
+                            <div class="w-3/4 min-h-full flex flex-col items-start">
+                                <div class="w-full h-1/2 flex flex-row justify-center items-center bg-purple-500 rounded">
+                                    <a class="text-white text-opacity-100" href="{% url 'hab_portal:hostel-status-accept' hostel=item.hostel status=item.status id=item.id %}"><div class="font-body font-semibold text-sm leading-5">Accept Request</div></a>
+                                </div>
+                                <div class="w-full h-1/2 flex flex-row justify-center items-center bg-tertiary-500 rounded">
+                                    <a href="{% url 'hab_portal:hostel-status-decline' hostel=item.hostel id=item.id %}"><div class="font-body font-semibold text-sm leading-5 text-tertiary-700">Decline</div></a>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div class="w-full h-px absolute bottom-0 border-solid bg-secondary"></div>
+</div>
+

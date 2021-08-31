@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>HAB Form Submissions</title>
+    <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}">
+    <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+    <link rel="stylesheet" href=
+    "//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      
+        <link rel="stylesheet"
+            href="/resources/demos/style.css">
+          
+        <script src=
+    "https://code.jquery.com/jquery-1.12.4.js">
+        </script>
+          
+        <script src=
+    "https://code.jquery.com/ui/1.12.1/jquery-ui.js">
+        </script>
+
+        <style>
+            .header .ui-dialog-titlebar {
+          background: rgb(50, 54, 57);
+          color: white;
+          text-transform: capitalize;
+          font-weight: 300;
+          border-radius: 4px;
+
+    }
+        </style>
+      
+</head>
+<body>
+ 
+    
+    <h2 class="text-tertiary-600 font-hab font-bold uppercase tracking-widest relative left-1/20 top-8 delta">Return to campus submissions for {{ Hostel }}:</h2>
+    <br>
+
+    <div class="relative top-8 left-1/20">
+        <div>Search:  <input id="user-input" placeholder="Roll No."></div>
+        
+        <!-- <h3>Date filter:</h3>
+        <input type="date" id="user-input-date"> -->
+    </div>
+    <br><br>
+
+    {% block content %}
+    {% endblock %}
+
+    <a class ="relative left-1/20" href="../">Go back</a>
+
+    <script src="{% static 'hab_portal/base.js' %}"></script>
+
+</body>
+</html>

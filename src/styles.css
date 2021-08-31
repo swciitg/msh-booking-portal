@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.alpha{
+    @apply min-h-full md:flex flex-row justify-start items-center text-sm leading-5 font-medium text-tertiary-700 font-body;
+}
+
+.beta{
+    @apply flex flex-col justify-between items-start min-h-full;
+}
+
+.gama{
+    @apply md:flex flex-row items-center;
+}
+
+.delta{
+    @apply text-sm leading-4;
+}
+
+.pending{
+    @apply bg-tertiary-500 text-tertiary-600;
+}
+
+.accepted{
+    @apply bg-hab-100 text-hab-200 bg-opacity-30;
+}
+
+.declined{
+    @apply bg-hab-300 text-hab-300 bg-opacity-30;
+}
+
+.return{
+    @apply text-tertiary-600 font-hab font-bold uppercase tracking-widest relative left-1/20 top-8 delta;
+}
+
