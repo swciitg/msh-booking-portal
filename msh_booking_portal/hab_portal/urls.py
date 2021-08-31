@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HABDetailView
+# from .views import HABDetailView
 from . import views
 
 app_name = 'hab_portal'
@@ -10,7 +10,7 @@ urlpatterns = [
     path('edit/', views.HABEdit, name='hab_edit'),
     path('thanks/', views.HABThanks, name='hab_thanks'),
     path('', views.index, name='hab_index'),
-    path('view/<int:pk>/', HABDetailView.as_view(), name='hab_detail'),
+    # path('view/<int:pk>/', HABDetailView.as_view(), name='hab_detail'),
     path('view/<str:hostel>/', views.HostelView, name='hostel-view'),
     path('view/<str:hostel>/approved/', views.HostelApproved, name='hostel-approved'),
     path('view/<str:hostel>/pending/', views.HostelPending, name='hostel-pending'),

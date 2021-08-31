@@ -79,26 +79,30 @@ HAB_FIELDS = {'roll_number': 'roll_number',
 
 
 class HABModel(models.Model):
-    user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True)
+    name = models.CharField('Name', max_length=256)
+    email = models.EmailField('Email', max_length=500)
+    department = models.CharField('Department', max_length=256)
 
     time_of_submission = models.DateTimeField(auto_now_add=True, null=True)
 
-    roll_number = models.IntegerField('Roll No.', null=True)
+    roll_number = models.IntegerField('Roll No.')
+    hostel = models.CharField('Hostel', max_length=256, choices=HOSTELS)
 
+    date_of_arrival = models.DateField('Date of Arrival', default=get_current_date)
 
-    hostel = models.CharField('Hostel', max_length=256, choices=HOSTELS, null=True)
+    fee_to_be_paid = models.IntegerField('Fee to be Paid', default=0)
 
-    date_of_arrival = models.DateField('Date of Arrival', null=True)
     fee_paid = models.IntegerField('Fee Paid', null=True)
-    fee_receipt = models.FileField('Fee Receipt', upload_to=upload_file_name, storage=OverwriteStorage(), null=True,
+    date_of_payment = models.DateField('Date of Payment')
+    fee_receipt = models.FileField('Fee Receipt', upload_to=upload_file_name, storage=OverwriteStorage(),
                                    validators=[validate_file_size, validate_file_extension],
                                    help_text='Upload a .PDF file not greater than 10 MB in size.')
 
-    status = models.CharField(max_length=256, choices=STATUS, default='Pending', null=True)                               
+    approved = models.BooleanField(default=False)
 
-    approved = models.BooleanField(default=False, null=True)
-
-    locked = models.BooleanField(default=False, null=True)
+    locked = models.BooleanField(default=False)
+    status = models.CharField(max_length=256, choices=STATUS, default='Pending', null=True) 
 
     class Meta:
         ordering = ['hostel','-status','date_of_arrival']

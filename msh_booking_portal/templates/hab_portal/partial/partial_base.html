@@ -5,8 +5,24 @@
             <div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">{{ item.user }}</div>
         </div>
         <div class="md:flex flex-row justify-end min-h-full w-3/24"><div class="alpha w-4/5">{{ item.roll_number }}</div></div>
-        <div class="alpha w-1/24">#</div>
-        <div class="alpha w-1/12">#</div>
+        <div class="beta w-1/24 relative right-5">
+            <div class="w-full h-4/5 gama">
+                <div class="gama w-full h-1/2 pending rounded-xl">
+                    <svg class="w-2 h-2 m-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>
+                    <div class="gama text-xs leading-4 w-full h-full font-medium">Fee</div>
+                </div>
+            </div>
+            <div class="gama justify-start font-medium delta text-tertiary-800 w-full h-1/5">{{ item.fee_to_be_paid }}</div>
+        </div>
+        <div class="beta w-1/12">
+            <div class="w-full h-4/5 gama">
+                <div class="gama w-10/12 h-1/2 pending rounded-xl">
+                    <svg class="w-2 h-2 m-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>
+                    <div class="gama text-xs leading-4 w-full h-full font-medium">Fee Paid</div>
+                </div>
+            </div>
+            <div class="gama justify-start font-medium delta text-tertiary-800 w-full h-1/5">{{ item.fee_paid }}</div>
+        </div>
         <div class="beta w-1/6">
             <div class="w-2/5 h-4/5 gama">
                 <div class="gama w-10/12 h-1/2 bg-tertiary-100 bg-opacity-30 text-tertiary-200 rounded-xl">
@@ -30,17 +46,17 @@
                 {% if item.status != 'Accepted' and item.status != 'Declined' %}
                     <div class="gama w-10/12 h-1/2 pending rounded-xl">
                         <svg class="w-2 h-2 m-2"  aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>
-                        <div class="gama text-xs leading-4 w-full h-full font-medium" class="menu" >{{ item.status }}</div>
+                        <div class="gama text-xs leading-4 w-full h-full font-medium"  >{{ item.status }}</div>
                     </div>
                 {% elif item.hostel != 'Pending' and item.status != 'Declined' %}
                     <div class="gama w-10/12 h-1/2 accepted rounded-xl">
                         <svg class="w-2 h-2 m-2"  aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>
-                        <div class="gama text-xs leading-4 w-full h-full font-medium" class="menu" >{{ item.status }}</div>
+                        <div class="gama text-xs leading-4 w-full h-full font-medium"  >{{ item.status }}</div>
                     </div>
                 {% elif item.hostel != 'Accepted' and item.status != 'Pending' %}
                     <div class="gama w-10/12 h-1/2 declined rounded-xl">
                         <svg class="w-2 h-2 m-2"  aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>
-                        <div class="gama text-xs leading-4 w-full h-full font-medium" class="menu" >{{ item.status }}</div>
+                        <div class="gama text-xs leading-4 w-full h-full font-medium"  >{{ item.status }}</div>
                     </div>
                 {% endif %}                    
             </div>    
@@ -63,7 +79,7 @@
                                 </div>
                                 <div class="min-h-full w-1/2 flex flex-col items-start">
                                     <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Department</div>
-                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">#</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">{{ item.department }}</div>
                                 </div>
                             </div>
                             <div class=" w-full h-2/5">
@@ -82,13 +98,13 @@
                                 </div>
                                 <div class="min-h-full w-1/2 flex flex-col items-start">
                                     <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Date of Payment</div>
-                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">#</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">{{ item.date_of_payment }}</div>
                                 </div>
                             </div>
                             <div class="flex flex-row items-start w-full h-2/5">
                                 <div class="min-h-full w-1/2 flex flex-col items-start">
                                     <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Fee Amount</div>
-                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base">#</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base">Rs {{ item.fee_to_be_paid }}</div>
                                 </div>
                                 <div class="min-h-full w-1/2 flex flex-col items-start">
                                     <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Fee Paid</div>

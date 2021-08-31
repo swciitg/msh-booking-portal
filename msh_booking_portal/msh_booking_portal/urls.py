@@ -32,7 +32,7 @@ urlpatterns = [
     path('accounts/logout/', LogoutView.as_view(template_name='admin/logout.html')),
     path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
 
-    path('forms/', include('forms.urls')),
+    path('forms/', include('forms.urls'), name="forms"),
     path('hab/', include('hab_portal.urls')),
     path('', index),
 ]
