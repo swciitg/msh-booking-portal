@@ -11,19 +11,45 @@
 
     <h3>Hostels</h3>
     <ul>
+        {% if perms.hab_portal.can_view_lohit_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='lohit' %}">Lohit</a></li>   
+        {% endif %}
+        {% if perms.hab_portal.can_view_brahma_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='brahmaputra' %}">Brahmaputra</a></li>    
+        {% endif %}
+        {% if perms.hab_portal.can_view_siang_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='siang' %}">Siang</a></li>    
+        {% endif %}
+        {% if perms.hab_portal.can_view_manas_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='manas' %}">Manas</a></li>    
+        {% endif %}
+        {% if perms.hab_portal.can_view_disang_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='disang' %}">Disang</a></li>    
+        {% endif %}
+        {% if perms.hab_portal.can_view_kameng_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='kameng' %}">Kameng</a></li>    
+        {% endif %}
+        {% if perms.hab_portal.can_view_umiam_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='umiam' %}">Umiam</a></li>    
+        {% endif %}
+        {% if perms.hab_portal.can_view_barak_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='barak' %}">Barak</a></li>    
+        {% endif %}
+        {% if perms.hab_portal.can_view_kapili_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='kapili' %}">Kapili</a></li>    
+        {% endif %}
+        {% if perms.hab_portal.can_view_dihing_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='dihing' %}">Dihing</a></li>    
+        {% endif %}
+        {% if perms.hab_portal.can_view_suban_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='subansiri' %}">Subansiri</a></li>   
+        {% endif %}
+        {% if perms.hab_portal.can_view_dhan_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='dhansiri' %}">Dhansiri</a></li>    
+        {% endif %}
+        {% if perms.hab_portal.can_view_msh_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='msh' %}">Married Scholars Hostel</a></li>    
+        {% endif %}
     </ul>
     <br>
     <a href="../">Go back</a>

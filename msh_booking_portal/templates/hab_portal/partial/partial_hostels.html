@@ -1,12 +1,17 @@
 <div id="replaceable-content">
 
     {% for item in HABforms %}
-    {% if item.hostel == Hostel %}
-
-    {% include 'hab_portal/partial/partial_base.html' %}
-
-
-    {% endif %}
+        {% if item.hostel == Hostel %}
+            
+            <script language="javascript" type="text/javascript">
+                $(document).ready(function() {
+                    $('#trigger_'+{{ item.user.pk}}).click(function(){
+                        $("#dialog_"+{{ item.user.pk}}).dialog();
+                    }); 
+                });               
+            </script>
+            {% include 'hab_portal/partial/partial_base.html' %}
+        {% endif %}
     {% endfor %}
 
 </div>
