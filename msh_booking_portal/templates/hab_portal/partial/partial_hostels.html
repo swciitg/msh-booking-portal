@@ -2,7 +2,15 @@
 
     {% for item in HABforms %}
         {% if item.hostel == Hostel %}
-
+            
+            <script language="javascript" type="text/javascript">
+            let id = "{{ item.user.pk }}";
+                $(document).ready(function() {
+                    $('#trigger_'+id).click(function(){
+                        $("#dialog_"+id).dialog();
+                    }); 
+                });               
+            </script>
             {% include 'hab_portal/partial/partial_base.html' %}
 
         {% endif %}

@@ -48,9 +48,9 @@
         </div>
         <div class="w-1/12 min-h-full md:flex flex-row justify-center items-center text-xs leading-5 font-medium font-hab text-tertiary-900">
             <a href="{% url 'hab_portal:hab_detail' pk=item.id %}">LL</a>
-            <a href="#" class="trigger">View Receipt</a>
-            <div id="dialog" style="display:none; width: 1214px;" class="md:flex"  >
-                <iframe src="https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf" width="80%" height="100%" title="Fee-Receipt" ></iframe>
+            <a href="#" id="trigger_{{ item.user.pk }}">View Receipt</a>
+            <div id="dialog_{{ item.user.pk }}" style="display:none; width: 1214px;" class="md:flex"  >
+                <iframe src="{{ item.fee_receipt.url }}" width="80%" height="100%" title="Fee-Receipt" ></iframe>
                 <table style="flex: auto; display: right;">
                         <td>
                             <table>
