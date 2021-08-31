@@ -47,10 +47,9 @@
             <div class="gama justify-start font-medium delta text-tertiary-800 w-full h-1/5">Status</div>
         </div>
         <div class="w-1/12 min-h-full md:flex flex-row justify-center items-center text-xs leading-5 font-medium font-hab text-tertiary-900">
-            <a href="{% url 'hab_portal:hab_detail' pk=item.id %}">LL</a>
             <a href="#" id="trigger_{{ item.user.pk }}">View Receipt</a>
-            <div id="dialog_{{ item.user.pk }}" style="display:none; width: 1214px;" class="md:flex"  >
-                <iframe src="{{ item.fee_receipt.url }}" width="80%" height="100%" title="Fee-Receipt" ></iframe>
+            <div id="dialog_{{ item.user.pk }}" style="display:none; width: 100%; position: relative; overflow: hidden;" class="md:flex"  >
+                <iframe src="{{ item.fee_receipt.url }}" width="80%" height="100%" title="Fee-Receipt" class="responsive-iframe" ></iframe>
                 <table style="flex: auto; display: right;">
                         <td>
                             <table>
@@ -69,7 +68,7 @@
                                 </tr>
                                 <hr>
                                 <tr>
-                                    <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Date of Arrival</div></td>
+                                    <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Fee Payment Date</div></td>
                                     <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Fee Amount</div></td>
                                 </tr>
                                 <tr>
