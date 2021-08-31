@@ -11,11 +11,23 @@
 
 </head>
 <body>
+ 
     
+    <h2 class="text-tertiary-600 font-hab font-bold uppercase tracking-widest relative left-1/20 top-8 delta">Return to campus submissions for {{ Hostel }}:</h2>
+    <br>
+
+    <div class="relative top-8 left-1/20">
+        <h3 >Search for a roll number:</h3>
+        <input id="user-input" placeholder="Search">
+        <!-- <h3>Date filter:</h3>
+        <input type="date" id="user-input-date"> -->
+    </div>
+    <br><br>
+
     {% block content %}
     {% endblock %}
 
-    <a href="../">Go back</a>
+    <a class ="relative left-1/20" href="../">Go back</a>
 
     <script src="{% static 'hab_portal/base.js' %}"></script>
 

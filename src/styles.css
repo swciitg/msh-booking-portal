@@ -32,3 +32,8 @@
 .declined{
     @apply bg-hab-300 text-hab-300 bg-opacity-30;
 }
+
+.return{
+    @apply text-tertiary-600 font-hab font-bold uppercase tracking-widest relative left-1/20 top-8 delta;
+}
+
