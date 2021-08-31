@@ -19,7 +19,7 @@ module.exports = {
         },
         hab: {
           100: '#CDFFCD',
-          200: '#6DD11E',
+          200: '#6D5BD0',
           300: '#E54F6D',
           400: '#BCBEC2',
         }

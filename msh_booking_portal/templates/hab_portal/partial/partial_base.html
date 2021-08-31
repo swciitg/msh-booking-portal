@@ -1,7 +1,7 @@
 <div class="h-96 md:flex justify-center items-center w-90/100 md:h-20 relative left-1/20 ">
     <div class="md:flex flex-row w-95/100 h-16 font-body">
         <div class="flex flex-col justify-between items-start w-1/4 min-h-full">
-            <div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</div>
+            <div class="gama font-medium delta text-tertiary-700 uppercase w-full h-4/5">{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</div>
             <div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">{{ item.user }}</div>
         </div>
         <div class="md:flex flex-row justify-end min-h-full w-3/24"><div class="alpha w-4/5">{{ item.roll_number }}</div></div>
@@ -48,47 +48,67 @@
         </div>
         <div class="w-1/12 min-h-full md:flex flex-row justify-center items-center text-xs leading-5 font-medium font-hab text-tertiary-900">
             <a href="#" id="trigger_{{ item.user.pk }}">View Receipt</a>
-            <div id="dialog_{{ item.user.pk }}" style="display:none; width: 100%; position: relative; overflow: hidden;" class="md:flex"  >
-                <iframe src="{{ item.fee_receipt.url }}" width="80%" height="100%" title="Fee-Receipt" class="responsive-iframe" ></iframe>
-                <table style="flex: auto; display: right;">
-                        <td>
-                            <table>
-                                <tr>
-                                    <div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</div>
-                                    <div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">{{ item.user }}</div>
-                                </tr>
-                                <hr>
-                                <tr>
-                                    <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Hostel</div></td>
-                                    <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Arriving On</div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">{{ Hostel }}</div></td>
-                                    <td><div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">{{ item.date_of_arrival }}</div></td>
-                                </tr>
-                                <hr>
-                                <tr>
-                                    <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Fee Payment Date</div></td>
-                                    <td><div class="gama font-normal delta text-tertiary-800 tracking-wider w-full h-1/5">Fee Amount</div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">#</div></td>
-                                    <td><div class="gama font-medium delta text-tertiary-700 capitalize w-full h-4/5">#</div></td>
-                                </tr>
-                                <hr>
-                                <tr>
-                                    <div class="grid grid-cols-2 gap-x-4 sm:gap-x-6 px-4 sm:px-6 py-4">
-                                        <td><div class="text-base font-medium rounded-lg bg-red-400 text-white py-3 text-center cursor-pointer"><a href="{% url 'hab_portal:hostel-status-decline' hostel=item.hostel id=item.id %}">Decline</a></div></td>
-                                        <td><div class="text-base font-medium rounded-lg bg-blue-400 text-white py-3 text-center cursor-pointer"><a href="{% url 'hab_portal:hostel-status-accept' hostel=item.hostel status=item.status id=item.id %}">Accept</a></div></td>
-                                    </div>
-                                </tr>
-                                
-                            </table>
-                            
-                            
-                            
-                        </td>
-                </table>
+            <div id="dialog_{{ item.user.pk }}" style="display:none; position: relative; overflow: hidden;" title="{{ item.user.user.first_name|add:' '|add:item.user.user.last_name }}'s fee receipt" class="md:flex" >
+                <iframe src="{{ item.fee_receipt.url }}" height="100%" title="Fee-Receipt"  class="w-4/6"></iframe>
+                <div class="w-1/3 h-full flex flex-row items-center justify-center">
+                    <div class="w-11/12 h-11/12 bg-white relative">
+                        <div class="gama font-medium text-sm leading-5 text-tertiary-700 capitalize w-full">{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</div>
+                        <div class="gama font-normal text-sm leading-5 text-tertiary-800 tracking-wider w-full">{{ item.user }}</div><br>
+                        <div class="w-full h-px border-solid bg-secondary"></div><br>
+                        <div class="flex flex-col items-start justify-between w-full h-1/6">
+                            <div class="flex flex-row items-start w-full h-2/5">
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Hostel Name</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">{{ item.hostel }}</div>
+                                </div>
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Department</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">#</div>
+                                </div>
+                            </div>
+                            <div class=" w-full h-2/5">
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Arriving On</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base">{{ item.date_of_arrival }}</div>
+                                </div> 
+                            </div>
+                        </div><br>
+                        <div class="w-full h-px border-solid bg-secondary"></div><br>
+                        <div class="flex flex-col items-start justify-between w-full h-1/6">
+                            <div class="flex flex-row items-start w-full h-2/5">
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Fees Status</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">Paid</div>
+                                </div>
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Date of Payment</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">#</div>
+                                </div>
+                            </div>
+                            <div class="flex flex-row items-start w-full h-2/5">
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Fee Amount</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base">#</div>
+                                </div>
+                                <div class="min-h-full w-1/2 flex flex-col items-start">
+                                    <div class="font-body text-tertiary-600 font-normal tracking-wider text-sm leading-5">Fee Paid</div>
+                                    <div class="font-body text-tertiary-700 font-medium leading-5 text-base capitalize">Rs {{ item.fee_paid }}</div>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="w-full h-px border-solid bg-secondary"></div><br><br><br>
+                        <div class="w-full h-1/6 flex flex-row justify-center">
+                            <div class="w-3/4 min-h-full flex flex-col items-start">
+                                <div class="w-full h-1/2 flex flex-row justify-center items-center bg-purple-500 rounded">
+                                    <a class="text-white text-opacity-100" href="{% url 'hab_portal:hostel-status-accept' hostel=item.hostel status=item.status id=item.id %}"><div class="font-body font-semibold text-sm leading-5">Accept Request</div></a>
+                                </div>
+                                <div class="w-full h-1/2 flex flex-row justify-center items-center bg-tertiary-500 rounded">
+                                    <a href="{% url 'hab_portal:hostel-status-decline' hostel=item.hostel id=item.id %}"><div class="font-body font-semibold text-sm leading-5 text-tertiary-700">Decline</div></a>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
             </div> 
         </div>
     </div>

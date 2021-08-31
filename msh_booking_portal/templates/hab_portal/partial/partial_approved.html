@@ -3,6 +3,14 @@
         {% for item in HABforms %}
         {% if item.hostel == Hostel and item.status == 'Accepted' %}
 
+        <script language="javascript" type="text/javascript">
+                $(document).ready(function() {
+                    $('#trigger_'+{{ item.user.pk}}).click(function(){
+                        $("#dialog_"+{{ item.user.pk}}).dialog({width: 1300,height:650,dialogClass: 'header'});
+                    }); 
+                });               
+        </script>
+
         {% include 'hab_portal/partial/partial_base.html' %}
 
         {% endif %}
