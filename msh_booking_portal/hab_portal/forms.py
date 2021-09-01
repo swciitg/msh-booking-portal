@@ -42,5 +42,4 @@ class HABForm(ModelForm):
             'fee_paid': NumberInput(attrs={
                     'class': "form-control",
                 }),
-
         }
