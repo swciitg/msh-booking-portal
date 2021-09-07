@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wgti)prp10r#@v9q02@ek&mmhro0346b7$txovudq+^6os(jha
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 SITE_ID = 1
-ALLOWED_HOSTS = ['localhost', '192.168.43.215']
+ALLOWED_HOSTS = ['localhost', '192.168.43.215','127.0.0.1']
 
 # Application definition
 
@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'users',
     'forms',
     'hab_portal',
-    'microsoft_auth',
+    # 'microsoft_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.microsoft'
 ]
 
 MIDDLEWARE = [
@@ -66,7 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'microsoft_auth.context_processors.microsoft',
+                # 'microsoft_auth.context_processors.microsoft',
             ],
         },
     },
@@ -105,20 +110,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'microsoft_auth.backends.MicrosoftAuthenticationBackend',
+    # 'microsoft_auth.backends.MicrosoftAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-MICROSOFT_AUTH_CLIENT_ID = '0f9be505-2599-4971-8d38-6c80890df161'
-MICROSOFT_AUTH_CLIENT_SECRET = 'i5K_Q9C0-sbJy1n5.OB21Sb5~dWyH.49Fi'
-MICROSOFT_AUTH_TENANT_ID = '850aa78d-94e1-4bc6-9cf3-8c11b530701c'
-MICROSOFT_AUTH_REDIRECT_URI = 'http://localhost:8000/forms/'
-MICROSOFT_AUTH_LOGIN_TYPE = 'ma'
-
-LOGIN_REDIRECT_URL = '/forms/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
-REDIRECT_URI = '/forms/'
-
+# MICROSOFT_AUTH_CLIENT_ID = '0f9be505-2599-4971-8d38-6c80890df161'
+# MICROSOFT_AUTH_CLIENT_SECRET = 'i5K_Q9C0-sbJy1n5.OB21Sb5~dWyH.49Fi'
+# MICROSOFT_AUTH_TENANT_ID = '850aa78d-94e1-4bc6-9cf3-8c11b530701c'
+# MICROSOFT_AUTH_REDIRECT_URI = 'http://localhost:8000/forms/'
+# MICROSOFT_AUTH_LOGIN_TYPE = 'ma'
+#
+# LOGIN_REDIRECT_URL = '/forms/'
+# LOGOUT_REDIRECT_URL = '/accounts/login/'
+# REDIRECT_URI = '/hab/'
 
 # Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -156,3 +161,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+    'microsoft': {
+        'tenant': 'organizations',
+    }
+}

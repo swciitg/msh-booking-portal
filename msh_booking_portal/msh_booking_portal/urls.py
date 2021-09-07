@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url
+
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
@@ -22,19 +22,20 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
 
-from .views import index
+from . import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/login/', LoginView.as_view(template_name='login.html',
-                                              redirect_field_name='forms/')),
-    path('accounts/logout/', LogoutView.as_view(template_name='admin/logout.html')),
-    path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
-
-    path('forms/', include('forms.urls'), name="forms"),
+    path('accounts/', include('allauth.urls')),
+    path('logout', LogoutView.as_view()),
+    # path('accounts/login/', LoginView.as_view(template_name='login.html',
+    #                                           redirect_field_name='forms/')),
+    # path('accounts/logout/', LogoutView.as_view(template_name='admin/logout.html')),
+    # path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
+    # path('forms/', include('forms.urls'), name="forms"),
     path('hab/', include('hab_portal.urls')),
-    path('', index),
+    path('', views.index),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

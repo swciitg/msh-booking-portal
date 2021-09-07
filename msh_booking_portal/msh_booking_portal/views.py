@@ -2,4 +2,4 @@ from django.shortcuts import redirect
 
 
 def index(request):
-    return redirect('/forms/')
+    return redirect('/hab/')

@@ -1,0 +1,309 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <meta charset="UTF-8">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <title>HAB Form</title>
+
+</head>
+<body>
+
+
+<form action="../{{ url }}/" method="POST" enctype="multipart/form-data" >
+
+
+  <div class="container">
+    <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+      <div class="flex items-center justify-between">
+
+      <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 0C2.51472 0 0.5 2.01472 0.5 4.5V13.9C0.5 14.8797 1.12611 15.7131 2 16.022V4.5C2 2.84315 3.34315 1.5 5 1.5H10.002C9.69309 0.626106 8.85967 0 7.88 0H5Z" fill="#212121"/>
+<path d="M3 4.75C3 3.50736 4.00736 2.5 5.25 2.5H11V0.75C11 0.335787 11.3358 0 11.75 0C12.1642 0 12.5 0.335787 12.5 0.75V19.25C12.5 19.6642 12.1642 20 11.75 20C11.3358 20 11 19.6642 11 19.25V18H5.25C4.00736 18 3 16.9926 3 15.75V4.75Z" fill="#212121"/>
+</svg>
+
+<p><b>Return Details</b></p>
+
+ <svg width="1" height="24" viewBox="0 0 1 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.5" y1="0.5" x2="0.499999" y2="23.5" stroke="#E9E9EB" stroke-linecap="round"/>
+</svg>
+
+2
+
+</div>
+</div>
+<br>
+
+
+    <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+
+       {% csrf_token %}
+      <div class="relative mb-4 form-group">
+      <label for="Date of Arrival" class="leading-7  text-Black-600">Returning from (state)</label><br>
+
+  {{ form.returning_from_state }}
+       </div>
+
+       <div class="relative mb-4 form-group">
+       <label for="Fee to be Paid" class="leading-7  text-Black-600">Date of Arrival</label><br>
+
+   {{ form.date_of_arrival }}
+        </div>
+
+        <div class="relative mb-4 form-group">
+        <label for="Fee to be Paid" class="leading-7  text-Black-600">Mode of Travel</label><br>
+
+    {{ form.mode_of_travel }}
+         </div>
+
+         <div class="relative mb-4 form-group">
+         <label for="Fee to be Paid" class="leading-7  text-Black-600">Flight / Train No.</label><br>
+
+     {{ form.flight_train_number }}
+          </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+<div class="container">
+    <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+      <div class="flex items-center justify-between">
+
+      <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 0C2.51472 0 0.5 2.01472 0.5 4.5V13.9C0.5 14.8797 1.12611 15.7131 2 16.022V4.5C2 2.84315 3.34315 1.5 5 1.5H10.002C9.69309 0.626106 8.85967 0 7.88 0H5Z" fill="#212121"/>
+<path d="M3 4.75C3 3.50736 4.00736 2.5 5.25 2.5H11V0.75C11 0.335787 11.3358 0 11.75 0C12.1642 0 12.5 0.335787 12.5 0.75V19.25C12.5 19.6642 12.1642 20 11.75 20C11.3358 20 11 19.6642 11 19.25V18H5.25C4.00736 18 3 16.9926 3 15.75V4.75Z" fill="#212121"/>
+</svg>
+
+<p><b>Test Details</b></p>
+
+ <svg width="1" height="24" viewBox="0 0 1 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.5" y1="0.5" x2="0.499999" y2="23.5" stroke="#E9E9EB" stroke-linecap="round"/>
+</svg>
+
+3
+
+</div>
+</div>
+<br>
+<form action="../{{ url }}/" method="POST" enctype="multipart/form-data" >
+
+      <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+
+         {% csrf_token %}
+
+            <div class="relative mb-4 form-group">
+            <label for="Name" class="leading-7  text-Black-600">Nature of Test</label><br>
+
+        {{ form.nature_of_test }}
+             </div>
+
+             <div class="relative mb-4 form-group">
+             <label for="Roll Number" class="leading-7  text-Black-600">Date of Test</label><br>
+
+         {{ form.date_of_testing }}
+              </div>
+
+
+
+
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+<div class="container">
+    <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+      <div class="flex items-center justify-between">
+
+      <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 0C2.51472 0 0.5 2.01472 0.5 4.5V13.9C0.5 14.8797 1.12611 15.7131 2 16.022V4.5C2 2.84315 3.34315 1.5 5 1.5H10.002C9.69309 0.626106 8.85967 0 7.88 0H5Z" fill="#212121"/>
+<path d="M3 4.75C3 3.50736 4.00736 2.5 5.25 2.5H11V0.75C11 0.335787 11.3358 0 11.75 0C12.1642 0 12.5 0.335787 12.5 0.75V19.25C12.5 19.6642 12.1642 20 11.75 20C11.3358 20 11 19.6642 11 19.25V18H5.25C4.00736 18 3 16.9926 3 15.75V4.75Z" fill="#212121"/>
+</svg>
+
+<p><b>Hostel Related Information</b></p>
+
+ <svg width="1" height="24" viewBox="0 0 1 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.5" y1="0.5" x2="0.499999" y2="23.5" stroke="#E9E9EB" stroke-linecap="round"/>
+</svg>
+
+4
+
+</div>
+</div>
+<br>
+<form action="../{{ url }}/" method="POST" enctype="multipart/form-data" >
+
+      <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+
+         {% csrf_token %}
+
+            <div class="relative mb-4 form-group">
+            <label for="Name" class="leading-7 text-Black-600">Hostel</label><br>
+
+        {{ form.hostel }}
+             </div>
+
+             <div class="relative mb-4 form-group">
+             <label for="Roll Number" class="leading-7  text-Black-600">Room Number</label><br>
+
+         {{ form.room_no }}
+              </div>
+
+              <div class="relative mb-4 form-group">
+              <label for="Hostel Name" class="leading-7  text-Black-600">Check-in Date</label><br>
+
+          {{ form.check_in_date }}
+               </div>
+
+
+
+
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+<div class="container">
+    <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+      <div class="flex items-center justify-between">
+
+      <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 0C2.51472 0 0.5 2.01472 0.5 4.5V13.9C0.5 14.8797 1.12611 15.7131 2 16.022V4.5C2 2.84315 3.34315 1.5 5 1.5H10.002C9.69309 0.626106 8.85967 0 7.88 0H5Z" fill="#212121"/>
+<path d="M3 4.75C3 3.50736 4.00736 2.5 5.25 2.5H11V0.75C11 0.335787 11.3358 0 11.75 0C12.1642 0 12.5 0.335787 12.5 0.75V19.25C12.5 19.6642 12.1642 20 11.75 20C11.3358 20 11 19.6642 11 19.25V18H5.25C4.00736 18 3 16.9926 3 15.75V4.75Z" fill="#212121"/>
+</svg>
+
+<p><b>Status of Payment</b></p>
+
+ <svg width="1" height="24" viewBox="0 0 1 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.5" y1="0.5" x2="0.499999" y2="23.5" stroke="#E9E9EB" stroke-linecap="round"/>
+</svg>
+
+5
+
+</div>
+</div>
+<br>
+<form action="../{{ url }}/" method="POST" enctype="multipart/form-data" >
+
+      <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+
+         {% csrf_token %}
+
+            <div class="relative mb-4 form-group">
+            <label for="Name" class="leading-7  text-Black-600">Fee Paid</label><br>
+
+        {{ form.mess_fee_paid }}
+             </div>
+
+             <div class="relative mb-4 form-group">
+             <label for="Roll Number" class="leading-7  text-Black-600">Date of Payment</label><br>
+
+         {{ form.date_of_payment }}
+              </div>
+
+
+
+
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+<div class="container ">
+  <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+    <div class="flex items-center justify-between">
+
+    <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 0C2.51472 0 0.5 2.01472 0.5 4.5V13.9C0.5 14.8797 1.12611 15.7131 2 16.022V4.5C2 2.84315 3.34315 1.5 5 1.5H10.002C9.69309 0.626106 8.85967 0 7.88 0H5Z" fill="#212121"/>
+<path d="M3 4.75C3 3.50736 4.00736 2.5 5.25 2.5H11V0.75C11 0.335787 11.3358 0 11.75 0C12.1642 0 12.5 0.335787 12.5 0.75V19.25C12.5 19.6642 12.1642 20 11.75 20C11.3358 20 11 19.6642 11 19.25V18H5.25C4.00736 18 3 16.9926 3 15.75V4.75Z" fill="#212121"/>
+</svg>
+
+<p><b>Enclosures</b></p>
+
+<svg width="1" height="24" viewBox="0 0 1 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.5" y1="0.5" x2="0.499999" y2="23.5" stroke="#E9E9EB" stroke-linecap="round"/>
+</svg>
+
+6
+
+</div>
+</div>
+<br>
+
+    <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+
+
+
+          {% csrf_token %}
+
+
+           <label for="Upload Fee Receipt" class="leading-7  text-Black-600">Upload Fee Receipt</label>
+            <svg width="872" height="4" viewBox="0 0 872 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
+</svg><br>
+
+        {{ form.fee_receipt }}
+        <label for="fee_receipt">
+        {{ form.fee_receipt.help_text }}
+        </label>
+  <br>
+
+  <label for="Upload Fee Receipt" class="leading-7  text-Black-600">Upload Vaccination Certificate</label>
+   <svg width="872" height="4" viewBox="0 0 872 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
+</svg><br>
+
+{{ form.vaccination_cert }}
+<label for="fee_receipt">
+{{ form.vaccination_cert.help_text }}
+</label>
+<br>
+
+<label for="Upload Fee Receipt" class="leading-7  text-Black-600">Upload Travel Ticket</label>
+ <svg width="872" height="4" viewBox="0 0 872 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
+</svg><br>
+
+{{ form.travel_ticket }}
+<label for="fee_receipt">
+{{ form.travel_ticket.help_text }}
+</label>
+<br>
+
+<label for="Upload Fee Receipt" class="leading-7  text-Black-600">Upload RTPCR Report</label>
+ <svg width="872" height="4" viewBox="0 0 872 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
+</svg><br>
+
+{{ form.rtpcr_report }}
+<label for="fee_receipt">
+{{ form.rtpcr_report.help_text }}
+</label>
+<br>
+
+
+
+<input type="submit" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" {% if locked %}disabled{% endif %}>
+</form>
+
+
+
+</body>
+</html>
