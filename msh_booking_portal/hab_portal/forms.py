@@ -140,12 +140,7 @@ class HABdose1(ModelForm):
 
 
         widgets = {
-
-
-             'recieved_an_invite': TextInput(attrs={
+             'recieved_an_invite': Select(attrs={
                      'class': "form-control",
                  }),
-
-
-
         }

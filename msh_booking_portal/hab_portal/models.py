@@ -50,7 +50,7 @@ REGISTERED_FOR_SESSION =[
 
 RECIEVED_AN_INVITE =[
      ('Yes', 'Yes'),
-     ('No','No'),
+     ('No', 'No'),
 ]
 
 def fee_upload_file_name(instance, filename):

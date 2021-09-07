@@ -23,7 +23,12 @@ def index(request):
 @login_required(login_url='/accounts/login/')
 def HABCreate(request):
     if request.method == 'POST':
-        form = HABForm1(request.POST, request.FILES)
+        try:
+            form_instance = HABModel.objects.get(user__pk=request.user.id)
+            form = HABForm1(request.POST, request.FILES, instance=form_instance)
+        except:
+            form = HABForm1(request.POST, request.FILES)
+
 
         if form.is_valid():
             application = form.save(commit=False)
@@ -37,9 +42,12 @@ def HABCreate(request):
             else:
                 return redirect('hab_portal:hab_1')
 
-
     else:
-        form = load_from_user_data(SiteUser.objects.get(user__pk=request.user.id), HABForm1(), HAB_FIELDS)
+        try:
+            form_instance = HABModel.objects.get(user__pk=request.user.id)
+            form = load_from_user_data(SiteUser.objects.get(user__pk=request.user.id), HABForm1(instance=form_instance), HAB_FIELDS)
+        except:
+            form = load_from_user_data(SiteUser.objects.get(user__pk=request.user.id), HABForm1(), HAB_FIELDS)
 
     return render(request,
                   'forms/hab.html',
