@@ -3,9 +3,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from users.models import SiteUser
 from .storage import OverwriteStorage
-from django.contrib.auth.models import User
 from datetime import datetime
-from .storage import OverwriteStorage
 
 
 HOSTELS = [
@@ -41,7 +39,7 @@ STATUS = [
 ]
 
 VACCINATION_STATUS_CHOICES = [
-    # ('Single Dose', 'Single Dose'),
+    ('Single Dose', 'Single Dose'),
     ('Double Dose', 'Double Dose'),
 ]
 
@@ -102,48 +100,48 @@ class HABModel(models.Model):
     email_of_supervisor = models.EmailField('Supervisor Email', max_length=256, blank=True)
     registered_for_academic_semester = models.BooleanField('Registered for Academic Semester', default=True)
 
+    # Vaccination Status
+    vaccination_status = models.CharField('Vaccination Status', max_length=256,
+                                          choices=VACCINATION_STATUS_CHOICES)
+
     # Return Details
-    returning_from_state = models.CharField('Returning from (state)', max_length=256)
-    date_of_arrival = models.DateTimeField('Date of Arrival', default=datetime.now)
-    mode_of_travel = models.CharField('Mode of Travel', blank=True, max_length=256)
-    flight_train_number = models.CharField('Flight / Train No.', blank=True, max_length=256)
+    returning_from_state = models.CharField('Returning from (state)', max_length=256, null=True)
+    date_of_arrival = models.DateTimeField('Date of Arrival', default=datetime.now, null=True)
+    mode_of_travel = models.CharField('Mode of Travel', blank=True, max_length=256, null=True)
+    flight_train_number = models.CharField('Flight / Train No.', blank=True, max_length=256, null=True)
 
     # Test Details
-    nature_of_test = models.CharField('Nature of Test', choices=NATURES_OF_TEST, max_length=256)
-    date_of_testing = models.DateField('Date of Test', default=datetime.now)
+    nature_of_test = models.CharField('Nature of Test', choices=NATURES_OF_TEST, max_length=256, null=True)
+    date_of_testing = models.DateField('Date of Test', default=datetime.now, null=True)
 
     # Hostel Related Information
-    hostel = models.CharField('Hostel', max_length=256, choices=HOSTELS)
-    room_no = models.CharField('Room Number', max_length=256, blank=True)
-    check_in_date = models.DateTimeField('Check-in Date', default=datetime.now)
+    hostel = models.CharField('Hostel', max_length=256, choices=HOSTELS, null=True)
+    room_no = models.CharField('Room Number', max_length=256, blank=True, null=True)
+    check_in_date = models.DateTimeField('Check-in Date', default=datetime.now, null=True)
 
     # Status of Payment
     mess_fee_paid = models.IntegerField('Fee Paid', null=True)
-    date_of_payment = models.DateField('Date of Payment')
+    date_of_payment = models.DateField('Date of Payment', null=True)
 
     # Enclosures
     fee_receipt = models.FileField('Fee Receipt', upload_to=fee_upload_file_name, storage=OverwriteStorage(),
                                    validators=[validate_file_size, validate_file_extension],
-                                   help_text='Upload a .PDF file not greater than 10 MB in size.')
+                                   help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
 
     vaccination_cert = models.FileField('Vaccination Certificate', upload_to=vacc_upload_file_name,
                                         storage=OverwriteStorage(),
                                         validators=[validate_file_size, validate_file_extension],
-                                        help_text='Upload a .PDF file not greater than 10 MB in size.')
+                                        help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
 
     travel_ticket = models.FileField('Travel Ticket', upload_to=travel_upload_file_name,
                                     storage=OverwriteStorage(),
                                     validators=[validate_file_size, validate_file_extension],
-                                    help_text='Upload a .PDF file not greater than 10 MB in size.')
+                                    help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
 
     rtpcr_report = models.FileField('RTPCR Report', upload_to=rtpcr_upload_file_name,
                                     storage=OverwriteStorage(),
                                     validators=[validate_file_size, validate_file_extension],
-                                    help_text='Upload a .PDF file not greater than 10 MB in size.')
-
-    # Vaccination Status
-    vaccination_status = models.CharField('Vaccination Status', max_length=256,
-                                          choices=VACCINATION_STATUS_CHOICES)
+                                    help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
 
 
     class Meta:
