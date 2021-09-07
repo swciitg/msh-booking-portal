@@ -22,10 +22,8 @@ def index(request):
 
 @login_required(login_url='/accounts/login/')
 def HABCreate(request):
-
-    form_instance,created = HABModel.objects.get_or_create(user__user__pk=request.user.id)
     if request.method == 'POST':
-        form = HABForm1(request.POST, request.FILES, instance=form_instance)
+        form = HABForm1(request.POST, request.FILES)
 
         if form.is_valid():
             application = form.save(commit=False)
@@ -41,7 +39,7 @@ def HABCreate(request):
 
 
     else:
-        form = load_from_user_data(SiteUser.objects.get(user__pk=request.user.id), HABForm1(instance=form_instance), HAB_FIELDS)
+        form = load_from_user_data(SiteUser.objects.get(user__pk=request.user.id), HABForm1(), HAB_FIELDS)
 
     return render(request,
                   'forms/hab.html',
@@ -117,7 +115,7 @@ def HABDose1Wait(request):
 def HABEdit(request):
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
     if request.method == 'POST':
-        form = HABForm(request.POST, request.FILES, instance=form_instance)
+        form = HABForm1(request.POST, request.FILES, instance=form_instance)
 
         if form.is_valid() and (not form_instance.locked):
             application = form.save(commit=False)
@@ -128,7 +126,7 @@ def HABEdit(request):
             return redirect('hab_portal:hab_thanks')
 
     else:
-        form = HABForm(instance=form_instance)
+        form = HABForm1(instance=form_instance)
 
         if form_instance.locked:
             for field in form.fields:
