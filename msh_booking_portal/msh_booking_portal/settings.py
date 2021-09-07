@@ -117,7 +117,7 @@ MICROSOFT_AUTH_LOGIN_TYPE = 'ma'
 
 LOGIN_REDIRECT_URL = '/forms/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
-REDIRECT_URI = '/forms/'
+REDIRECT_URI = '/hab/'
 
 
 # Media files

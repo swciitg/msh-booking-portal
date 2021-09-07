@@ -1,19 +1,20 @@
 <div id="replaceable-content">
 
         {% for item in HABforms %}
-        {% if item.hostel == Hostel and item.status == 'Accepted' %}
+            {% if item.hostel == Hostel and item.status == 'Accepted' %}
 
-        <script language="javascript" type="text/javascript">
-                $(document).ready(function() {
-                    $('#trigger_'+{{ item.user.pk}}).click(function(){
-                        $("#dialog_"+{{ item.user.pk}}).dialog({width: 1300,height:650,dialogClass: 'header'});
-                    }); 
-                });               
-        </script>
+            <script language="javascript" type="text/javascript">
+                    $(document).ready(function() {
+                        $('#trigger_' + {{ item.user.user.pk}}).click(function(){
+                            $('#iframe_' + {{ item.user.user.pk }}).src = {{ item.fee_receipt.url }};
+                            $("#dialog_" + {{ item.user.user.pk }}).dialog({width: 1300,height:650,dialogClass: 'header'});
+                        });
+                    });
+            </script>
 
-        {% include 'hab_portal/partial/partial_base.html' %}
+            {% include 'hab_portal/partial/partial_base.html' %}
 
-        {% endif %}
+            {% endif %}
         {% endfor %}
 
 </div>
