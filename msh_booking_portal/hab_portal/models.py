@@ -45,7 +45,7 @@ VACCINATION_STATUS_CHOICES = [
 
 REGISTERED_FOR_SESSION =[
      ('Yes', 'Yes'),
-     ('No','No'),
+     ('No', 'No'),
 ]
 
 RECIEVED_AN_INVITE =[
@@ -97,10 +97,10 @@ class HABModel(models.Model):
     locked = models.BooleanField(default=False)
 
     # Personal Details
-    user = models.ForeignKey(SiteUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True)
     name = models.CharField('Name', max_length=256)
     roll_number = models.CharField('Roll No.', max_length=256)
-    gender = models.CharField('Gender', choices=GENDERS, max_length=256)
+    gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male')
     email = models.EmailField('Email', max_length=256)
     mobile = models.CharField('Mobile', max_length=256)
     department = models.CharField('Department', max_length=256)
@@ -108,9 +108,10 @@ class HABModel(models.Model):
     supervisor = models.CharField('Supervisor (if any)', max_length=256, blank=True)
     email_of_supervisor = models.EmailField('Supervisor Email', max_length=256, blank=True)
 
-    registered_for_academic_semester = models.CharField('Registered for Academic Semester',choices=REGISTERED_FOR_SESSION, max_length=3)
+    registered_for_academic_semester = models.CharField('Registered for Academic Semester',
+                                                        choices=REGISTERED_FOR_SESSION, max_length=3, default='Yes')
     vaccination_status = models.CharField('Vaccination Status', max_length=256,
-                                          choices=VACCINATION_STATUS_CHOICES, null=True)
+                                          choices=VACCINATION_STATUS_CHOICES, null=True, default='Single Dose')
     #dose1 Details
     recieved_an_invite=models.CharField('Have you Recieved an Invite', max_length=256,
                                           choices=RECIEVED_AN_INVITE, null=True)
@@ -125,7 +126,7 @@ class HABModel(models.Model):
     flight_train_number = models.CharField('Flight / Train No.', blank=True, max_length=256, null=True)
 
     # Test Details
-    nature_of_test = models.CharField('Nature of Test', choices=NATURES_OF_TEST, max_length=256, null=True)
+    nature_of_test = models.CharField('Nature of Test', choices=NATURES_OF_TEST, max_length=256, null=True, default='RT-PCR')
     date_of_testing = models.DateField('Date of Test', default=datetime.now, null=True)
 
     # Hostel Related Information

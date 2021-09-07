@@ -16,7 +16,8 @@ from django.views.generic import DetailView
 
 @login_required(login_url='/accounts/login/')
 def index(request):
-    user, created = SiteUser.objects.get_or_create(user__pk=request.user.id)
+    print(request.user.id)
+    user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
     return render(request, 'forms/hab-landing.html', {})
 
 
@@ -24,7 +25,7 @@ def index(request):
 def HABCreate(request):
     if request.method == 'POST':
         try:
-            form_instance = HABModel.objects.get(user__pk=request.user.id)
+            form_instance = HABModel.objects.get(user__user__pk=request.user.id)
             form = HABForm1(request.POST, request.FILES, instance=form_instance)
         except:
             form = HABForm1(request.POST, request.FILES)
@@ -32,7 +33,7 @@ def HABCreate(request):
 
         if form.is_valid():
             application = form.save(commit=False)
-            application.user = SiteUser.objects.get(user__pk=request.user.id)
+            application.user = SiteUser.objects.get(user_id=request.user.id)
             application.save()
 
             save_to_user_data(application.user, request.POST, HAB_FIELDS)
@@ -44,17 +45,14 @@ def HABCreate(request):
 
     else:
         try:
-            form_instance = HABModel.objects.get(user__pk=request.user.id)
-            form = load_from_user_data(SiteUser.objects.get(user__pk=request.user.id), HABForm1(instance=form_instance), HAB_FIELDS)
+            form_instance = HABModel.objects.get(user__user__pk=request.user.id)
+            form = load_from_user_data(SiteUser.objects.get(user_id=request.user.id), HABForm1(instance=form_instance), HAB_FIELDS)
         except:
-            form = load_from_user_data(SiteUser.objects.get(user__pk=request.user.id), HABForm1(), HAB_FIELDS)
+            form = load_from_user_data(SiteUser.objects.get(user_id=request.user.id), HABForm1(), HAB_FIELDS)
 
     return render(request,
                   'forms/hab.html',
                   {'form': form, 'url': 'add'})
-
-
-
 
 
 @login_required(login_url='/accounts/login/')

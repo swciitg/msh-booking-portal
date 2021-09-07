@@ -27,10 +27,12 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/login/', LoginView.as_view(template_name='login.html',
-                                              redirect_field_name='forms/')),
-    path('accounts/logout/', LogoutView.as_view(template_name='admin/logout.html')),
-    path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
+    path('accounts/', include('allauth.urls')),
+    path('logout', LogoutView.as_view()),
+    # path('accounts/login/', LoginView.as_view(template_name='login.html',
+    #                                           redirect_field_name='forms/')),
+    # path('accounts/logout/', LogoutView.as_view(template_name='admin/logout.html')),
+    # path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
     # path('forms/', include('forms.urls'), name="forms"),
     path('hab/', include('hab_portal.urls')),
     path('', views.index),
