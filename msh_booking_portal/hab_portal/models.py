@@ -107,7 +107,7 @@ class HABModel(models.Model):
     programme = models.CharField('Programme', max_length=256)
     supervisor = models.CharField('Supervisor (if any)', max_length=256, blank=True)
     email_of_supervisor = models.EmailField('Supervisor Email', max_length=256, blank=True)
-<<<<<<< HEAD
+
     registered_for_academic_semester = models.CharField('Registered for Academic Semester',choices=REGISTERED_FOR_SESSION, max_length=3)
     vaccination_status = models.CharField('Vaccination Status', max_length=256,
                                           choices=VACCINATION_STATUS_CHOICES, null=True)
@@ -117,14 +117,7 @@ class HABModel(models.Model):
     proof_of_invitation = models.FileField('Proof of Invitation', upload_to=fee_upload_file_name, storage=OverwriteStorage(),
                                    validators=[validate_file_size, validate_file_extension],
                                    help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
-=======
-    registered_for_academic_semester = models.BooleanField('Registered for Academic Semester', default=True)
 
-    # Vaccination Status
-    vaccination_status = models.CharField('Vaccination Status', max_length=256,
-                                          choices=VACCINATION_STATUS_CHOICES)
-
->>>>>>> 99c75a7c05ad75a53da9ee23ccb4dac32e6a20b4
     # Return Details
     returning_from_state = models.CharField('Returning from (state)', max_length=256, null=True)
     date_of_arrival = models.DateTimeField('Date of Arrival', default=datetime.now, null=True)
@@ -163,12 +156,6 @@ class HABModel(models.Model):
                                     storage=OverwriteStorage(),
                                     validators=[validate_file_size, validate_file_extension],
                                     help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 99c75a7c05ad75a53da9ee23ccb4dac32e6a20b4
 
 
     class Meta:
@@ -189,10 +176,5 @@ class HABModel(models.Model):
             ('can_view_msh_hostel_data', 'can view msh hostel data'),
         )
 
-<<<<<<< HEAD
     #def __str__(self):
         #return self.user.user.first_name+" "+self.user.user.last_name
-=======
-    def __str__(self):
-        return self.user.user.first_name + " " + self.user.user.last_name
->>>>>>> 99c75a7c05ad75a53da9ee23ccb4dac32e6a20b4

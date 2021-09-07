@@ -1,12 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-<<<<<<< HEAD
 from .forms import HABForm1,HABdose2, HABdose1
-
-=======
-# from .forms import HABForm
->>>>>>> 99c75a7c05ad75a53da9ee23ccb4dac32e6a20b4
 
 from .models import HABModel, HAB_FIELDS
 
@@ -27,11 +22,8 @@ def index(request):
 
 @login_required(login_url='/accounts/login/')
 def HABCreate(request):
-<<<<<<< HEAD
 
     form_instance,created = HABModel.objects.get_or_create(user__user__pk=request.user.id)
-=======
->>>>>>> 99c75a7c05ad75a53da9ee23ccb4dac32e6a20b4
     if request.method == 'POST':
         form = HABForm1(request.POST, request.FILES, instance=form_instance)
 
@@ -261,13 +253,8 @@ def HostelRejected(request,hostel):
     ctx["HABforms"] = HABforms
     if request.is_ajax():
         html = render_to_string(
-<<<<<<< HEAD
-            template_name="hab_portal/partial/partial_rejected.html",
-            context={"HABforms": HABforms, 'Hostel':hostel}
-=======
             template_name="hab_portal/partial/partial_rejected.html", 
             context={"HABforms": HABforms, 'Hostel': hostel}
->>>>>>> 99c75a7c05ad75a53da9ee23ccb4dac32e6a20b4
         )
 
         data_dict = {"html_from_view": html}
