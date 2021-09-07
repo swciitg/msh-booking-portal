@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-from .forms import HABForm
+# from .forms import HABForm
 
 from .models import HABModel, HAB_FIELDS
 
@@ -14,13 +14,10 @@ from django.http import JsonResponse
 from django.views.generic import DetailView
 
 
-
 @login_required(login_url='/accounts/login/')
 def index(request):
     user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
     return render(request, 'forms/hab-landing.html', {})
-
-
 
 
 @login_required(login_url='/accounts/login/')
