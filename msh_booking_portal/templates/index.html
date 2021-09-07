@@ -1,6 +1,5 @@
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
     {% load static %}
@@ -12,7 +11,6 @@
     <title>Hostel Affairs Board, IIT Guwahati</title>
 </head>
 <body>
-<p>
     <div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-5">
         <!--Card 1-->
         <div class="rounded overflow-hidden shadow-lg">
@@ -31,20 +29,20 @@
         </div>
 
         <!--Card 2-->
-        <div class="rounded overflow-hidden shadow-lg">
-          <img class="w-full" src="/static/index-carousel-2.jpg" alt="Mountain">
-          <div class="px-6 py-2">
-            <div class="font-bold text-xl mb-2">Married Scholar's Hostel Application Form</div>
-            <p class="text-gray-700 text-base">
-              Get your hostel allocated. Recommended for applicants to fill before the deadline.
-            </p>
-          </div>
-          <div class="px-6 pt-2 pb-2">
-              <span class="inline-block font-semibold py-1 text-blue-400 mr-2 mb-2">Hostel Affairs Board</span>
-              <span class="inline-block font-semibold text-blue-400 mr-2 mb-2">Verified by Caretaker</span>
-              <a href="/forms/msh/add/"><button class="float-right inline-block bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 rounded-full px-3 py-1 font-semibold text-gray-100 mr-2 mb-2">Fill Form</button></a>
-          </div>
-        </div>
+<!--        <div class="rounded overflow-hidden shadow-lg">-->
+<!--          <img class="w-full" src="/static/index-carousel-2.jpg" alt="Mountain">-->
+<!--          <div class="px-6 py-2">-->
+<!--            <div class="font-bold text-xl mb-2">Married Scholar's Hostel Application Form</div>-->
+<!--            <p class="text-gray-700 text-base">-->
+<!--              Get your hostel allocated. Recommended for applicants to fill before the deadline.-->
+<!--            </p>-->
+<!--          </div>-->
+<!--          <div class="px-6 pt-2 pb-2">-->
+<!--              <span class="inline-block font-semibold py-1 text-blue-400 mr-2 mb-2">Hostel Affairs Board</span>-->
+<!--              <span class="inline-block font-semibold text-blue-400 mr-2 mb-2">Verified by Caretaker</span>-->
+<!--              <a href="/forms/msh/add/"><button class="float-right inline-block bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 rounded-full px-3 py-1 font-semibold text-gray-100 mr-2 mb-2">Fill Form</button></a>-->
+<!--          </div>-->
+<!--        </div>-->
     </div>
     
     <p><a href="{% url 'hab_portal:hab_list' %}">View all submissions of HAB Form.</a></p>
