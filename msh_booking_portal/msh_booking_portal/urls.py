@@ -27,6 +27,7 @@ from . import views
 
 urlpatterns = [
     path('campus_return/admin/', admin.site.urls),
+    path('campus_return/accounts/login/',views.LoginAllAuthView.as_view()),
     path('campus_return/accounts/', include('allauth.urls')),
     path('campus_return/logout', LogoutView.as_view()),
     # path('accounts/login/', LoginView.as_view(template_name='login.html',
