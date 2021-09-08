@@ -10,8 +10,7 @@
 <body>
 
     <h3>Hostels</h3>
-    <ul>
-        <li><a href="{% url 'hab_portal:hostel-view' hostel='brahmaputra' %}">Brahmaputra</a></li> 
+    <ul> 
         {% if perms.hab_portal.can_view_lohit_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='lohit' %}">Lohit</a></li>   
         {% endif %}
