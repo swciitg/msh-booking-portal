@@ -8,13 +8,13 @@ from .models import SampleModel, MSHModel
 from users.models import SiteUser
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def index(request):
     user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
     return render(request, 'index.html', {})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def MSHCreate(request):
     if request.method == 'POST':
         form = MSHForm(request.POST)
@@ -33,7 +33,7 @@ def MSHCreate(request):
                   {'form': form, 'url': 'add'})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def MSHEdit(request):
     form_instance = MSHModel.objects.get(user__user__pk=request.user.id)
     if request.method == 'POST':
@@ -55,13 +55,13 @@ def MSHEdit(request):
                   {'form': form, 'url': 'edit', 'locked': form_instance.locked})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def MSHThanks(request):
     return render(request,
                   'forms/msh-thanks.html')
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def MSHView(request):
     return render(request,
                   'forms/msh-view.html',

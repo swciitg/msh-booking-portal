@@ -122,7 +122,7 @@ AUTHENTICATION_BACKENDS = [
 # MICROSOFT_AUTH_LOGIN_TYPE = 'ma'
 #
 # LOGIN_REDIRECT_URL = '/forms/'
-# LOGOUT_REDIRECT_URL = '/accounts/login/'
+# LOGOUT_REDIRECT_URL = '/campus_return/accounts/login/'
 # REDIRECT_URI = '/hab/'
 
 # Media files

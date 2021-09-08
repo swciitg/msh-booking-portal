@@ -40,14 +40,14 @@ def generate_obj_pdf(instance_id):
     obj.final_pdf.save('final_pdf'+str(instance_id),File(BytesIO(pdf.content)))
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def index(request):
     print(request.user.id)
     user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
     return render(request, 'forms/hab-landing.html', {})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def HABCreate(request):
     if request.method == 'POST':
         try:
@@ -81,7 +81,7 @@ def HABCreate(request):
                   {'form': form, 'url': 'add'})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def HAB1(request):
 
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
@@ -110,7 +110,7 @@ def HAB1(request):
 
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def HAB2(request):
 
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
@@ -140,11 +140,11 @@ def HAB2(request):
 
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def HABDose1Wait(request):
     return render(request,'forms/habdose1wait.html')
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def HABEdit(request):
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
     
@@ -172,7 +172,7 @@ def HABEdit(request):
                   {'form': form, 'url': 'edit', 'locked': form_instance.locked})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def HABThanks(request):
     instance_id = request.session.get('id')
     obj = HABModel.objects.get(id=instance_id)
@@ -203,7 +203,7 @@ def HABThanks(request):
                   'forms/hab-thanks.html',{'file':obj})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 def HABView(request):
     return render(request,
                   'hab_portal/hab-view.html',
@@ -211,12 +211,12 @@ def HABView(request):
                    'hostels': HABModel.hostel })
 
 
-# @login_required(login_url='/accounts/login/')
+# @login_required(login_url='/campus_return/accounts/login/')
 class HABDetailView(DetailView):
     model=HABModel
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 # @permission_required('hab_portal.can_view_siang_hostel_data')
 def HostelView(request,hostel):
     ctx = {'Hostel':hostel}
@@ -243,7 +243,7 @@ def HostelView(request,hostel):
     return render(request, 'hab_portal/complete/hostels.html', context=ctx)
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 # @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelApproved(request, hostel):
     ctx = {'Hostel':hostel}
@@ -270,7 +270,7 @@ def HostelApproved(request, hostel):
     return render(request, 'hab_portal/complete/approved.html', context=ctx)
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 # @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelPending(request,hostel):
     ctx = {'Hostel':hostel}
@@ -297,7 +297,7 @@ def HostelPending(request,hostel):
     return render(request, 'hab_portal/complete/pending.html', context=ctx)
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 # @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelRejected(request,hostel):
     ctx = {'Hostel': hostel}
@@ -322,7 +322,7 @@ def HostelRejected(request,hostel):
     return render(request, 'hab_portal/complete/rejected.html', context=ctx)
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 # @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelStatusAccept(request, hostel, status, id):
     application = HABModel.objects.get(pk=id)
@@ -331,7 +331,7 @@ def HostelStatusAccept(request, hostel, status, id):
     return redirect("hab_portal:hostel-view", hostel=hostel)
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/campus_return/accounts/login/')
 # @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelStatusDecline(request, hostel, id):
     application = HABModel.objects.get(pk=id)
