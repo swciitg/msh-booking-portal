@@ -6,6 +6,7 @@ app_name = 'hab_portal'
 
 urlpatterns = [
     path('view/', views.HABView, name='hab_list'),
+    
     path('add/', views.HABCreate, name = "hab_create"),
     path('form2/', views.HAB2, name = "hab_2"),
     path('form1/', views.HAB1, name = "hab_1"),

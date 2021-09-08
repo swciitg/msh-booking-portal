@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-from .forms import HABForm1,HABdose2, HABdose1
+from .forms import HABForm1,HABdose2, HABdose1, PdfgeneratedForm
 
 from .models import HABModel, HAB_FIELDS
 
@@ -12,6 +12,32 @@ from users.models import SiteUser
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.views.generic import DetailView
+
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+
+from xhtml2pdf import pisa
+
+from django.core.files import File
+from PyPDF2 import PdfFileMerger, PdfFileReader
+
+def render_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+
+def generate_obj_pdf(instance_id):
+    obj = HABModel.objects.get(id=instance_id)
+    # form = PdfgeneratedForm(instance=obj)
+    context = {'form': obj}
+    # print(form)
+    pdf = render_to_pdf('pdf_gen.html', context)
+    obj.final_pdf.save('final_pdf'+str(instance_id),File(BytesIO(pdf.content)))
 
 
 @login_required(login_url='/accounts/login/')
@@ -88,6 +114,7 @@ def HAB1(request):
 def HAB2(request):
 
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
+    request.session['id'] = form_instance.id
     if request.method == 'POST':
         form = HABdose2(request.POST, request.FILES, instance=form_instance)
 
@@ -99,8 +126,8 @@ def HAB2(request):
             application.vaccination_cert = request.FILES.get('vaccination_cert',None)
             application.travel_ticket = request.FILES.get('travel_ticket',None)
             application.rtpcr_report = request.FILES.get('rtpcr_report',None)
-
             application.save()
+            generate_obj_pdf(form_instance.id)
             #save_to_user_data(application.user, request.POST, HAB_FIELDS)
             return redirect('hab_portal:hab_thanks')
 
@@ -120,6 +147,7 @@ def HABDose1Wait(request):
 @login_required(login_url='/accounts/login/')
 def HABEdit(request):
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
+    
     if request.method == 'POST':
         form = HABForm1(request.POST, request.FILES, instance=form_instance)
 
@@ -129,6 +157,7 @@ def HABEdit(request):
             application.fee_receipt = request.FILES['fee_receipt']
             application.save()
             save_to_user_data(application.user, request.POST, HAB_FIELDS)
+            
             return redirect('hab_portal:hab_thanks')
 
     else:
@@ -145,8 +174,33 @@ def HABEdit(request):
 
 @login_required(login_url='/accounts/login/')
 def HABThanks(request):
+    instance_id = request.session.get('id')
+    obj = HABModel.objects.get(id=instance_id)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; inline; filename="somefilename.pdf"'
+    buffer = BytesIO()
+    pdf1_buffer = obj.final_pdf
+    pdf2_buffer = obj.vaccination_cert
+
+    pdf_merger = PdfFileMerger()
+    pdf_merger.append(pdf1_buffer)
+    pdf_merger.append(obj.fee_receipt)
+    pdf_merger.append(pdf2_buffer)
+    pdf_merger.append(obj.travel_ticket)
+    pdf_merger.append(obj.rtpcr_report)
+    if obj.vaccination_status == "Single Dose":
+        pdf_merger.append(obj.proof_of_invitation)
+
+    # This can probably be improved 
+    pdf_merger.write(buffer)
+    pdf_merger.close()
+    buffer.seek(0)
+
+    response.write(buffer.getvalue())
+    
+    obj.final_pdf.save('final_pdf'+str(instance_id),File(BytesIO(response.content)))
     return render(request,
-                  'forms/hab-thanks.html')
+                  'forms/hab-thanks.html',{'file':obj})
 
 
 @login_required(login_url='/accounts/login/')

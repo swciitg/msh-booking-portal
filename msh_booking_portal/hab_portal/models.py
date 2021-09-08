@@ -53,6 +53,9 @@ RECIEVED_AN_INVITE =[
      ('No', 'No'),
 ]
 
+def final_pdf_file_name(instance, filename):
+    return 'hab_portal/final_pdf/{0}.pdf'.format(instance.user.pk)
+
 def fee_upload_file_name(instance, filename):
     return 'hab_portal/fee_recipt/{0}.pdf'.format(instance.user.pk)
 
@@ -159,6 +162,7 @@ class HABModel(models.Model):
                                     help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
 
 
+    final_pdf = models.FileField('final pdf',upload_to=final_pdf_file_name,storage=OverwriteStorage(),null=True)
     class Meta:
         ordering = ['hostel', '-status','date_of_arrival']
         permissions = (
@@ -179,3 +183,6 @@ class HABModel(models.Model):
 
     def __str__(self):
         return self.user.user.first_name+" "+self.user.user.last_name
+
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in HABModel._meta.fields]
