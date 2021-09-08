@@ -8,8 +8,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
     <meta charset="UTF-8">
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}">      
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}">
+
+    <style>
+        .required-field::after {
+            content: "*";
+            color: red;
+        }
+    </style>
 
     <title>HAB Form</title>
 
@@ -48,7 +55,7 @@
       <div class="relative mb-4 form-group">
 
        <div class="relative mb-4 form-group">
-       <label for="Fee to be Paid" class="leading-7  text-Black-600">Date of Arrival</label><br>
+       <label for="Fee to be Paid" class="leading-7 required-field text-Black-600">Date of Arrival</label><br>
 
    {{ form.date_of_arrival }}
         </div>
@@ -102,13 +109,13 @@
          {% csrf_token %}
 
             <div class="relative mb-4 form-group">
-            <label for="Name" class="leading-7  text-Black-600">Nature of Test</label><br>
+            <label for="Name" class="leading-7 required-field text-Black-600">Nature of Test</label><br>
 
         {{ form.nature_of_test }}
              </div>
 
              <div class="relative mb-4 form-group">
-             <label for="Roll Number" class="leading-7  text-Black-600">Date of Test</label><br>
+             <label for="Roll Number" class="leading-7 required-field text-Black-600">Date of Test</label><br>
 
          {{ form.date_of_testing }}
               </div>
@@ -149,7 +156,7 @@
          {% csrf_token %}
 
             <div class="relative mb-4 form-group">
-            <label for="Name" class="leading-7 text-Black-600">Hostel</label><br>
+            <label for="Name" class="leading-7 required-field text-Black-600">Hostel</label><br>
                 {{ form.hostel }}
              </div>
 
@@ -159,7 +166,7 @@
               </div>
 
               <div class="relative mb-4 form-group">
-              <label for="Hostel Name" class="leading-7  text-Black-600">Check-in Date</label><br>
+              <label for="Hostel Name" class="leading-7 required-field text-Black-600">Check-in Date</label><br>
 
                 {{ form.check_in_date }}
 
@@ -203,13 +210,13 @@
          {% csrf_token %}
 
             <div class="relative mb-4 form-group">
-            <label for="Name" class="leading-7  text-Black-600">Fee Paid</label><br>
+            <label for="Name" class="leading-7 required-field text-Black-600">Fee Paid</label><br>
 
         {{ form.mess_fee_paid }}
              </div>
 
              <div class="relative mb-4 form-group">
-             <label for="Roll Number" class="leading-7  text-Black-600">Date of Payment</label><br>
+             <label for="Roll Number" class="leading-7 required-field text-Black-600">Date of Payment</label><br>
 
          {{ form.date_of_payment }}
               </div>
@@ -245,13 +252,8 @@
 <br>
 
     <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
-
-
-
           {% csrf_token %}
-
-
-           <label for="Upload Fee Receipt" class="leading-7  text-Black-600">Upload Fee Receipt</label>
+           <label for="Upload Fee Receipt" class="leading-7 required-field text-Black-600">Upload Fee Receipt</label>
             <svg width="872" height="4" viewBox="0 0 872 4" fill="none" xmlns="http://www.w3.org/2000/svg">
   <line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
 </svg><br>
@@ -262,7 +264,7 @@
         </label>
   <br>
 
-  <label for="Upload Fee Receipt" class="leading-7  text-Black-600">Upload Vaccination Certificate</label>
+  <label for="Upload Fee Receipt" class="leading-7 required-field text-Black-600">Upload Vaccination Certificate</label>
    <svg width="872" height="4" viewBox="0 0 872 4" fill="none" xmlns="http://www.w3.org/2000/svg">
 <line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
 </svg><br>
@@ -273,7 +275,7 @@
 </label>
 <br>
 
-<label for="Upload Fee Receipt" class="leading-7  text-Black-600">Upload Travel Ticket</label>
+<label for="Upload Fee Receipt" class="leading-7 required-field text-Black-600">Upload Travel Ticket</label>
  <svg width="872" height="4" viewBox="0 0 872 4" fill="none" xmlns="http://www.w3.org/2000/svg">
 <line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
 </svg><br>
@@ -284,7 +286,7 @@
 </label>
 <br>
 
-<label for="Upload Fee Receipt" class="leading-7  text-Black-600">Upload RTPCR Report</label>
+<label for="Upload Fee Receipt" class="leading-7 required-field text-Black-600">Upload RTPCR Report</label>
  <svg width="872" height="4" viewBox="0 0 872 4" fill="none" xmlns="http://www.w3.org/2000/svg">
 <line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
 </svg><br>

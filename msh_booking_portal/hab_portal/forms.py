@@ -29,9 +29,6 @@ class HABForm1(ModelForm):
             'gender': Select(attrs={
                     'class': "form-control",
                     }),
-            'hostel': Select(attrs={
-                'class': "form-control",
-                }),
             'department': TextInput(attrs={
                     'class': "form-control",
                 }),
@@ -69,20 +66,20 @@ class HABdose2(ModelForm):
     class Meta:
         model = HABModel
         fields = [
-        'date_of_arrival',
-        'mode_of_travel',
-        'flight_train_number',
-        'nature_of_test',
-        'date_of_testing',
-        'hostel',
-        'room_no',
-        'check_in_date',
-        'mess_fee_paid',
-        'date_of_payment',
-        'fee_receipt',
-        'vaccination_cert',
-        'travel_ticket',
-        'rtpcr_report',
+            'date_of_arrival',
+            'mode_of_travel',
+            'flight_train_number',
+            'nature_of_test',
+            'date_of_testing',
+            'hostel',
+            'room_no',
+            'check_in_date',
+            'mess_fee_paid',
+            'date_of_payment',
+            'fee_receipt',
+            'vaccination_cert',
+            'travel_ticket',
+            'rtpcr_report',
         ]
 
 
@@ -110,6 +107,10 @@ class HABdose2(ModelForm):
              'nature_of_test': Select(attrs={
                      'class': "form-control",
                  }),
+
+            'hostel': Select(attrs={
+                'class': "form-control",
+                }),
 
              'room_no': TextInput(attrs={
                      'class': "form-control",

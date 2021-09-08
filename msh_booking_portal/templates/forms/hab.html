@@ -7,7 +7,13 @@
     <meta charset="UTF-8">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}">      
+    <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}">
+    <style>
+        .required-field::after {
+            content: "*";
+            color: red;
+        }
+    </style>
 
     <title>HAB Form</title>
 
@@ -41,45 +47,45 @@
          {% csrf_token %}
 
             <div class="relative mb-4 form-group">
-            <label for="Name" class="leading-7  text-Black-600">Name</label><br>
+            <label for="Name" class="leading-7 required-field text-Black-600">Name</label><br>
 
         {{ form.name }}
              </div>
 
              <div class="relative mb-4 form-group">
-             <label for="Roll Number" class="leading-7  text-Black-600">Roll Number</label><br>
+             <label for="Roll Number" class="leading-7 required-field text-Black-600">Roll Number</label><br>
 
          {{ form.roll_number }}
               </div>
 
 
               <div class="relative mb-4 form-group">
-              <label for="Name" class="leading-7  text-Black-600">Gender</label><br>
+              <label for="Name" class="leading-7 required-field text-Black-600">Gender</label><br>
 
           {{ form.gender }}
                </div>
 
                <div class="relative mb-4 form-group">
-               <label for="Email" class="leading-7  text-Black-600">Email</label><br>
+               <label for="Email" class="leading-7 required-field text-Black-600">Email</label><br>
 
            {{ form.email }}
                 </div>
 
                 <div class="relative mb-4 form-group">
-                <label for="Email" class="leading-7  text-Black-600">Mobile Number</label><br>
+                <label for="Email" class="leading-7 required-field text-Black-600">Mobile Number</label><br>
 
             {{ form.mobile }}
                  </div>
 
 
                <div class="relative mb-4 form-group">
-               <label for="Department" class="leading-7 text-Black-600">Department</label><br>
+               <label for="Department" class="leading-7 required-field text-Black-600">Department</label><br>
 
            {{ form.department }}
                 </div>
 
                 <div class="relative mb-4 form-group">
-                <label for="Department" class="leading-7  text-Black-600">Programme</label><br>
+                <label for="Department" class="leading-7 required-field text-Black-600">Programme</label><br>
 
             {{ form.programme }}
                  </div>
@@ -97,13 +103,13 @@
                    </div>
 
                    <div class="relative mb-4 form-group">
-                   <label for="Roll Number" class="leading-7  text-Black-600">Vaccination Status</label><br>
+                   <label for="Roll Number" class="leading-7 required-field text-Black-600">Vaccination Status</label><br>
 
                    {{ form.vaccination_status }}
                     </div>
 
                     <div class="relative mb-4 form-group">
-                   <label for="Roll Number" class="leading-7  text-Black-600">Returning From State</label><br>
+                   <label for="Roll Number" class="leading-7 required-field text-Black-600">Returning From State</label><br>
 
                    {{ form.returning_from_state }}
                     </div>

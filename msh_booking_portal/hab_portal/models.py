@@ -11,7 +11,7 @@ HOSTELS = [
     ('brahmaputra', 'Brahmaputra'),
     ('siang', 'Siang'),
     ('manas', 'Manas'),
-    ('disang', 'Disang'),
+    ('disang', '*Disang'),
     ('kameng', 'Kameng'),
     ('umiam', 'Umiam'),
     ('barak', 'Barak'),
@@ -20,6 +20,7 @@ HOSTELS = [
     ('subansiri', 'Subansiri'),
     ('dhansiri', 'Dhansiri'),
     ('msh', 'Married Scholar Hostel'),
+    ('not-alloted', 'Not Alloted'),
 ]
 
 GENDERS = [
