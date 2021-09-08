@@ -26,16 +26,17 @@ from . import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
-    path('logout', LogoutView.as_view()),
+    path('campus_return/admin/', admin.site.urls),
+    path('campus_return/accounts/', include('allauth.urls')),
+    path('campus_return/logout', LogoutView.as_view()),
     # path('accounts/login/', LoginView.as_view(template_name='login.html',
     #                                           redirect_field_name='forms/')),
     # path('accounts/logout/', LogoutView.as_view(template_name='admin/logout.html')),
     # path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
     # path('forms/', include('forms.urls'), name="forms"),
-    path('hab/', include('hab_portal.urls')),
-    path('', views.index),
+    path('campus_return/hab/', include('hab_portal.urls')),
+    path('campus_return/', views.index),
+    
 ]
 
 urlpatterns += staticfiles_urlpatterns()
