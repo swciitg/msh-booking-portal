@@ -64,10 +64,10 @@ def HABCreate(request):
 
             save_to_user_data(application.user, request.POST, HAB_FIELDS)
 
-            if application.vaccination_status=='Double Dose':
-                return redirect('hab_portal:hab_2')
-            else:
+            if (application.vaccination_status == 'Single Dose') or (application.returning_from_state == 'Kerala'):
                 return redirect('hab_portal:hab_1')
+            else:
+                return redirect('hab_portal:hab_2')
 
     else:
         try:
@@ -83,7 +83,6 @@ def HABCreate(request):
 
 @login_required(login_url='/campus_return/accounts/login/')
 def HAB1(request):
-
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
     if request.method == 'POST':
         form = HABdose1(request.POST, request.FILES, instance=form_instance)
@@ -91,7 +90,8 @@ def HAB1(request):
         if form.is_valid():
             application = form.save(commit=False)
             application.user = SiteUser.objects.get(user__pk=request.user.id)
-            application.proof_of_invitation = request.FILES['proof_of_invitation']
+            if request.FILES.get('proof_of_invitation'):
+                application.proof_of_invitation = request.FILES.get('proof_of_invitation')
 
             application.save()
             #save_to_user_data(application.user, request.POST, HAB_FIELDS)
@@ -112,7 +112,6 @@ def HAB1(request):
 
 @login_required(login_url='/campus_return/accounts/login/')
 def HAB2(request):
-
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
     request.session['id'] = form_instance.id
     if request.method == 'POST':
@@ -121,11 +120,14 @@ def HAB2(request):
         if form.is_valid():
             application = form.save(commit=False)
             application.user = SiteUser.objects.get(user__pk=request.user.id)
-            print(request.FILES)
-            application.fee_receipt = request.FILES.get('fee_receipt',None)
-            application.vaccination_cert = request.FILES.get('vaccination_cert',None)
-            application.travel_ticket = request.FILES.get('travel_ticket',None)
-            application.rtpcr_report = request.FILES.get('rtpcr_report',None)
+            if request.FILES.get('fee_receipt', None):
+                application.fee_receipt = request.FILES.get('fee_receipt', None)
+            if request.FILES.get('vaccination_cert',None):
+                application.vaccination_cert = request.FILES.get('vaccination_cert', None)
+            if request.FILES.get('travel_ticket',None):
+                application.travel_ticket = request.FILES.get('travel_ticket', None)
+            if request.FILES.get('rtpcr_report', None):
+                application.rtpcr_report = request.FILES.get('rtpcr_report', None)
             application.save()
             generate_obj_pdf(form_instance.id)
             #save_to_user_data(application.user, request.POST, HAB_FIELDS)
@@ -139,10 +141,10 @@ def HAB2(request):
                   {'form': form, 'url': 'form2'})
 
 
-
 @login_required(login_url='/campus_return/accounts/login/')
 def HABDose1Wait(request):
     return render(request,'forms/habdose1wait.html')
+
 
 @login_required(login_url='/campus_return/accounts/login/')
 def HABEdit(request):

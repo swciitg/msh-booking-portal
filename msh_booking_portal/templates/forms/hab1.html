@@ -53,10 +53,10 @@
              <line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
              </svg><br>
 
-             {{ form.rtpcr_report }}
              <label for="proof_of_invitation">
              {{ form.proof_of_invitation }}
              </label>
+          {{ form.proof_of_invitation.help_text }}
              <br>
              <br>
                <input type="submit" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" {% if locked %}disabled{% endif %}>
