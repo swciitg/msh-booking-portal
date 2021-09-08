@@ -95,21 +95,19 @@
 
               {{ form.email_of_supervisor }}
                    </div>
-                   <div class="relative mb-4 form-group">
-                   <label for="Upload Fee Receipt" class="leading-7 text-Black-600">Registered for Academic Semester</label>
-
-
-                   {{ form.registered_for_academic_semester }}
-                 </div>
 
                    <div class="relative mb-4 form-group">
                    <label for="Roll Number" class="leading-7  text-Black-600">Vaccination Status</label><br>
 
                    {{ form.vaccination_status }}
                     </div>
+
+                    <div class="relative mb-4 form-group">
+                   <label for="Roll Number" class="leading-7  text-Black-600">Returning From State</label><br>
+
+                   {{ form.returning_from_state }}
+                    </div>
                <input type="submit" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" {% if locked %}disabled{% endif %}>
-
-
 
   </div>
 </div>

@@ -53,6 +53,46 @@ RECIEVED_AN_INVITE =[
      ('No', 'No'),
 ]
 
+STATE_CHOICES = [("Andhra Pradesh","Andhra Pradesh"),
+                 ("Arunachal Pradesh ","Arunachal Pradesh "),
+                 ("Assam","Assam"),
+                 ("Bihar","Bihar"),
+                 ("Chhattisgarh","Chhattisgarh"),
+                 ("Goa","Goa"),
+                 ("Gujarat","Gujarat"),
+                 ("Haryana","Haryana"),
+                 ("Himachal Pradesh","Himachal Pradesh"),
+                 ("Jammu and Kashmir ","Jammu and Kashmir "),
+                 ("Jharkhand","Jharkhand"),
+                 ("Karnataka","Karnataka"),
+                 ("Kerala","Kerala"),
+                 ("Madhya Pradesh","Madhya Pradesh"),
+                 ("Maharashtra","Maharashtra"),
+                 ("Manipur","Manipur"),
+                 ("Meghalaya","Meghalaya"),
+                 ("Mizoram","Mizoram"),
+                 ("Nagaland","Nagaland"),
+                 ("Odisha","Odisha"),
+                 ("Punjab","Punjab"),
+                 ("Rajasthan","Rajasthan"),
+                 ("Sikkim","Sikkim"),
+                 ("Tamil Nadu","Tamil Nadu"),
+                 ("Telangana","Telangana"),
+                 ("Tripura","Tripura"),
+                 ("Uttar Pradesh","Uttar Pradesh"),
+                 ("Uttarakhand","Uttarakhand"),
+                 ("West Bengal","West Bengal"),
+                 ("Andaman and Nicobar Islands","Andaman and Nicobar Islands"),
+                 ("Chandigarh","Chandigarh"),
+                 ("Dadra and Nagar Haveli","Dadra and Nagar Haveli"),
+                 ("Daman and Diu","Daman and Diu"),
+                 ("Lakshadweep","Lakshadweep"),
+                 ("Delhi","Delhi"),
+                 ("Puducherry","Puducherry")]
+
+def proof_of_invitation_file_name(instance, filename):
+    return 'hab_portal/proof_of_invitation/{0}{1}'.format(instance.user.pk, os.path.splitext(filename)[-1])
+
 def final_pdf_file_name(instance, filename):
     return 'hab_portal/final_pdf/{0}.pdf'.format(instance.user.pk)
 
@@ -85,12 +125,18 @@ def validate_file_extension(value):
         raise ValidationError('Upload a PDF File.')
 
 
+def validate_file_extension_image(value):
+    if os.path.splitext(value.name)[-1] in ['.jpg', '.jpeg', '.png']:
+        return value
+    else:
+        print(os.path.splitext(value.name)[-1])
+        raise ValidationError('Upload an image file.')
+
 def get_current_date():
     return datetime.now().strftime('%Y-%m-%d')
 
 
-HAB_FIELDS = {'roll_number': 'roll_number',
-              }
+HAB_FIELDS = {'roll_number': 'roll_number'}
 
 
 class HABModel(models.Model):
@@ -111,19 +157,18 @@ class HABModel(models.Model):
     supervisor = models.CharField('Supervisor (if any)', max_length=256, blank=True)
     email_of_supervisor = models.EmailField('Supervisor Email', max_length=256, blank=True)
 
-    registered_for_academic_semester = models.CharField('Registered for Academic Semester',
-                                                        choices=REGISTERED_FOR_SESSION, max_length=3, default='Yes')
     vaccination_status = models.CharField('Vaccination Status', max_length=256,
                                           choices=VACCINATION_STATUS_CHOICES, null=True, default='Single Dose')
+    returning_from_state = models.CharField('Returning from (state)', max_length=256, null=True, choices=STATE_CHOICES)
+
     #dose1 Details
     recieved_an_invite=models.CharField('Have you Recieved an Invite', max_length=256,
-                                          choices=RECIEVED_AN_INVITE, null=True)
-    proof_of_invitation = models.FileField('Proof of Invitation', upload_to=fee_upload_file_name, storage=OverwriteStorage(),
-                                   validators=[validate_file_size, validate_file_extension],
-                                   help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
+                                          choices=RECIEVED_AN_INVITE, null=True, default='No')
+    proof_of_invitation = models.FileField('Proof of Invitation', upload_to=proof_of_invitation_file_name, storage=OverwriteStorage(),
+                                   validators=[validate_file_size, validate_file_extension_image],
+                                   help_text='Upload screenshot of mail received from student affairs. Upload an image file of .jpg, .jpeg or .png extension.', null=True)
 
     # Return Details
-    returning_from_state = models.CharField('Returning from (state)', max_length=256, null=True)
     date_of_arrival = models.DateTimeField('Date of Arrival', default=datetime.now, null=True)
     mode_of_travel = models.CharField('Mode of Travel', blank=True, max_length=256, null=True)
     flight_train_number = models.CharField('Flight / Train No.', blank=True, max_length=256, null=True)

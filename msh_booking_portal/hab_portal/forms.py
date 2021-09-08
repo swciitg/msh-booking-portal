@@ -13,12 +13,11 @@ class HABForm1(ModelForm):
         'programme',
         'supervisor',
         'email_of_supervisor',
-        'registered_for_academic_semester',
-        'vaccination_status',]
+        'vaccination_status',
+        'returning_from_state',]
 
 
         widgets = {
-
             'name': TextInput(attrs={
                 'class': "form-control",
                 }),
@@ -56,23 +55,20 @@ class HABForm1(ModelForm):
                     'class': "form-control",
                 }),
 
-            'registered_for_academic_semester': Select(attrs={
-                    'class': "form-control",
-                }),
-
             'vaccination_status': Select(attrs={
                     'class': "form-control",
                 }),
 
-
-
+            'returning_from_state': Select(attrs={
+                'class': "form-control",
+                }),
     }
 
 
 class HABdose2(ModelForm):
     class Meta:
         model = HABModel
-        fields = ['returning_from_state',
+        fields = [
         'date_of_arrival',
         'mode_of_travel',
         'flight_train_number',
@@ -103,9 +99,6 @@ class HABdose2(ModelForm):
              'check_in_date': DateInput(format='%d/%m/%Y',
                                              attrs={'class':  "form-control", 'placeholder': 'Select a date',
                                                      'type': 'date'}),
-             'returning_from_state': TextInput(attrs={
-                     'class': "form-control",
-                 }),
 
              'mode_of_travel': TextInput(attrs={
                      'class': "form-control",
@@ -157,7 +150,6 @@ class PdfgeneratedForm(ModelForm):
         'programme',
         'supervisor',
         'email_of_supervisor',
-        'registered_for_academic_semester',
         'vaccination_status',
         'returning_from_state',
         'date_of_arrival',
@@ -209,10 +201,6 @@ class PdfgeneratedForm(ModelForm):
                 }),
 
             'email_of_supervisor': TextInput(attrs={
-                    'class': "form-control",
-                }),
-
-            'registered_for_academic_semester': Select(attrs={
                     'class': "form-control",
                 }),
 
