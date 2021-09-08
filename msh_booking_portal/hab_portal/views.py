@@ -182,7 +182,7 @@ def HABThanks(request):
     pdf1_buffer = obj.final_pdf
     pdf2_buffer = obj.vaccination_cert
 
-    pdf_merger = PdfFileMerger()
+    pdf_merger = PdfFileMerger(strict=False)
     pdf_merger.append(pdf1_buffer)
     pdf_merger.append(obj.fee_receipt)
     pdf_merger.append(pdf2_buffer)
