@@ -166,8 +166,9 @@ class HABModel(models.Model):
     recieved_an_invite=models.CharField('Have you Recieved an Invite', max_length=256,
                                           choices=RECIEVED_AN_INVITE, null=True, default='No')
     proof_of_invitation = models.FileField('Proof of Invitation', upload_to=proof_of_invitation_file_name, storage=OverwriteStorage(),
-                                   validators=[validate_file_size, validate_file_extension_image],
-                                   help_text='Upload screenshot of mail received from student affairs. Upload an image file of .jpg, .jpeg or .png extension.', null=True)
+                                            validators=[validate_file_size, validate_file_extension_image],
+                                            help_text='Upload screenshot of mail received from student affairs. Upload an image file of .jpg, .jpeg or .png extension.',
+                                            null=True, blank=True)
 
     # Return Details
     date_of_arrival = models.DateTimeField('Date of Arrival', default=datetime.now, null=True)
@@ -232,3 +233,7 @@ class HABModel(models.Model):
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in HABModel._meta.fields]
+
+    def clean(self):
+        if (self.recieved_an_invite == 'Yes') and (self.proof_of_invitation.name == ''):
+            raise ValidationError({'proof_of_invitation': 'Proof of invitation not submitted.'})
