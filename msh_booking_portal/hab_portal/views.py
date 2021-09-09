@@ -8,10 +8,10 @@ from .models import HABModel, HAB_FIELDS
 from users.models import SiteUser
 from users.utils import load_from_user_data, save_to_user_data
 from .models import HABModel
-from users.models import SiteUser
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.views.generic import DetailView
+from django.core.exceptions import ObjectDoesNotExist
 
 from io import BytesIO
 from django.http import HttpResponse
@@ -107,7 +107,7 @@ def HAB1(request):
         return render(request,
                       'forms/hab1.html',
                       {'form': form, 'url': 'form1'})
-    except:
+    except ObjectDoesNotExist:
         return redirect('hab_portal:hab_create')
 
 
@@ -141,7 +141,8 @@ def HAB2(request):
         return render(request,
                       'forms/hab2.html',
                       {'form': form, 'url': 'form2'})
-    except:
+
+    except ObjectDoesNotExist:
         return redirect('hab_portal:hab_create')
 
 
