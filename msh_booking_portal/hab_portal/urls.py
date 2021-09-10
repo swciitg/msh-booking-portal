@@ -14,6 +14,7 @@ urlpatterns = [
     path('wait/', views.HABDose1Wait, name='hab_dose1wait'),
     path('', views.index, name='hab_index'),
     # path('view/<int:pk>/', HABDetailView.as_view(), name='hab_detail'),
+    path('admin-view/',views.AdminView,name='admin-view'),
     path('view/<str:hostel>/', views.HostelView, name='hostel-view'),
     path('view/<str:hostel>/approved/', views.HostelApproved, name='hostel-approved'),
     path('view/<str:hostel>/pending/', views.HostelPending, name='hostel-pending'),

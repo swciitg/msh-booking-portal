@@ -154,7 +154,7 @@ def HABDose1Wait(request):
 @login_required(login_url='/campus_return/accounts/login/')
 def HABEdit(request):
     form_instance = HABModel.objects.get(user__user__pk=request.user.id)
-    
+
     if request.method == 'POST':
         form = HABForm1(request.POST, request.FILES, instance=form_instance)
 
@@ -164,7 +164,7 @@ def HABEdit(request):
             application.fee_receipt = request.FILES['fee_receipt']
             application.save()
             save_to_user_data(application.user, request.POST, HAB_FIELDS)
-            
+
             return redirect('hab_portal:hab_thanks')
 
     else:
@@ -198,16 +198,53 @@ def HABThanks(request):
     if obj.vaccination_status == "Single Dose":
         pdf_merger.append(obj.proof_of_invitation)
 
-    # This can probably be improved 
+    # This can probably be improved
     pdf_merger.write(buffer)
     pdf_merger.close()
     buffer.seek(0)
 
     response.write(buffer.getvalue())
-    
+
     obj.final_pdf.save('final_pdf'+str(instance_id),File(BytesIO(response.content)))
     return render(request,
                   'forms/hab-thanks.html',{'file':obj})
+
+
+
+
+
+
+
+
+
+@login_required(login_url='/campus_return/accounts/login/')
+def AdminView(request):
+
+    url_parameter = request.GET.get("q")
+
+    if url_parameter:
+        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+
+    else:
+        HABforms = HABModel.objects.all()
+
+
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="hab_portal/partial/partial_invite.html",
+            context={"HABforms": HABforms}
+        )
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+    context={"HABforms": HABforms}
+    return render(request, 'hab_portal/complete/invite.html', context)
+
+
+
+
 
 
 @login_required(login_url='/campus_return/accounts/login/')
@@ -318,7 +355,7 @@ def HostelRejected(request,hostel):
     ctx["HABforms"] = HABforms
     if request.is_ajax():
         html = render_to_string(
-            template_name="hab_portal/partial/partial_rejected.html", 
+            template_name="hab_portal/partial/partial_rejected.html",
             context={"HABforms": HABforms, 'Hostel': hostel}
         )
 
