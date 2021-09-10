@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}">
+</head>
+<body>
+    <!-- <div class="flex flex-col items-center">
+        <p class="">Thank you for filling the HAB Form.</p>
+        <button><a href="{{file.final_pdf.url}}">Download the complete form</a></button>
+        <a href="../../">Main Menu</a>
+    </div> -->
+
+    <section class="min-h-screen flex flex-col">
+        <div class="flex flex-1 items-center justify-center">
+          <div class="rounded-lg sm:border-2 px-4 lg:px-24 py-16 lg:max-w-xl sm:max-w-md w-full text-center">
+            Thank you for filling the Campus Return Form.
+              Please download and print the form.
+              It will be required on your arrival at the campus.
+
+        <div class="py-2">
+        <a href="{{file.final_pdf.url}}"><button type="button" class="border-2 border-gray-100 focus:outline-none bg-gray-100 text-gray-800 font-bold tracking-wider block w-full p-2 rounded-lg focus:border-gray-700 hover:bg-gray-500">
+            Download the complete form
+        </button></a>
+        </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+</body>
+</html>
