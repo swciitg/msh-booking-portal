@@ -233,16 +233,16 @@
                 {{ form.rtpcr_report.help_text }}
                 <br><br><br>
 
-                <ol class="mx-auto">
-                    <li><input type="checkbox" id="tick1"><label for="tick1" class="leading-7 required-field text-Black-600"> I hereby declare that the above information is true to the best of my knowledge and belief.</label></li>
-                    <li><input type="checkbox" id="tick2"><label for="tick2" class="leading-7 required-field text-Black-600"> I am bound to follow the COVID-19 protocol inside the campus set by campus authority.</label></li>
-                    <li><input type="checkbox" id="tick3"><label for="tick3" class="leading-7 required-field text-Black-600"> I know about the hostel and mess related norms and agree to pay the required fee in advance.</label></li>
-                    <li><input type="checkbox" id="tick4"><label for="tick4" class="leading-7 required-field text-Black-600"> I know that mess fee subscription is compulsory as per HAB allotment.</label></li>
+                <ol>
+                    <li><input type="checkbox" id="tick1"><label for="tick1" class="leading-7 required-field text-Black-600">&nbsp;&nbsp;I hereby declare that the above information is true to the best of my knowledge and belief.</label></li>
+                    <li><input type="checkbox" id="tick2"><label for="tick2" class="leading-7 required-field text-Black-600">&nbsp;&nbsp;I am bound to follow the COVID-19 protocol inside the campus set by campus authority.</label></li>
+                    <li><input type="checkbox" id="tick3"><label for="tick3" class="leading-7 required-field text-Black-600">&nbsp;&nbsp;I know about the hostel and mess related norms and agree to pay the required fee in advance.</label></li>
+                    <li><input type="checkbox" id="tick4"><label for="tick4" class="leading-7 required-field text-Black-600">&nbsp;&nbsp;I know that mess fee subscription is compulsory as per HAB allotment.</label></li>
                 </ol>
 
                 <br>
 
-                <input id="submit-button" type="submit" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" style="max-width:30%;"{% if locked %}disabled{% endif %}>
+                <input id="submit-button" type="submit" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none rounded text-lg" style="max-width:30%;"{% if locked %}disabled{% endif %}>
             </div>
 		</form>
 	</div>
@@ -255,7 +255,19 @@
             var b3 = document.getElementById("tick3").checked;
             var b4 = document.getElementById("tick4").checked;
 
-            document.getElementById("submit-button").disabled = b1 + b2 + b3 + b4 !== 4;
+            if (b1 + b2 + b3 + b4 === 4) {
+                document.getElementById("submit-button").disabled = false;
+                document.getElementById("submit-button").classList.remove('bg-gray-500');
+                document.getElementById("submit-button").classList.add('bg-indigo-500');
+                document.getElementById("submit-button").classList.add('hover:bg-indigo-600');
+
+            }
+            else {
+                document.getElementById("submit-button").disabled = true;
+                document.getElementById("submit-button").classList.remove('bg-indigo-500');
+                document.getElementById("submit-button").classList.remove('hover:bg-indigo-600');
+                document.getElementById("submit-button").classList.add('bg-gray-500');
+            }
         }
 
         document.getElementById("tick1").onclick = activateSubmit;
