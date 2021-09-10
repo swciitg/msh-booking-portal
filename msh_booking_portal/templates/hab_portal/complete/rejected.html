@@ -8,13 +8,10 @@
             <a href="{% url 'hab_portal:hostel-view' hostel=Hostel %}">All</a>
         </div>
         <div class="w-1/12 text-center text-tertiary-800">
-            <a href="{% url 'hab_portal:hostel-approved' hostel=Hostel %}">Accepted</a>
-        </div>
-        <div class="w-1/12 text-center text-tertiary-800">
-            <a href="{% url 'hab_portal:hostel-pending' hostel=Hostel %}">Pending</a>
+            <a href="{% url 'hab_portal:hostel-approved' hostel=Hostel %}">Verified</a>
         </div>
         <div class="w-1/12 text-center relative">
-            <a href="{% url 'hab_portal:hostel-rejected' hostel=Hostel %}">Declined</a>
+            <a href="{% url 'hab_portal:hostel-rejected' hostel=Hostel %}">Unverified</a>
             <div class="w-full h-0.5 absolute bottom-0  border-solid bg-black"></div>
         </div>    
     </div>

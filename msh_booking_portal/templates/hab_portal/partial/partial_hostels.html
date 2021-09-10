@@ -2,7 +2,7 @@
 
     {% for item in HABforms %}
         {% if item.hostel == Hostel %}
-            
+            {% if item.vaccination_status == 'Double Dose' or item.recieved_an_invite == 'Yes' %}
             <script language="javascript" type="text/javascript">
                 $(document).ready(function() {
                     $('#trigger_'+{{ item.user.pk}}).click(function(){
@@ -11,6 +11,7 @@
                 });               
             </script>
             {% include 'hab_portal/partial/partial_base.html' %}
+            {% endif %}
         {% endif %}
     {% endfor %}
 

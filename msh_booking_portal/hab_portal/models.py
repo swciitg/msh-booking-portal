@@ -34,9 +34,8 @@ NATURES_OF_TEST = [
 ]
 
 STATUS = [
-    ('Accepted', 'Accepted'),
-    ('Pending', 'Pending'),
-    ('Declined', 'Declined'),
+    ('Verified', 'Verified'),
+    ('Not Verified', 'Not Verified'),
 ]
 
 VACCINATION_STATUS_CHOICES = [
@@ -143,7 +142,7 @@ HAB_FIELDS = {'roll_number': 'roll_number'}
 class HABModel(models.Model):
     # Invisible Fields
     time_of_submission = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.CharField(max_length=256, choices=STATUS, default='Pending', null=True)
+    status = models.CharField(max_length=256, choices=STATUS, default='Not Verified', null=True)
     locked = models.BooleanField(default=False)
 
     # Personal Details
