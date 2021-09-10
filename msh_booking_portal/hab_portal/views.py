@@ -9,12 +9,12 @@ from users.models import SiteUser
 from users.utils import load_from_user_data, save_to_user_data
 from .models import HABModel
 from django.template.loader import render_to_string
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse
 from django.views.generic import DetailView
 from django.core.exceptions import ObjectDoesNotExist
 
 from io import BytesIO
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.template.loader import get_template
 
 from xhtml2pdf import pisa
@@ -382,3 +382,57 @@ def HostelStatusDecline(request, hostel, id):
     application.status = 'Declined'
     application.save()
     return redirect("hab_portal:hostel-view", hostel=hostel)
+
+
+@login_required(login_url='/campus_return/accounts/login/')
+def MediaView(request, file):
+    if request.user.is_staff:
+        return FileResponse(open('media/hab_portal/' + file, 'rb'))
+
+    folder = file.split('/')[0]
+
+    try:
+        if folder == 'proof_of_invitation':
+            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            if (instance.proof_of_invitation.name == 'hab_portal/' + file):
+                return FileResponse(open('media/hab_portal/' + file, 'rb'))
+            else:
+                return HttpResponseForbidden()
+
+        if folder == 'fee_recipt':
+            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            if (instance.fee_receipt.name == 'hab_portal/' + file):
+                return FileResponse(open('media/hab_portal/' + file, 'rb'))
+            else:
+                return HttpResponseForbidden()
+
+        if folder == 'vaccination':
+            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            if (instance.vaccination_cert.name == 'hab_portal/' + file):
+                return FileResponse(open('media/hab_portal/' + file, 'rb'))
+            else:
+                return HttpResponseForbidden()
+
+        if folder == 'rtpcr':
+            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            if (instance.rtpcr_report.name == 'hab_portal/' + file):
+                return FileResponse(open('media/hab_portal/' + file, 'rb'))
+            else:
+                return HttpResponseForbidden()
+
+        if folder == 'travel':
+            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            if (instance.travel_ticket.name == 'hab_portal/' + file) or request.user.is_staff:
+                return FileResponse(open('media/hab_portal/' + file, 'rb'))
+            else:
+                return HttpResponseForbidden()
+
+        if folder == 'final_pdf':
+            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            if (instance.final_pdf.name == 'hab_portal/' + file) or request.user.is_staff:
+                return FileResponse(open('media/hab_portal/' + file, 'rb'))
+            else:
+                return HttpResponseForbidden()
+
+    except:
+        return HttpResponseForbidden()
