@@ -18,24 +18,29 @@
     <title>HAB Form</title>
 
 </head>
-<body>
+<body style="background-color:#f0f8ff;">
+
+
+    <div class="container-fluid" style="max-width: 70% ; margin-top:60px">
 
 <div class="container">
-    <div class=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
-      <div class="flex items-center justify-between">
+    <div class="rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md" style="background: #1E5AD1; color:white;">
+      <div class="flex">
 
-      <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5 0C2.51472 0 0.5 2.01472 0.5 4.5V13.9C0.5 14.8797 1.12611 15.7131 2 16.022V4.5C2 2.84315 3.34315 1.5 5 1.5H10.002C9.69309 0.626106 8.85967 0 7.88 0H5Z" fill="#212121"/>
-<path d="M3 4.75C3 3.50736 4.00736 2.5 5.25 2.5H11V0.75C11 0.335787 11.3358 0 11.75 0C12.1642 0 12.5 0.335787 12.5 0.75V19.25C12.5 19.6642 12.1642 20 11.75 20C11.3358 20 11 19.6642 11 19.25V18H5.25C4.00736 18 3 16.9926 3 15.75V4.75Z" fill="#212121"/>
+        <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 0C2.51472 0 0.5 2.01472 0.5 4.5V13.9C0.5 14.8797 1.12611 15.7131 2 16.022V4.5C2 2.84315 3.34315 1.5 5 1.5H10.002C9.69309 0.626106 8.85967 0 7.88 0H5Z" fill="white"/>
+<path d="M3 4.75C3 3.50736 4.00736 2.5 5.25 2.5H11V0.75C11 0.335787 11.3358 0 11.75 0C12.1642 0 12.5 0.335787 12.5 0.75V19.25C12.5 19.6642 12.1642 20 11.75 20C11.3358 20 11 19.6642 11 19.25V18H5.25C4.00736 18 3 16.9926 3 15.75V4.75Z" fill="white"/>
 </svg>
 
-<p><b>Personal Information</b></p>
+
+
+<p style="padding-left:20px; padding-right:80%"><b> Personal Information</b></p>
 
  <svg width="1" height="24" viewBox="0 0 1 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <line x1="0.5" y1="0.5" x2="0.499999" y2="23.5" stroke="#E9E9EB" stroke-linecap="round"/>
 </svg>
 
-1
+<p style=" padding-left:10px;"><b>1</b></p>
 
 </div>
 </div>
@@ -113,7 +118,9 @@
 
                    {{ form.returning_from_state }}
                     </div>
-               <input type="submit" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" {% if locked %}disabled{% endif %}>
+                    <br>
+                    <br>
+               <input type="submit" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text" style="max-width:30%;"{% if locked %}disabled{% endif %}>
 
   </div>
 </div>
@@ -125,7 +132,7 @@
 
 </form>
 
-
+</div>
 
 </body>
 </html>
