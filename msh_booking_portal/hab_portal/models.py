@@ -151,12 +151,12 @@ class HABModel(models.Model):
     name = models.CharField('Name', max_length=256)
     roll_number = models.CharField('Roll No.', max_length=256)
     gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male')
-    email = models.EmailField('Email', max_length=256)
+    email = models.CharField('Email', max_length=256)
     mobile = models.CharField('Mobile', max_length=256)
     department = models.CharField('Department', max_length=256)
     programme = models.CharField('Programme', max_length=256)
     supervisor = models.CharField('Supervisor (if any)', max_length=256, blank=True)
-    email_of_supervisor = models.EmailField('Supervisor Email', max_length=256, blank=True)
+    email_of_supervisor = models.CharField('Supervisor Email', max_length=256, blank=True)
 
     vaccination_status = models.CharField('Vaccination Status', max_length=256,
                                           choices=VACCINATION_STATUS_CHOICES, null=True, default='Single Dose')
@@ -186,7 +186,7 @@ class HABModel(models.Model):
 
     # Status of Payment
     mess_fee_paid = models.IntegerField('Fee Paid', null=True)
-    date_of_payment = models.DateField('Date of Payment', null=True)
+    date_of_payment = models.DateField('Date of Payment', default=datetime.now, null=True)
 
     # Enclosures
     fee_receipt = models.FileField('Fee Receipt', upload_to=fee_upload_file_name, storage=OverwriteStorage(),

@@ -16,20 +16,26 @@
     </nav>
     <div class="flex flex-1 items-center justify-center">
       <div class="rounded-lg sm:border-2 px-4 lg:px-24 py-16 lg:max-w-xl sm:max-w-md w-full text-center">
-          Campus Return Forms
+          Campus Return Form
+
+          <br><br>
           
           <div class="py-2">
-            <a href="{% provider_login_url "google" %}"><button type="button" class="border-2 border-gray-100 focus:outline-none bg-purple-600 text-white font-bold tracking-wider block w-full p-2 rounded-lg focus:border-gray-700 hover:bg-purple-700">
-                Sign In with google(official account)
+            <a href="{% provider_login_url "google" %}">
+              <button type="button" class="border-2 border-gray-100 focus:outline-none bg-purple-600 text-white font-bold tracking-wider block w-full p-2 rounded-lg focus:border-gray-700 hover:bg-purple-700">
+                  <img class="inline" src="https://images.theconversation.com/files/93616/original/image-20150902-6700-t2axrz.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1000&fit=clip" width="20" height="20">
+                Sign In with Google (Official Account)
             </button></a>
           </div>
            
           <div class="py-2">
-            <a href="{% provider_login_url "microsoft" %}"> <button type="button" class="border-2 border-gray-100 focus:outline-none bg-purple-600 text-white font-bold tracking-wider block w-full p-2 rounded-lg focus:border-gray-700 hover:bg-purple-700">
-                        Sign In with outlook
-                    </button>
-                  </a>
-                </div>
+            <a href="{% provider_login_url "microsoft" %}">
+              <button type="button" class="border-2 border-gray-100 focus:outline-none bg-purple-600 text-white font-bold tracking-wider block w-full p-2 rounded-lg focus:border-gray-700 hover:bg-purple-700">
+                  <img class="inline" src="data:image/png;base64,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" width="20" height="20">
+                  Sign In with Outlook
+              </button>
+              </a>
+          </div>
             
         </div>
     </div>
