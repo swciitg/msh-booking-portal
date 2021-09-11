@@ -60,7 +60,7 @@
         <div class="w-1/12 min-h-full md:flex flex-row justify-center items-center text-xs leading-5 font-medium font-hab text-tertiary-900">
             <a href="#" id="trigger_{{ item.user.user.pk }}">View Receipt</a>
             <div id="dialog_{{ item.user.user.pk }}" style="display:none; position: relative; overflow: hidden;" title="{{ item.user.user.first_name|add:' '|add:item.user.user.last_name }}'s fee receipt" class="md:flex" >
-                <iframe src ="{{item.final_pdf.url}}" id="iframe_{{item.user.user.pk}}" height="100%" title="Fee-Receipt"  class="w-4/6"></iframe>
+                <iframe id="iframe_{{item.user.user.pk}}" height="100%" title="Fee-Receipt"  class="w-4/6"></iframe>
                 <div class="w-1/3 h-full flex flex-row items-center justify-center">
                     <div class="w-11/12 h-11/12 bg-white relative">
                         <div class="gama font-medium text-sm leading-5 text-tertiary-700 capitalize w-full">{{ item.user.user.first_name|add:" "|add:item.user.user.last_name }}</div>

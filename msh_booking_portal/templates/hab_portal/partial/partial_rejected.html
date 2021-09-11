@@ -5,8 +5,9 @@
 
         <script language="javascript" type="text/javascript">
                 $(document).ready(function() {
-                    $('#trigger_'+{{ item.user.pk}}).click(function(){
-                        $("#dialog_"+{{ item.user.pk}}).dialog({width: 1300,height:650,dialogClass: 'header'});
+                    $('#trigger_'+{{ item.user.user.pk}}).click(function(){
+                        $('#iframe_' + {{ item.user.user.pk }}).attr("src", "{{ item.final_pdf.url }}");
+                        $("#dialog_"+{{ item.user.user.pk}}).dialog({width: 1300,height:650,dialogClass: 'header'});
                     }); 
                 });               
         </script>
