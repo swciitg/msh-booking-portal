@@ -18,13 +18,14 @@
     <table class="table-auto">
 
     {% for name, value in form.get_fields %}
-    {% if value and forloop.counter > 5 and forloop.counter < 30 %}
-        <tr>
-            <td><h1>{{name}} :</h1></td>
-            <td><h1>{{value}}</h1></td>
-        </tr>
-        
-    {% endif %}
+      {% if name != 'fee_receipt' and name != 'proof_of_invitation' and name != 'recieved_an_invite' %}
+        {% if value and forloop.counter > 5 and forloop.counter < 30 %}
+            <tr>
+                <td><h1>{{name}} :</h1></td>
+                <td><h1>{{value}}</h1></td>
+            </tr>           
+        {% endif %}
+      {% endif %}  
     {% endfor %}
     </table>
 
