@@ -220,27 +220,28 @@ def HABThanks(request):
 @login_required(login_url='/campus_return/accounts/login/')
 def AdminView(request):
 
-    url_parameter = request.GET.get("q")
+    if request.user.is_staff:
+        url_parameter = request.GET.get("q")
 
-    if url_parameter:
-        HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+        if url_parameter:
+            HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
 
-    else:
-        HABforms = HABModel.objects.all()
+        else:
+            HABforms = HABModel.objects.all()
 
 
 
-    if request.is_ajax():
-        html = render_to_string(
-            template_name="hab_portal/partial/partial_invite.html",
-            context={"HABforms": HABforms}
-        )
+        if request.is_ajax():
+            html = render_to_string(
+                template_name="hab_portal/partial/partial_invite.html",
+                context={"HABforms": HABforms}
+            )
 
-        data_dict = {"html_from_view": html}
+            data_dict = {"html_from_view": html}
 
-        return JsonResponse(data=data_dict, safe=False)
-    context={"HABforms": HABforms}
-    return render(request, 'hab_portal/complete/invite.html', context)
+            return JsonResponse(data=data_dict, safe=False)
+        context={"HABforms": HABforms}
+        return render(request, 'hab_portal/complete/invite.html', context)
 
 
 
