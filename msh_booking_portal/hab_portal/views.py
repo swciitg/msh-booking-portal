@@ -371,7 +371,7 @@ def HostelRejected(request,hostel):
 # @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelStatusAccept(request, hostel, status, id):
     application = HABModel.objects.get(pk=id)
-    application.status = 'Accepted'
+    application.status = 'Verified'
     application.save()
     return redirect("hab_portal:hostel-view", hostel=hostel)
 
@@ -380,7 +380,7 @@ def HostelStatusAccept(request, hostel, status, id):
 # @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelStatusDecline(request, hostel, id):
     application = HABModel.objects.get(pk=id)
-    application.status = 'Declined'
+    application.status = 'Not Verified'
     application.save()
     return redirect("hab_portal:hostel-view", hostel=hostel)
 
