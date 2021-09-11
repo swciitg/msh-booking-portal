@@ -41,6 +41,9 @@
         {% if perms.hab_portal.can_view_dihing_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='dihing' %}">Dihing</a></li>    
         {% endif %}
+        {% if perms.hab_portal.can_view_dibang_hostel_data %}
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='dibang' %}">Dibang</a></li>    
+        {% endif %}
         {% if perms.hab_portal.can_view_suban_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='subansiri' %}">Subansiri</a></li>   
         {% endif %}

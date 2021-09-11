@@ -19,6 +19,7 @@ HOSTELS = [
     ('dihing', 'Dihing'),
     ('subansiri', 'Subansiri'),
     ('dhansiri', 'Dhansiri'),
+    ('dibang', 'Dibang'),
     ('msh', 'Married Scholar Hostel'),
     ('not-alloted', 'Not Alloted'),
 ]
@@ -222,6 +223,7 @@ class HABModel(models.Model):
             ('can_view_barak_hostel_data', 'can view barak hostel data'),
             ('can_view_kapili_hostel_data', 'can view kapili hostel data'),
             ('can_view_dihing_hostel_data', 'can view dihing hostel data'),
+            ('can_view_dibang_hostel_data', 'can view dibang hostel data'),
             ('can_view_suban_hostel_data', 'can view subansiri hostel data'),
             ('can_view_dhan_hostel_data', 'can view dhansiri hostel data'),
             ('can_view_msh_hostel_data', 'can view msh hostel data'),
