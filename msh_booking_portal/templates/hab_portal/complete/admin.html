@@ -33,7 +33,7 @@
                 url: "{% url 'hab_portal:mark-as-invited-without-id' %}" + id,
                 success: function(response) {
                     console.log(response);
-                    document.getElementById("invite_button_"+id).innerHTML = '<button onclick=\"markAsNotInvited(' + id + ');\">Mark as Not Invited</button>'
+                    document.getElementById("invite_button_"+id).innerHTML = '<button class="flex text-white bg-red-400 border-0 py-1 px-4" onclick=\"markAsNotInvited(' + id + ');\">Mark as Not Invited</button>'
                     document.getElementById("invite_details_"+id).innerHTML = 'Invited'
                 }
             });
@@ -43,7 +43,7 @@
                 url: "{% url 'hab_portal:mark-as-not-invited-without-id' %}" + id,
                 success: function(response) {
                     console.log(response);
-                    document.getElementById("invite_button_"+id).innerHTML = '<button onclick=\"markAsInvited(' + id + ');\">Mark as Invited</button>'
+                    document.getElementById("invite_button_"+id).innerHTML = '<button class="flex text-white bg-green-400 border-0 py-1 px-4" onclick=\"markAsInvited(' + id + ');\">Mark as Invited</button>'
                     document.getElementById("invite_details_"+id).innerHTML = 'Not Invited'
                 }
             });
@@ -89,7 +89,6 @@
 <!--            <a href="../">-->
 <!--                <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Go Back</button>-->
 <!--            </a>-->
-
 
           </div>
         </section>

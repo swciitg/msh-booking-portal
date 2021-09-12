@@ -236,20 +236,24 @@ def AdminView(request):
 
 def MarkAsInvited(request, id=-1):
     if request.user.is_staff:
+        if (id == -1):
+            return JsonResponse({'success': False})
         model = HABModel.objects.get(pk=id)
         model.invite_sent = 'Invited'
         model.save()
-        return JsonResponse(data={'id': id})
+        return JsonResponse(data={'success': True})
     else:
         return HttpResponseForbidden()
 
 
 def MarkAsNotInvited(request, id=-1):
     if request.user.is_staff:
+        if (id == -1):
+            return JsonResponse({'success': False})
         model = HABModel.objects.get(pk=id)
         model.invite_sent = 'Not Invited'
         model.save()
-        return JsonResponse(data={'id': id})
+        return JsonResponse(data={'success': True})
     else:
         return HttpResponseForbidden()
 

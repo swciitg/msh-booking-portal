@@ -9,11 +9,11 @@
         <td width="10%" class="px-4 py-3" id="invite_details_{{item.pk}}">{{ item.invite_sent }}</td>
         {% if item.invite_sent == "Not Invited" %}
             <td width="15%" class="px-4 py-3" id="invite_button_{{item.pk}}">
-                <button onclick="markAsInvited({{item.pk}});">Mark as Invited</button>
+                <button class="flex text-white bg-green-400 border-0 py-1 px-4" onclick="markAsInvited({{item.pk}});">Mark as Invited</button>
             </td>
         {% else %}
             <td width="15%" class="px-4 py-3" id="invite_button_{{item.pk}}">
-                <button onclick="markAsNotInvited({{item.pk}});">Mark as Not Invited</button>
+                <button class="flex text-white bg-red-400 border-0 py-1 px-4" onclick="markAsNotInvited({{item.pk}});">Mark as Not Invited</button>
             </td>
         {% endif %}
   </tr>
