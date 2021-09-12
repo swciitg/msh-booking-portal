@@ -40,6 +40,11 @@ STATUS = [
     ('Not Verified', 'Not Verified'),
 ]
 
+INVITED = [
+    ('Invited', 'Invited'),
+    ('Not Invited', 'Not Invited'),
+]
+
 VACCINATION_STATUS_CHOICES = [
     ('Single Dose', 'Single Dose'),
     ('Double Dose', 'Double Dose'),
@@ -144,6 +149,7 @@ HAB_FIELDS = {'roll_number': 'roll_number'}
 class HABModel(models.Model):
     # Invisible Fields
     time_of_submission = models.DateTimeField(auto_now_add=True, null=True)
+    invite_sent = models.CharField(max_length=256, choices=INVITED, default='Not Invited', null=True)
     status = models.CharField(max_length=256, choices=STATUS, default='Not Verified', null=True)
     locked = models.BooleanField(default=False)
 
