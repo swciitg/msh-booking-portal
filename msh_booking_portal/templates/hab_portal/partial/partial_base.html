@@ -58,7 +58,7 @@
             <div class="gama justify-start font-medium delta text-tertiary-800 w-full h-1/5">Status</div>
         </div>
         <div class="w-1/12 min-h-full md:flex flex-row justify-center items-center text-xs leading-5 font-medium font-hab text-tertiary-900">
-            <a href="#" id="trigger_{{ item.user.user.pk }}">View Receipt</a>
+            <button href="#" id="trigger_{{ item.user.user.pk }}">View Receipt</button>
             <div id="dialog_{{ item.user.user.pk }}" style="display:none; position: relative; overflow: hidden;" title="{{ item.user.user.first_name|add:' '|add:item.user.user.last_name }}'s fee receipt" class="md:flex" >
                 <iframe id="iframe_{{item.user.user.pk}}" height="100%" title="Fee-Receipt"  class="w-4/6"></iframe>
                 <div class="w-1/3 h-full flex flex-row items-center justify-center">
@@ -111,7 +111,7 @@
                         <div class="w-full h-1/6 flex flex-row justify-center">
                             <div class="w-3/4 min-h-full flex flex-col items-start">
                                 <div class="w-full h-1/2 flex flex-row justify-center items-center bg-purple-500 rounded">
-                                    <a class="text-white text-opacity-100" href="{% url 'hab_portal:hostel-status-accept' hostel=item.hostel status=item.status id=item.id %}"><div class="font-body font-semibold text-sm leading-5">Verify</div></a>
+                                    <a class="text-white text-opacity-100" href="{% url 'hab_portal:hostel-status-accept' hostel=item.hostel id=item.id %}"><div class="font-body font-semibold text-sm leading-5">Verify</div></a>
                                 </div>
                                 <div class="w-full h-1/2 flex flex-row justify-center items-center bg-tertiary-500 rounded">
                                     <a href="{% url 'hab_portal:hostel-status-decline' hostel=item.hostel id=item.id %}"><div class="font-body font-semibold text-sm leading-5 text-tertiary-700">Remain Unverified</div></a>
