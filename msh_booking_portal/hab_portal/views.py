@@ -232,7 +232,8 @@ def AdminView(request):
             return JsonResponse(data=data_dict, safe=False)
         context={"HABforms": HABforms}
         return render(request, 'hab_portal/complete/invite.html', context)
-
+    else:
+        return HttpResponseForbidden()
 
 def MarkAsInvited(request, id=-1):
     if request.user.is_staff:
