@@ -73,6 +73,7 @@
             {% block content %}
 
             {% endblock %}
+            <br>
 
 
 
@@ -83,11 +84,13 @@
 
 
                  <a href="../">
-              <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Go Back</button></a>
+              <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Go Back</button></a><br>
 
-
+              <a href="{% url 'hab_portal:download_excel' %}"><button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Download Excel</button></a>
           </div>
         </section>
+
+
         <script src="{% static 'hab_portal/base.js' %}"></script>
 
       </body>

@@ -3,14 +3,6 @@
     {% for item in HABforms %}
         {% if item.recieved_an_invite == "No" %}
 
-        <script language="javascript" type="text/javascript">
-            $(document).ready(function() {
-                $('#trigger_'+{{ item.user.user.pk}}).click(function(){
-                    $('#iframe_' + {{ item.user.user.pk }}).attr("src", "{{ item.final_pdf.url }}");
-                    $("#dialog_"+{{ item.user.user.pk}}).dialog({width: 1300,height:650,dialogClass: 'header'});
-                });
-            });
-        </script>
             {% include 'hab_portal/partial/partial_admin.html' %}
 
         {% endif %}

@@ -12,6 +12,7 @@ urlpatterns = [
     path('edit/', views.HABEdit, name='hab_edit'),
     path('thanks/', views.HABThanks, name='hab_thanks'),
     path('wait/', views.HABDose1Wait, name='hab_dose1wait'),
+    path('download_excel/', views.Download_Excel, name='download_excel'),
     path('media/hab_portal/<path:file>', views.MediaView, name='media'),
     path('', views.index, name='hab_index'),
     # path('view/<int:pk>/', HABDetailView.as_view(), name='hab_detail'),
