@@ -496,7 +496,7 @@ def Download_Excel(request):
 
     font_style.font.bold = True
 
-    columns = ['Name', 'Roll Number', 'Email', 'Programme', 'State']
+    columns = ['Name', 'Roll Number', 'Email', 'Programme', 'State', 'Invitation Status']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
@@ -504,7 +504,7 @@ def Download_Excel(request):
     font_style = xlwt.XFStyle()
 
     rows = HABModel.objects.filter(recieved_an_invite='No').values_list(
-        'name', 'roll_number', 'email', 'programme', 'returning_from_state')
+        'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'invite_sent')
 
     for row in rows:
         row_num += 1
