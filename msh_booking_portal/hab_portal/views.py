@@ -49,7 +49,6 @@ def generate_obj_pdf(instance_id):
 
 @login_required(login_url='/campus_return/accounts/login/')
 def index(request):
-    print(request.user.id)
     user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
     return render(request, 'forms/hab-landing.html', {})
 
@@ -228,12 +227,11 @@ def HABThanks(request):
     obj.final_pdf.save('final_pdf'+str(instance_id),
                        File(BytesIO(response.content)))
     return render(request,
-                  'forms/hab-thanks.html', {'file': obj})
+                  'forms/hab-thanks.html',{'file':obj})
 
 
 @login_required(login_url='/campus_return/accounts/login/')
 def AdminView(request):
-
     if request.user.is_staff:
         url_parameter = request.GET.get("q")
 
@@ -255,6 +253,31 @@ def AdminView(request):
             return JsonResponse(data=data_dict, safe=False)
         context = {"HABforms": HABforms}
         return render(request, 'hab_portal/complete/invite.html', context)
+    else:
+        return HttpResponseForbidden()
+
+def MarkAsInvited(request, id=-1):
+    if request.user.is_staff:
+        if (id == -1):
+            return JsonResponse({'success': False})
+        model = HABModel.objects.get(pk=id)
+        model.invite_sent = 'Invited'
+        model.save()
+        return JsonResponse(data={'success': True})
+    else:
+        return HttpResponseForbidden()
+
+
+def MarkAsNotInvited(request, id=-1):
+    if request.user.is_staff:
+        if (id == -1):
+            return JsonResponse({'success': False})
+        model = HABModel.objects.get(pk=id)
+        model.invite_sent = 'Not Invited'
+        model.save()
+        return JsonResponse(data={'success': True})
+    else:
+        return HttpResponseForbidden()
 
 
 @login_required(login_url='/campus_return/accounts/login/')
@@ -265,137 +288,140 @@ def HABView(request):
                    'hostels': HABModel.hostel})
 
 
-# @login_required(login_url='/campus_return/accounts/login/')
-class HABDetailView(DetailView):
-    model = HABModel
-
-
 @login_required(login_url='/campus_return/accounts/login/')
-# @permission_required('hab_portal.can_view_siang_hostel_data')
-def HostelView(request, hostel):
-    ctx = {'Hostel': hostel}
-    url_parameter = request.GET.get("q")
+def HostelView(request,hostel):
+    if request.user.is_staff:
+        ctx = {'Hostel':hostel}
+        url_parameter = request.GET.get("q")
 
-    if url_parameter:
-        HABforms = HABModel.objects.filter(
-            roll_number__icontains=url_parameter)
+        if url_parameter:
+            HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
 
+        else:
+            HABforms = HABModel.objects.all()
+
+        ctx["HABforms"] = HABforms
+
+        if request.is_ajax():
+            html = render_to_string(
+                template_name="hab_portal/partial/partial_hostels.html",
+                context={"HABforms": HABforms, 'Hostel':hostel}
+            )
+
+            data_dict = {"html_from_view": html}
+
+            return JsonResponse(data=data_dict, safe=False)
+
+        return render(request, 'hab_portal/complete/hostels.html', context=ctx)
     else:
-        HABforms = HABModel.objects.all()
-
-    ctx["HABforms"] = HABforms
-
-    if request.is_ajax():
-        html = render_to_string(
-            template_name="hab_portal/partial/partial_hostels.html",
-            context={"HABforms": HABforms, 'Hostel': hostel}
-        )
-
-        data_dict = {"html_from_view": html}
-
-        return JsonResponse(data=data_dict, safe=False)
-
-    return render(request, 'hab_portal/complete/hostels.html', context=ctx)
+        return HttpResponseForbidden()
 
 
 @login_required(login_url='/campus_return/accounts/login/')
-# @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelApproved(request, hostel):
-    ctx = {'Hostel': hostel}
-    url_parameter = request.GET.get("q")
+    if request.user.is_staff:
+        ctx = {'Hostel':hostel}
+        url_parameter = request.GET.get("q")
 
-    if url_parameter:
-        HABforms = HABModel.objects.filter(
-            roll_number__icontains=url_parameter)
+        if url_parameter:
+            HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
 
+        else:
+            HABforms = HABModel.objects.all()
+
+        ctx["HABforms"] = HABforms
+
+        if request.is_ajax():
+            html = render_to_string(
+                template_name="hab_portal/partial/partial_approved.html",
+                context={"HABforms": HABforms,'Hostel':hostel}
+            )
+
+            data_dict = {"html_from_view": html}
+
+            return JsonResponse(data=data_dict, safe=False)
+
+        return render(request, 'hab_portal/complete/approved.html', context=ctx)
     else:
-        HABforms = HABModel.objects.all()
-
-    ctx["HABforms"] = HABforms
-
-    if request.is_ajax():
-        html = render_to_string(
-            template_name="hab_portal/partial/partial_approved.html",
-            context={"HABforms": HABforms, 'Hostel': hostel}
-        )
-
-        data_dict = {"html_from_view": html}
-
-        return JsonResponse(data=data_dict, safe=False)
-
-    return render(request, 'hab_portal/complete/approved.html', context=ctx)
+        return HttpResponseForbidden()
 
 
 @login_required(login_url='/campus_return/accounts/login/')
-# @permission_required('hab_portal.can_view_brahma_hostel_data')
-def HostelPending(request, hostel):
-    ctx = {'Hostel': hostel}
-    url_parameter = request.GET.get("q")
+def HostelPending(request,hostel):
+    if request.user.is_staff:
+        ctx = {'Hostel':hostel}
+        url_parameter = request.GET.get("q")
 
-    if url_parameter:
-        HABforms = HABModel.objects.filter(
-            roll_number__icontains=url_parameter)
+        if url_parameter:
+            HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
 
+        else:
+            HABforms = HABModel.objects.all()
+
+        ctx["HABforms"] = HABforms
+
+        if request.is_ajax():
+            html = render_to_string(
+                template_name="hab_portal/partial/partial_pending.html",
+                context={"HABforms": HABforms, 'Hostel':hostel}
+            )
+
+            data_dict = {"html_from_view": html}
+
+            return JsonResponse(data=data_dict, safe=False)
+
+        return render(request, 'hab_portal/complete/pending.html', context=ctx)
     else:
-        HABforms = HABModel.objects.all()
-
-    ctx["HABforms"] = HABforms
-
-    if request.is_ajax():
-        html = render_to_string(
-            template_name="hab_portal/partial/partial_pending.html",
-            context={"HABforms": HABforms, 'Hostel': hostel}
-        )
-
-        data_dict = {"html_from_view": html}
-
-        return JsonResponse(data=data_dict, safe=False)
-
-    return render(request, 'hab_portal/complete/pending.html', context=ctx)
+        return HttpResponseForbidden()
 
 
 @login_required(login_url='/campus_return/accounts/login/')
-# @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelRejected(request, hostel):
-    ctx = {'Hostel': hostel}
-    url_parameter = request.GET.get("q")
+    if request.user.is_staff:
+        ctx = {'Hostel': hostel}
+        url_parameter = request.GET.get("q")
 
-    if url_parameter:
-        HABforms = HABModel.objects.filter(
-            roll_number__icontains=url_parameter)
+        if url_parameter:
+            HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
 
+        else:
+            HABforms = HABModel.objects.all()
+        ctx["HABforms"] = HABforms
+        if request.is_ajax():
+            html = render_to_string(
+                template_name="hab_portal/partial/partial_rejected.html",
+                context={"HABforms": HABforms, 'Hostel': hostel}
+            )
+
+            data_dict = {"html_from_view": html}
+
+            return JsonResponse(data=data_dict, safe=False)
+
+        return render(request, 'hab_portal/complete/rejected.html', context=ctx)
     else:
-        HABforms = HABModel.objects.all()
-    ctx["HABforms"] = HABforms
-    if request.is_ajax():
-        html = render_to_string(
-            template_name="hab_portal/partial/partial_rejected.html",
-            context={"HABforms": HABforms, 'Hostel': hostel}
-        )
-
-        data_dict = {"html_from_view": html}
-
-        return JsonResponse(data=data_dict, safe=False)
-
-    return render(request, 'hab_portal/complete/rejected.html', context=ctx)
+        return HttpResponseForbidden()
 
 
 @login_required(login_url='/campus_return/accounts/login/')
-# @permission_required('hab_portal.can_view_brahma_hostel_data')
-def HostelStatusAccept(request, hostel, status, id):
-    application = HABModel.objects.get(pk=id)
-    application.status = 'Verified'
-    application.save()
-    return redirect("hab_portal:hostel-view", hostel=hostel)
+def HostelStatusAccept(request, hostel, id):
+    if request.user.is_staff:
+        application = HABModel.objects.get(pk=id)
+        application.status = 'Verified'
+        application.save()
+        return redirect("hab_portal:hostel-view", hostel=hostel)
+    else:
+        return HttpResponseForbidden()
 
 
 @login_required(login_url='/campus_return/accounts/login/')
-# @permission_required('hab_portal.can_view_brahma_hostel_data')
 def HostelStatusDecline(request, hostel, id):
-    application = HABModel.objects.get(pk=id)
-    application.status = 'Not Verified'
-    application.save()
-    return redirect("hab_portal:hostel-view", hostel=hostel)
+    if request.user.is_staff:
+        application = HABModel.objects.get(pk=id)
+        application.status = 'Not Verified'
+        application.save()
+        return redirect("hab_portal:hostel-view", hostel=hostel)
+    else:
+        return HttpResponseForbidden()
 
 
 @login_required(login_url='/campus_return/accounts/login/')

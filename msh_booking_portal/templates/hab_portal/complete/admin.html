@@ -8,36 +8,50 @@
     <title>Students waiting for Invitation</title>
     <link rel="stylesheet" href="{% static 'hab_portal/styles.css' %}">
     <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
-    <link rel="stylesheet" href=
-    "//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
-        <script src=
-    "https://code.jquery.com/jquery-1.12.4.js">
-        </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-        <script src=
-    "https://code.jquery.com/ui/1.12.1/jquery-ui.js">
-        </script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <style>
+        .header .ui-dialog-titlebar {
+              background: rgb(50, 54, 57);
+              color: white;
+              text-transform: capitalize;
+              font-weight: 300;
+              border-radius: 4px;
+        }
+    </style>
 
-        <style>
-            .header .ui-dialog-titlebar {
-          background: rgb(50, 54, 57);
-          color: white;
-          text-transform: capitalize;
-          font-weight: 300;
-          border-radius: 4px;
-
-    }
-        </style>
+    <script>
+        function markAsInvited(id) {
+            $.ajax({
+                url: "{% url 'hab_portal:mark-as-invited-without-id' %}" + id,
+                success: function(response) {
+                    console.log(response);
+                    document.getElementById("invite_button_"+id).innerHTML = '<button class="flex text-white bg-red-400 border-0 py-1 px-4" onclick=\"markAsNotInvited(' + id + ');\">Mark as Not Invited</button>'
+                    document.getElementById("invite_details_"+id).innerHTML = 'Invited'
+                }
+            });
+        }
+        function markAsNotInvited(id) {
+            $.ajax({
+                url: "{% url 'hab_portal:mark-as-not-invited-without-id' %}" + id,
+                success: function(response) {
+                    console.log(response);
+                    document.getElementById("invite_button_"+id).innerHTML = '<button class="flex text-white bg-green-400 border-0 py-1 px-4" onclick=\"markAsInvited(' + id + ');\">Mark as Invited</button>'
+                    document.getElementById("invite_details_"+id).innerHTML = 'Not Invited'
+                }
+            });
+        }
+    </script>
 
 </head>
 <body>
-
-
 
   <section class="text-gray-600 body-font">
     <div class="container px-5 py-24 mx-auto">
@@ -56,35 +70,25 @@
 
            <table class="table-auto w-full text-left whitespace-no-wrap">
            <tbody>
-             <tr>
-               <th width="20%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Name</th>
-               <th width="20%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Roll Number</th>
-               <th width="30%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Email</th>
-               <th width="20%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Programme</th>
-               <th width="20%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">State</th>
-
-             </tr>
+           <tr>
+                 <th width="20%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Name</th>
+                 <th width="10%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Roll Number</th>
+                 <th width="20%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Email</th>
+                 <th width="10%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Programme</th>
+                 <th width="15%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">State</th>
+                 <th width="10%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Invited</th>
+                 <th width="15%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Mark as</th>
+           </tr>
            </tbody>
            </table>
-
-
-
 
             {% block content %}
 
             {% endblock %}
             <br>
 
-
-
-
-
-
-      
-
-
-                 <a href="../">
-              <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Go Back</button></a><br>
+           <a href="../">
+               <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Go Back</button></a>
 
               <a href="{% url 'hab_portal:download_excel' %}"><button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Download Excel</button></a>
           </div>
