@@ -2,6 +2,7 @@
 
         {% for item in HABforms %}
         {% if item.hostel == Hostel and item.status == 'Not Verified' %}
+        {% if item.vaccination_status == 'Double Dose' or item.recieved_an_invite == 'Yes' %}
 
         <script language="javascript" type="text/javascript">
                 $(document).ready(function() {
@@ -13,8 +14,13 @@
         </script>
 
         {% include 'hab_portal/partial/partial_base.html' %}
-
+        {% endif %}
         {% endif %}
         {% endfor %}
+        <br>
+        <a href="../">
+            <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Go Back</button></a><br>
+    
+           <a href="{% url 'hab_portal:download_excel' num=3 Hostel=Hostel %}"><button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Download in Excel</button></a>   
 
 </div>

@@ -234,6 +234,7 @@ class HABModel(models.Model):
             ('can_view_suban_hostel_data', 'can view subansiri hostel data'),
             ('can_view_dhan_hostel_data', 'can view dhansiri hostel data'),
             ('can_view_msh_hostel_data', 'can view msh hostel data'),
+            ('can_view_not_alloted_data', 'can view not alloted data'),
         )
 
     def __str__(self):

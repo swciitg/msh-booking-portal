@@ -53,6 +53,9 @@
         {% if perms.hab_portal.can_view_msh_hostel_data %}
         <li><a href="{% url 'hab_portal:hostel-view' hostel='msh' %}">Married Scholars Hostel</a></li>    
         {% endif %}
+        {% if perms.hab_portal.can_view_not_alloted_data %}
+        <li><a href="{% url 'hab_portal:hostel-view' hostel='not-alloted' %}">Hostel Not Alloted</a></li>    
+        {% endif %}
     </ul>
     <br>
     <a href="../">Go back</a>
