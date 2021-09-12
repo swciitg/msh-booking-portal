@@ -42,7 +42,6 @@ def generate_obj_pdf(instance_id):
 
 @login_required(login_url='/campus_return/accounts/login/')
 def index(request):
-    print(request.user.id)
     user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
     return render(request, 'forms/hab-landing.html', {})
 
