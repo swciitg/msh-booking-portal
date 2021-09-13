@@ -53,6 +53,7 @@ def index(request):
     return render(request, 'forms/hab-landing.html', {})
 
 
+
 @login_required(login_url='/campus_return/accounts/login/')
 def HABCreate(request):
     if request.method == 'POST':
@@ -61,8 +62,12 @@ def HABCreate(request):
                 user__user__pk=request.user.id)
             form = HABForm1(request.POST, request.FILES,
                             instance=form_instance)
+
+
         except:
             form = HABForm1(request.POST, request.FILES)
+
+
 
         if form.is_valid():
             application = form.save(commit=False)
@@ -85,6 +90,8 @@ def HABCreate(request):
         except:
             form = load_from_user_data(SiteUser.objects.get(
                 user_id=request.user.id), HABForm1(), HAB_FIELDS)
+
+
 
     return render(request,
                   'forms/hab.html',

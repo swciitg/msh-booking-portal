@@ -60,6 +60,16 @@ RECIEVED_AN_INVITE =[
      ('No', 'No'),
 ]
 
+PROGRAMMES =[ ('B.Tech','B.Tech'),
+             ('B.Des','B.Des'),
+             ('M.Tech','M.Tech'),
+             ('M.Des','M.Des'),
+             ('M.A.','M.A.'),
+             ('M.Sc.','M.Sc.'),
+             ('MSR','MSR'),
+             ('PHD/IPDF','PHD/IPDF'),
+             ('Project Staff','Project Staff'),]
+
 STATE_CHOICES = [("Andhra Pradesh","Andhra Pradesh"),
                  ("Arunachal Pradesh ","Arunachal Pradesh "),
                  ("Assam","Assam"),
@@ -143,11 +153,17 @@ def get_current_date():
     return datetime.now().strftime('%Y-%m-%d')
 
 
-HAB_FIELDS = {'roll_number': 'roll_number'}
+
+
+HAB_FIELDS = {'roll_number': 'roll_number',
+               }
+
+
 
 
 class HABModel(models.Model):
     # Invisible Fields
+
     time_of_submission = models.DateTimeField(auto_now_add=True, null=True)
     invite_sent = models.CharField(max_length=256, choices=INVITED, default='Not Invited', null=True)
     status = models.CharField(max_length=256, choices=STATUS, default='Not Verified', null=True)
@@ -156,17 +172,19 @@ class HABModel(models.Model):
     # Personal Details
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True)
     name = models.CharField('Name', max_length=256)
-    roll_number = models.CharField('Roll No.', max_length=256)
+    roll_number = models.CharField('Roll No.', max_length=9,help_text='Enter a valid 9 digit Roll Number.')
     gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male')
     email = models.CharField('Email', max_length=256)
     mobile = models.CharField('Mobile', max_length=256)
+    vaccination_status = models.CharField('Vaccination Status', max_length=256,
+                                          choices=VACCINATION_STATUS_CHOICES, null=True, default='Single Dose')
+
+    programme = models.CharField('Programme', max_length=256, choices=PROGRAMMES)
     department = models.CharField('Department', max_length=256)
-    programme = models.CharField('Programme', max_length=256)
     supervisor = models.CharField('Supervisor (if any)', max_length=256, blank=True)
     email_of_supervisor = models.CharField('Supervisor Email', max_length=256, blank=True)
 
-    vaccination_status = models.CharField('Vaccination Status', max_length=256,
-                                          choices=VACCINATION_STATUS_CHOICES, null=True, default='Single Dose')
+
     returning_from_state = models.CharField('Returning from (state)', max_length=256, null=True, choices=STATE_CHOICES)
 
     #dose1 Details

@@ -61,6 +61,7 @@
              <label for="Roll Number" class="leading-7 required-field text-Black-600">Roll Number</label><br>
 
          {{ form.roll_number }}
+         <strong>{{ form.roll_number.help_text }}</strong>
               </div>
 
 
@@ -74,6 +75,7 @@
                <label for="Email" class="leading-7 required-field text-Black-600">Email</label><br>
 
            {{ form.email }}
+
                 </div>
 
                 <div class="relative mb-4 form-group">
@@ -84,16 +86,22 @@
 
 
                <div class="relative mb-4 form-group">
-               <label for="Department" class="leading-7 required-field text-Black-600">Department</label><br>
+               <label for="id_vaccine" class="leading-7 required-field text-Black-600">Status of Vaccination</label><br>
 
-           {{ form.department }}
+            {{ form.vaccination_status }}
                 </div>
 
                 <div class="relative mb-4 form-group">
-                <label for="Department" class="leading-7 required-field text-Black-600">Programme</label><br>
+                <label for="id_prog" class="leading-7 required-field text-Black-600">Programme</label><br>
 
             {{ form.programme }}
                  </div>
+
+                 <div class="relative mb-4 form-group">
+                 <label for="Roll Number" class="leading-7 required-field text-Black-600">Department</label><br>
+
+                 {{ form.department }}
+                  </div>
 
                  <div class="relative mb-4 form-group">
                  <label for="Department" class="leading-7  text-Black-600">Supervisor (if any)</label><br>
@@ -107,11 +115,6 @@
               {{ form.email_of_supervisor }}
                    </div>
 
-                   <div class="relative mb-4 form-group">
-                   <label for="Roll Number" class="leading-7 required-field text-Black-600">Vaccination Status</label><br>
-
-                   {{ form.vaccination_status }}
-                    </div>
 
                     <div class="relative mb-4 form-group">
                    <label for="Roll Number" class="leading-7 required-field text-Black-600">Returning From State</label><br>
@@ -122,7 +125,7 @@
                     <br>
 
 
-               <input type="submit" class="btn btn-primary btn-lg text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text" style="max-width:30%;"{% if locked %}disabled{% endif %}>
+               <input  id="but1" type="submit" class="btn btn-primary btn-lg text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text" style="max-width:30%;"{% if locked %}disabled{% endif %}>
 
   </div>
 </div>
@@ -136,5 +139,44 @@
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script scr="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script>
+
+
+
+        $('#e_mail').val("{{ user.email }}");
+
+    function programme(){
+      var vs=$('#vs').val();
+
+      if(vs==="Single Dose"){
+        a="PHD/IPDF";
+        $('#prog').val(a);
+        document.getElementById('prog').setAttribute("disabled", "disabled");
+
+      } else{
+        $('#prog').val("");
+        document.getElementById('prog').disabled = false;
+
+
+      }
+    }
+
+    $(document).ready(function() {
+      $('#vs').change(programme);
+    });
+
+    programme();
+
+
+    $( "#but1" ).click(function() {
+        document.getElementById('prog').disabled = false;
+
+});
+
+  </script>
 </body>
+
+
 </html>

@@ -9,11 +9,11 @@ class HABForm1(ModelForm):
         'gender',
         'email',
         'mobile',
-        'department',
+        'vaccination_status',
         'programme',
+        'department',
         'supervisor',
         'email_of_supervisor',
-        'vaccination_status',
         'returning_from_state',]
 
 
@@ -31,14 +31,19 @@ class HABForm1(ModelForm):
                     }),
             'department': TextInput(attrs={
                     'class': "form-control",
+
                 }),
 
-            'programme': TextInput(attrs={
+            'programme': Select(attrs={
+            
                     'class': "form-control",
+                     'id':'prog',
                 }),
 
             'email': TextInput(attrs={
+                    'readonly':'readonly',
                     'class': "form-control",
+                    'id':'e_mail',
                 }),
             'mobile': NumberInput(attrs={
                 'class': "form-control",
@@ -54,6 +59,7 @@ class HABForm1(ModelForm):
 
             'vaccination_status': Select(attrs={
                     'class': "form-control",
+                    'id':'vs',
                 }),
 
             'returning_from_state': Select(attrs={
@@ -234,4 +240,3 @@ class PdfgeneratedForm(ModelForm):
                      'class': "form-control",
                 }),
     }
-
