@@ -61,7 +61,8 @@
              <label for="Roll Number" class="leading-7 required-field text-Black-600">Roll Number</label><br>
 
          {{ form.roll_number }}
-         <strong>{{ form.roll_number.help_text }}</strong>
+
+         {{ form.errors.roll_number }}
               </div>
 
 
@@ -145,35 +146,31 @@
 
 
 
-        $('#e_mail').val("{{ user.email }}");
 
-    function programme(){
-      var vs=$('#vs').val();
+function programme() {
+  var vs=$('#vs').val();
+  var progs;
+  if (vs === "Single Dose") {
+    items = ["PHD/IPDF", "Project Staff"];
+  } else {
+    items = ["B.Tech","B.Des","M.Tech","M.Des","M.A.","M.Sc","MSR","PHD/IPDF","Project Staff"]
 
-      if(vs==="Single Dose"){
-        a="PHD/IPDF";
-        $('#prog').val(a);
-        document.getElementById('prog').setAttribute("disabled", "disabled");
-
-      } else{
-        $('#prog').val("");
-        document.getElementById('prog').disabled = false;
-
-
-      }
-    }
-
-    $(document).ready(function() {
-      $('#vs').change(programme);
-    });
-
-    programme();
-
-
-    $( "#but1" ).click(function() {
-        document.getElementById('prog').disabled = false;
-
+  }
+  var str = ""
+  for (var item of items) {
+    str += "<option>" + item + "</option>"
+  }
+  document.getElementById('prog').innerHTML = str;
+}
+$(document).ready(function() {
+  $('#vs').change(programme);
 });
+
+programme();
+
+
+
+$('#e_mail').val("{{ user.email }}");
 
   </script>
 </body>

@@ -6,6 +6,7 @@ from .storage import OverwriteStorage
 from datetime import datetime
 
 
+
 HOSTELS = [
     ('lohit', 'Lohit'),
     ('brahmaputra', 'Brahmaputra'),
@@ -154,6 +155,15 @@ def get_current_date():
 
 
 
+def validate_digit_length(phone):
+    if not (phone.isdigit() and len(phone) == 9):
+        raise ValidationError('Roll Number must be of 9 digits')
+
+
+
+
+
+
 
 HAB_FIELDS = {'roll_number': 'roll_number',
                }
@@ -172,10 +182,10 @@ class HABModel(models.Model):
     # Personal Details
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True)
     name = models.CharField('Name', max_length=256)
-    roll_number = models.CharField('Roll No.', max_length=9,help_text='Enter a valid 9 digit Roll Number.')
+    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid 9 digit Roll Number.',validators=[validate_digit_length] )
     gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male')
     email = models.CharField('Email', max_length=256)
-    mobile = models.CharField('Mobile', max_length=256)
+    mobile = models.IntegerField('Mobile')
     vaccination_status = models.CharField('Vaccination Status', max_length=256,
                                           choices=VACCINATION_STATUS_CHOICES, null=True, default='Single Dose')
 
