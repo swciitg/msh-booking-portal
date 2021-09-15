@@ -71,7 +71,8 @@ PROGRAMMES =[ ('B.Tech','B.Tech'),
              ('PHD/IPDF','PHD/IPDF'),
              ('Project Staff','Project Staff'),]
 
-STATE_CHOICES = [("Andhra Pradesh","Andhra Pradesh"),
+STATE_CHOICES = [("Other (Foreign Country)", "Other (Foreign Country)"),
+                 ("Andhra Pradesh","Andhra Pradesh"),
                  ("Arunachal Pradesh ","Arunachal Pradesh "),
                  ("Assam","Assam"),
                  ("Bihar","Bihar"),
@@ -243,8 +244,9 @@ class HABModel(models.Model):
                                     validators=[validate_file_size, validate_file_extension],
                                     help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
 
+    final_pdf = models.FileField('final pdf',upload_to=final_pdf_file_name,storage=OverwriteStorage(), null=True)
 
-    final_pdf = models.FileField('final pdf',upload_to=final_pdf_file_name,storage=OverwriteStorage(),null=True)
+
     class Meta:
         ordering = ['hostel', '-status','date_of_arrival']
         permissions = (
