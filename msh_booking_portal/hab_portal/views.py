@@ -290,10 +290,13 @@ def MarkAsNotInvited(request, id=-1):
 
 @login_required(login_url='/campus_return/accounts/login/')
 def HABView(request):
-    return render(request,
-                  'hab_portal/hab-view.html',
-                  {'applications': HABModel.objects.all().order_by('time_of_submission'),
-                   'hostels': HABModel.hostel})
+    if request.user.is_staff:
+        return render(request,
+                      'hab_portal/hab-view.html',
+                      {'applications': HABModel.objects.all().order_by('time_of_submission'),
+                       'hostels': HABModel.hostel})
+    else:
+        return HttpResponseForbidden()
 
 
 @login_required(login_url='/campus_return/accounts/login/')
@@ -488,68 +491,71 @@ def MediaView(request, file):
 
 @login_required(login_url='/campus_return/accounts/login/')
 def Download_Excel(request, num, Hostel):
+    if request.user.is_staff:
+        response = HttpResponse(content_type='application/ms-excel')
 
-    response = HttpResponse(content_type='application/ms-excel')
+        wb = xlwt.Workbook(encoding='utf-8')
 
-    wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet("sheet1")
 
-    ws = wb.add_sheet("sheet1")
+        row_num = 0
 
-    row_num = 0
+        # row_num1 = 0
 
-    # row_num1 = 0
+        font_style = xlwt.XFStyle()
 
-    font_style = xlwt.XFStyle()
+        font_style.font.bold = True
 
-    font_style.font.bold = True
+        if num == 4 :
+            columns = ['Name', 'Roll Number', 'Email', 'Programme', 'State', 'Invitation Status']
+            rows = HABModel.objects.filter(recieved_an_invite='No').values_list(
+            'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'invite_sent')
 
-    if num == 4 :
-        columns = ['Name', 'Roll Number', 'Email', 'Programme', 'State', 'Invitation Status']
-        rows = HABModel.objects.filter(recieved_an_invite='No').values_list(
-        'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'invite_sent')
+        elif num == 1  :
+            columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
+            rows1 = HABModel.objects.filter(Q(hostel = Hostel))
+            rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
+            'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
 
-    elif num == 1  :
-        columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
-        rows1 = HABModel.objects.filter(Q(hostel = Hostel))
-        rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
-        'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
+        elif num == 2  :
+            columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
+            rows1 = HABModel.objects.filter(Q(hostel = Hostel) & Q(status='Verified'))
+            rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
+            'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
 
-    elif num == 2  :
-        columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
-        rows1 = HABModel.objects.filter(Q(hostel = Hostel) & Q(status='Verified'))
-        rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
-        'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
-
-    elif num == 3  :
-        columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
-        rows1 = HABModel.objects.filter(Q(hostel = Hostel) & Q(status='Not Verified'))
-        rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
-        'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
+        elif num == 3  :
+            columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
+            rows1 = HABModel.objects.filter(Q(hostel = Hostel) & Q(status='Not Verified'))
+            rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
+            'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
 
 
-    # columns1 = ['Name', 'Roll Number', 'Email', 'State','Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
+        # columns1 = ['Name', 'Roll Number', 'Email', 'State','Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
 
-    for col_num in range(len(columns)):
-        ws.write(row_num, col_num, columns[col_num], font_style)
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
 
-    # for col_num1 in range(len(columns1)):
-    #     ws.write(row_num1, col_num1, columns1[col_num1], font_style)    
+        # for col_num1 in range(len(columns1)):
+        #     ws.write(row_num1, col_num1, columns1[col_num1], font_style)
 
-    font_style = xlwt.XFStyle()
+        font_style = xlwt.XFStyle()
 
-    # rows = HABModel.objects.filter(recieved_an_invite='No').values_list(
-    #     'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'invite_sent')
+        # rows = HABModel.objects.filter(recieved_an_invite='No').values_list(
+        #     'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'invite_sent')
 
-    for row in rows:
-        row_num += 1
+        for row in rows:
+            row_num += 1
 
-        for col_num in range(len(row)):
-            ws.write(row_num, col_num, str(row[col_num]), font_style)
+            for col_num in range(len(row)):
+                ws.write(row_num, col_num, str(row[col_num]), font_style)
 
-    
-    response['Content-Disposition'] = 'attachment; filename=Details ' + \
-        str(datetime.datetime.now())+'.xls'   
-                  
-    wb.save(response)
 
-    return response
+        response['Content-Disposition'] = 'attachment; filename=Details ' + \
+            str(datetime.datetime.now())+'.xls'
+
+        wb.save(response)
+
+        return response
+
+    else:
+        return HttpResponseForbidden()
