@@ -138,14 +138,14 @@ def validate_file_size(value):
 
 
 def validate_file_extension(value):
-    if os.path.splitext(value.name)[-1] == '.pdf':
+    if os.path.splitext(value.name)[-1].lower() == '.pdf':
         return value
     else:
         raise ValidationError('Upload a PDF File.')
 
 
 def validate_file_extension_image(value):
-    if os.path.splitext(value.name)[-1] in ['.jpg', '.jpeg', '.png']:
+    if os.path.splitext(value.name)[-1].lower() in ['.jpg', '.jpeg', '.png']:
         return value
     else:
         print(os.path.splitext(value.name)[-1])
