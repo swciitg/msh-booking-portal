@@ -25,11 +25,18 @@ from PyPDF2 import PdfFileMerger, PdfFileReader
 import xlwt
 from django.http import HttpResponse
 import datetime
+from pytz import timezone
 from django.db.models import Q
 
 
 def render_to_pdf(template_src, context_dict={}):
     template = get_template(template_src)
+
+    IST_timezone = timezone('Asia/Kolkata')
+
+    context_dict['form'].date_of_arrival = context_dict['form'].date_of_arrival.astimezone(IST_timezone)
+    context_dict['form'].check_in_date = context_dict['form'].check_in_date.astimezone(IST_timezone)
+
     html = template.render(context_dict)
     result = BytesIO()
     pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
