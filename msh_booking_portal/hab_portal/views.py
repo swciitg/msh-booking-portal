@@ -214,12 +214,11 @@ def HABThanks(request):
     response['Content-Disposition'] = 'attachment; inline; filename="somefilename.pdf"'
     buffer = BytesIO()
     pdf1_buffer = obj.final_pdf
-    pdf2_buffer = obj.vaccination_cert
 
     pdf_merger = PdfFileMerger(strict=False)
     pdf_merger.append(pdf1_buffer)
     pdf_merger.append(obj.fee_receipt)
-    pdf_merger.append(pdf2_buffer)
+    pdf_merger.append(obj.vaccination_cert)
     pdf_merger.append(obj.travel_ticket)
     pdf_merger.append(obj.rtpcr_report)
     # if obj.vaccination_status == "Single Dose":
