@@ -222,8 +222,8 @@ def HABThanks(request):
     pdf_merger.append(pdf2_buffer)
     pdf_merger.append(obj.travel_ticket)
     pdf_merger.append(obj.rtpcr_report)
-    if obj.vaccination_status == "Single Dose":
-        pdf_merger.append(obj.proof_of_invitation)
+    # if obj.vaccination_status == "Single Dose":
+    #     pdf_merger.append(obj.proof_of_invitation)
 
     # This can probably be improved
     pdf_merger.write(buffer)
