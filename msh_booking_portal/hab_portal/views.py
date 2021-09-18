@@ -223,11 +223,11 @@ def HABThanks(request):
     pdf1_buffer = obj.final_pdf
 
     pdf_merger = PdfFileMerger(strict=False)
-    pdf_merger.append(pdf1_buffer)
-    pdf_merger.append(obj.fee_receipt)
-    pdf_merger.append(obj.vaccination_cert)
-    pdf_merger.append(obj.travel_ticket)
-    pdf_merger.append(obj.rtpcr_report)
+    pdf_merger.append(pdf1_buffer, import_bookmarks=False)
+    pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
+    pdf_merger.append(obj.vaccination_cert, import_bookmarks=False)
+    pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
+    pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
     # if obj.vaccination_status == "Single Dose":
     #     pdf_merger.append(obj.proof_of_invitation)
 
