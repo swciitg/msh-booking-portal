@@ -27,6 +27,8 @@ from django.http import HttpResponse
 import datetime
 from pytz import timezone
 from django.db.models import Q
+from django.contrib import messages
+from PyPDF2 import PdfFileReader, utils
 
 
 def render_to_pdf(template_src, context_dict={}):
@@ -155,20 +157,47 @@ def HAB2(request):
                 if request.FILES.get('fee_receipt', None):
                     application.fee_receipt = request.FILES.get(
                         'fee_receipt', None)
+                    try:
+                        input_pdf = PdfFileReader(application.fee_receipt)
+                    except utils.PdfReadError:
+                        print("challa")
+                        messages.error(request, 'Unsupported Format or Corrupt pdf')
+                        return redirect('hab_portal:hab_2')
+
+
                 if request.FILES.get('vaccination_cert', None):
                     application.vaccination_cert = request.FILES.get(
                         'vaccination_cert', None)
+                    try:
+                        input_pdf = PdfFileReader(application.vaccination_cert)
+                    except utils.PdfReadError:
+                        print("challa")
+                        messages.error(request, 'Unsupported Format or Corrupt pdf')
+                        return redirect('hab_portal:hab_2')
+
                 if request.FILES.get('travel_ticket', None):
                     application.travel_ticket = request.FILES.get(
                         'travel_ticket', None)
+                    try:
+                        input_pdf = PdfFileReader(application.travel_ticket)
+                    except utils.PdfReadError:
+                        print("challa")
+                        messages.error(request, 'Unsupported Format or Corrupt pdf')
+                        return redirect('hab_portal:hab_2')
+
                 if request.FILES.get('rtpcr_report', None):
                     application.rtpcr_report = request.FILES.get(
                         'rtpcr_report', None)
+                    try:
+                        input_pdf = PdfFileReader(application.rtpcr_report)
+                    except utils.PdfReadError:
+                        print("challa")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                        messages.error(request, 'Unsupported Format or Corrupt pdf')
+                        return redirect('hab_portal:hab_2')
+                
                 application.save()
                 generate_obj_pdf(form_instance.id)
-                #save_to_user_data(application.user, request.POST, HAB_FIELDS)
                 return redirect('hab_portal:hab_thanks')
-
         else:
             form = HABdose2(instance=form_instance)
 
