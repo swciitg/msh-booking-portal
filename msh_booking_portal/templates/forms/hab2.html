@@ -231,6 +231,13 @@
                 </svg>
                 {{ form.rtpcr_report }}
                 {{ form.rtpcr_report.help_text }}
+		   
+		    <br>
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class = "alert alert-danger">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
                 <br><br><br>
 
                 <ol>
