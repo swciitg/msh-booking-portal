@@ -13,7 +13,6 @@ urlpatterns = [
     path('thanks/', views.HABThanks, name='hab_thanks'),
     path('wait/', views.HABDose1Wait, name='hab_dose1wait'),
     path('download_excel/<int:num>/<str:Hostel>', views.Download_Excel, name='download_excel'),
-    # path('download_excel1/', views.Download_Excel, name='download_excel1'),
     path('media/hab_portal/<path:file>', views.MediaView, name='media'),
     path('', views.index, name='hab_index'),
     path('admin-view/',views.AdminView,name='admin-view'),

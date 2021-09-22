@@ -535,8 +535,6 @@ def Download_Excel(request, num, Hostel):
 
         row_num = 0
 
-        # row_num1 = 0
-
         font_style = xlwt.XFStyle()
 
         font_style.font.bold = True
@@ -565,18 +563,10 @@ def Download_Excel(request, num, Hostel):
             'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
 
 
-        # columns1 = ['Name', 'Roll Number', 'Email', 'State','Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
-
         for col_num in range(len(columns)):
             ws.write(row_num, col_num, columns[col_num], font_style)
 
-        # for col_num1 in range(len(columns1)):
-        #     ws.write(row_num1, col_num1, columns1[col_num1], font_style)
-
         font_style = xlwt.XFStyle()
-
-        # rows = HABModel.objects.filter(recieved_an_invite='No').values_list(
-        #     'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'invite_sent')
 
         for row in rows:
             row_num += 1
