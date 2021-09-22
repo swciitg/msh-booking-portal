@@ -540,9 +540,10 @@ def Download_Excel(request, num, Hostel):
         font_style.font.bold = True
 
         if num == 4 :
-            columns = ['Name', 'Roll Number', 'Email', 'Programme', 'State', 'Invitation Status']
-            rows = HABModel.objects.filter(recieved_an_invite='No').values_list(
-            'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'invite_sent')
+            columns = ['Name', 'Roll Number', 'Email', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
+            rows1 = HABModel.objects.filter(Q(recieved_an_invite = "No"))
+            rows = rows1.filter(Q(vaccination_status = 'Single Dose') | Q(returning_from_state = 'Kerala')).values_list(
+            'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
 
         elif num == 1  :
             columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']

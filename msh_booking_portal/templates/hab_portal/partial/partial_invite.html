@@ -1,10 +1,12 @@
 <div id="replaceable-content">
 
     {% for item in HABforms %}
-        {% if item.recieved_an_invite == "No" and item.vaccination_status == 'Single Dose' %}
+        {% if item.recieved_an_invite == "No" %}
+            {% if item.vaccination_status == 'Single Dose' or item.returning_from_state == 'Kerala' %}
 
             {% include 'hab_portal/partial/partial_admin.html' %}
 
+            {% endif %}
         {% endif %}
     {% endfor %}
 
