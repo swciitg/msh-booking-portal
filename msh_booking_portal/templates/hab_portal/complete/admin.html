@@ -57,16 +57,11 @@
     <div class="container px-5 py-24 mx-auto">
 
         <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Students waiting for Invitation:</h1>
-
-
             <div>
               <br>
               Search:  <input id="user-input" placeholder="Roll No.">
-
             </div>
            <br>
-
-
 
            <table class="table-auto w-full text-left whitespace-no-wrap">
            <tbody>
@@ -81,12 +76,13 @@
                  <th width="10%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Invited</th>
                  <th width="15%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Mark as</th>
            </tr>
+
+           {% block content %}
+           {% endblock %}
+
            </tbody>
            </table>
 
-            {% block content %}
-
-            {% endblock %}
             <br>
 
            <a href="../">
@@ -95,7 +91,6 @@
               <a href="{% url 'hab_portal:download_excel' num=4 Hostel='none' %}"><button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Download Excel</button></a>
           </div>
         </section>
-
 
         <script src="{% static 'hab_portal/base.js' %}"></script>
 
