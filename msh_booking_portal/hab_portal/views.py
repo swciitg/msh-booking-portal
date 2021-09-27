@@ -78,7 +78,6 @@ def HABCreate(request):
             form = HABForm1(request.POST, request.FILES)
 
 
-
         if form.is_valid():
             application = form.save(commit=False)
             application.user = SiteUser.objects.get(user_id=request.user.id)
@@ -160,8 +159,7 @@ def HAB2(request):
                     try:
                         input_pdf = PdfFileReader(application.fee_receipt)
                     except utils.PdfReadError:
-                        print("challa")
-                        messages.error(request, 'Unsupported Format or Corrupt pdf')
+                        messages.error(request, 'Unsupported Format or Corrupt PDF for Fee Receipt')
                         return redirect('hab_portal:hab_2')
 
 
@@ -171,8 +169,7 @@ def HAB2(request):
                     try:
                         input_pdf = PdfFileReader(application.vaccination_cert)
                     except utils.PdfReadError:
-                        print("challa")
-                        messages.error(request, 'Unsupported Format or Corrupt pdf')
+                        messages.error(request, 'Unsupported Format or Corrupt PDF for Vaccination Certificate')
                         return redirect('hab_portal:hab_2')
 
                 if request.FILES.get('travel_ticket', None):
@@ -181,8 +178,7 @@ def HAB2(request):
                     try:
                         input_pdf = PdfFileReader(application.travel_ticket)
                     except utils.PdfReadError:
-                        print("challa")
-                        messages.error(request, 'Unsupported Format or Corrupt pdf')
+                        messages.error(request, 'Unsupported Format or Corrupt PDF for Travel Ticket')
                         return redirect('hab_portal:hab_2')
 
                 if request.FILES.get('rtpcr_report', None):
@@ -191,8 +187,7 @@ def HAB2(request):
                     try:
                         input_pdf = PdfFileReader(application.rtpcr_report)
                     except utils.PdfReadError:
-                        print("challa")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-                        messages.error(request, 'Unsupported Format or Corrupt pdf')
+                        messages.error(request, 'Unsupported Format or Corrupt PDF for RTPCR Report')
                         return redirect('hab_portal:hab_2')
                 
                 application.save()
@@ -252,11 +247,35 @@ def HABThanks(request):
     pdf1_buffer = obj.final_pdf
 
     pdf_merger = PdfFileMerger(strict=False)
-    pdf_merger.append(pdf1_buffer, import_bookmarks=False)
-    pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
-    pdf_merger.append(obj.vaccination_cert, import_bookmarks=False)
-    pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
-    pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
+    try:
+        pdf_merger.append(pdf1_buffer, import_bookmarks=False)
+    except utils.PdfReadError:
+        messages.error(request, 'Unsupported Format or Corrupt PDF')
+        return redirect('hab_portal:hab_2')
+
+    try:
+        pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
+    except utils.PdfReadError:
+        messages.error(request, 'Unsupported Format or Corrupt PDF for Fee Receipt')
+        return redirect('hab_portal:hab_2')
+
+    try:
+        pdf_merger.append(obj.vaccination_cert, import_bookmarks=False)
+    except utils.PdfReadError:
+        messages.error(request, 'Unsupported Format or Corrupt PDF for Vaccination Certificate')
+        return redirect('hab_portal:hab_2')
+
+    try:
+        pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
+    except utils.PdfReadError:
+        messages.error(request, 'Unsupported Format or Corrupt PDF for Travel Ticket')
+        return redirect('hab_portal:hab_2')
+
+    try:
+        pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
+    except utils.PdfReadError:
+        messages.error(request, 'Unsupported Format or Corrupt PDF for RTPCR Report')
+        return redirect('hab_portal:hab_2')
     # if obj.vaccination_status == "Single Dose":
     #     pdf_merger.append(obj.proof_of_invitation)
 
