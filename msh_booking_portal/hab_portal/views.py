@@ -21,7 +21,7 @@ from xhtml2pdf import pisa
 
 from django.core.files import File
 from PyPDF2 import PdfFileMerger, PdfFileReader
-
+import pikepdf
 import xlwt
 from django.http import HttpResponse
 import datetime
@@ -249,36 +249,38 @@ def HABThanks(request):
     pdf_merger = PdfFileMerger(strict=False)
     try:
         pdf_merger.append(pdf1_buffer, import_bookmarks=False)
-    except utils.PdfReadError:
+    except ValueError:
         messages.error(request, 'Unsupported Format or Corrupt PDF')
         return redirect('hab_portal:hab_2')
 
     try:
         pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
-    except utils.PdfReadError:
-        messages.error(request, 'Unsupported Format or Corrupt PDF for Fee Receipt')
-        return redirect('hab_portal:hab_2')
+    except ValueError:
+        pdf = pikepdf.open(obj.fee_receipt.path,allow_overwriting_input=True)
+        pdf.save(obj.fee_receipt.path)
+        pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
 
     try:
         pdf_merger.append(obj.vaccination_cert, import_bookmarks=False)
-    except utils.PdfReadError:
-        messages.error(request, 'Unsupported Format or Corrupt PDF for Vaccination Certificate')
-        return redirect('hab_portal:hab_2')
+    except ValueError:
+        pdf = pikepdf.open(obj.vaccination_cert.path,allow_overwriting_input=True)
+        pdf.save(obj.vaccination_cert.path)
+        pdf_merger.append(obj.vaccination_cert, import_bookmarks=False)
 
     try:
         pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
-    except utils.PdfReadError:
-        messages.error(request, 'Unsupported Format or Corrupt PDF for Travel Ticket')
-        return redirect('hab_portal:hab_2')
+    except ValueError:
+        pdf = pikepdf.open(obj.travel_ticket.path,allow_overwriting_input=True)
+        pdf.save(obj.travel_ticket.path)
+        pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
+
 
     try:
         pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
-    except utils.PdfReadError:
-        messages.error(request, 'Unsupported Format or Corrupt PDF for RTPCR Report')
-        return redirect('hab_portal:hab_2')
-    # if obj.vaccination_status == "Single Dose":
-    #     pdf_merger.append(obj.proof_of_invitation)
-
+    except ValueError:
+        pdf = pikepdf.open(obj.rtpcr_report.path,allow_overwriting_input=True)
+        pdf.save(obj.rtpcr_report.path)
+        pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
     # This can probably be improved
     pdf_merger.write(buffer)
     pdf_merger.close()
