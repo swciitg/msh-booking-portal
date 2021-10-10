@@ -281,5 +281,5 @@ class HABModel(models.Model):
         try:
             return self.final_pdf.url
         except:
-            print('-> Final PDF is missing for:', user.user.id, name)
+            print('-> Final PDF is missing for:', self.user.user.id, self.name)
             return ''
