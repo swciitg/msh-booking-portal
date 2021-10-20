@@ -276,3 +276,10 @@ class HABModel(models.Model):
     def clean(self):
         if (self.recieved_an_invite == 'Yes') and (self.proof_of_invitation.name == ''):
             raise ValidationError({'proof_of_invitation': 'Proof of invitation not submitted.'})
+
+    def get_final_pdf_url(self):
+        try:
+            return self.final_pdf.url
+        except:
+            print('-> Final PDF is missing for:', self.user.user.id, self.name)
+            return ''

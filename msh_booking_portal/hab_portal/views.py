@@ -66,6 +66,7 @@ def index(request):
 
 @login_required(login_url='/campus_return/accounts/login/')
 def HABCreate(request):
+    user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
     if request.method == 'POST':
         try:
             form_instance = HABModel.objects.get(
