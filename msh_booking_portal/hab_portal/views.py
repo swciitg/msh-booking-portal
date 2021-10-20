@@ -249,27 +249,27 @@ def HABThanks(request):
     pdf_merger = PdfFileMerger(strict=False)
     try:
         pdf_merger.append(pdf1_buffer, import_bookmarks=False)
-    except ValueError:
+    except Exception:
         messages.error(request, 'Unsupported Format or Corrupt PDF')
         return redirect('hab_portal:hab_2')
 
     try:
         pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
-    except ValueError:
+    except Exception:
         pdf = pikepdf.open(obj.fee_receipt.path,allow_overwriting_input=True)
         pdf.save(obj.fee_receipt.path)
         pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
 
     try:
         pdf_merger.append(obj.vaccination_cert, import_bookmarks=False)
-    except ValueError:
+    except Exception:
         pdf = pikepdf.open(obj.vaccination_cert.path,allow_overwriting_input=True)
         pdf.save(obj.vaccination_cert.path)
         pdf_merger.append(obj.vaccination_cert, import_bookmarks=False)
 
     try:
         pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
-    except ValueError:
+    except Exception:
         pdf = pikepdf.open(obj.travel_ticket.path,allow_overwriting_input=True)
         pdf.save(obj.travel_ticket.path)
         pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
@@ -277,7 +277,7 @@ def HABThanks(request):
 
     try:
         pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
-    except ValueError:
+    except Exception:
         pdf = pikepdf.open(obj.rtpcr_report.path,allow_overwriting_input=True)
         pdf.save(obj.rtpcr_report.path)
         pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
