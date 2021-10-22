@@ -190,7 +190,7 @@ def HAB2(request):
                     except utils.PdfReadError:
                         messages.error(request, 'Unsupported Format or Corrupt PDF for RTPCR Report')
                         return redirect('hab_portal:hab_2')
-                
+
                 application.save()
                 generate_obj_pdf(form_instance.id)
                 return redirect('hab_portal:hab_thanks')
