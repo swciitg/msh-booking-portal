@@ -145,6 +145,7 @@ def HAB1(request):
 def HAB2(request):
     try:
         form_instance = HABModel.objects.get(user__user__pk=request.user.id)
+        item2 = HABModel.objects.get(user__user__pk=request.user.id)
         request.session['id'] = form_instance.id
         if request.method == 'POST':
             form = HABdose2(request.POST, request.FILES,
@@ -199,7 +200,7 @@ def HAB2(request):
 
         return render(request,
                       'forms/hab2.html',
-                      {'form': form, 'url': 'form2'})
+                      {'form': form, 'url': 'form2', 'item2': item2})
 
     except ObjectDoesNotExist:
         return redirect('hab_portal:hab_create')
@@ -275,14 +276,14 @@ def HABThanks(request):
         pdf.save(obj.travel_ticket.path)
         pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
 
-
-    try:
-        pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
-    except Exception:
-        pdf = pikepdf.open(obj.rtpcr_report.path,allow_overwriting_input=True)
-        pdf.save(obj.rtpcr_report.path)
-        pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
-    # This can probably be improved
+    if obj.rtpcr_report:
+        try:
+            pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
+        except Exception:
+            pdf = pikepdf.open(obj.rtpcr_report.path,allow_overwriting_input=True)
+            pdf.save(obj.rtpcr_report.path)
+            pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
+        # This can probably be improved
     pdf_merger.write(buffer)
     pdf_merger.close()
     buffer.seek(0)

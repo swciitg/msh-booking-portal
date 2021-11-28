@@ -242,7 +242,7 @@ class HABModel(models.Model):
     rtpcr_report = models.FileField('RTPCR Report', upload_to=rtpcr_upload_file_name,
                                     storage=OverwriteStorage(),
                                     validators=[validate_file_size, validate_file_extension],
-                                    help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
+                                    help_text='Upload a .PDF file not greater than 10 MB in size.', null=True, blank=True)
 
     final_pdf = models.FileField('final pdf',upload_to=final_pdf_file_name,storage=OverwriteStorage(), null=True)
 

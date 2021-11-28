@@ -225,12 +225,16 @@
                 {{ form.travel_ticket }}
                 {{ form.travel_ticket.help_text }}
                 <br><br><br>
-                <label for="Upload Fee Receipt" class="leading-7 required-field text-Black-600">Upload RTPCR Report</label>
-                <svg width="872" height="4" viewBox="0 0 872 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
-                </svg>
-                {{ form.rtpcr_report }}
-                {{ form.rtpcr_report.help_text }}
+
+                {% if item2.vaccination_status == 'Single Dose' %}
+                    <label for="Upload Fee Receipt" class="leading-7 required-field text-Black-600">Upload RTPCR Report</label>
+                    <svg width="872" height="4" viewBox="0 0 872 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="0.998611" y1="2.91944" x2="871.995" y2="0.5" stroke="#E9E9EB"/>
+                    </svg>
+                    {{ form.rtpcr_report }}
+                    {{ form.rtpcr_report.help_text }}
+                    <br><br><br>
+                {% endif %}
 		   
 		    <br>
                 {% if messages %}
@@ -238,7 +242,6 @@
                     <div class = "alert alert-danger">{{ message }}</div>
                     {% endfor %}
                 {% endif %}
-                <br><br><br>
 
                 <ol>
                     <li><input type="checkbox" id="tick1"><label for="tick1" class="leading-7 required-field text-Black-600">&nbsp;&nbsp;I hereby declare that the above information is true to the best of my knowledge and belief.</label></li>
