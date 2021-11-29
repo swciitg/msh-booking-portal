@@ -276,13 +276,18 @@ def HABThanks(request):
         pdf.save(obj.travel_ticket.path)
         pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
 
-    if obj.rtpcr_report:
-        try:
-            pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
-        except Exception:
-            pdf = pikepdf.open(obj.rtpcr_report.path,allow_overwriting_input=True)
-            pdf.save(obj.rtpcr_report.path)
-            pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
+    if obj.vaccination_status == "Single Dose":
+        if obj.rtpcr_report:
+            try:
+                pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
+            except Exception:
+                pdf = pikepdf.open(obj.rtpcr_report.path,allow_overwriting_input=True)
+                pdf.save(obj.rtpcr_report.path)
+                pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
+        else:
+            messages.error(request, 'Upload a non corrupted pdf of RTPCR Report')
+            return redirect('hab_portal:hab_2')
+
         # This can probably be improved
     pdf_merger.write(buffer)
     pdf_merger.close()
