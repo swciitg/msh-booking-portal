@@ -2,7 +2,7 @@
 
     {% for item in HABforms %}
         {% if item.recieved_an_invite == "No" %}
-            {% if item.vaccination_status == 'Single Dose' or item.returning_from_state == 'Kerala' %}
+            {% if item.vaccination_status == 'Single Dose' %}
 
             {% include 'hab_portal/partial/partial_admin.html' %}
 

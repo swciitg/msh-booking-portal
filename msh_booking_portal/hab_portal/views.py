@@ -86,7 +86,7 @@ def HABCreate(request):
 
             save_to_user_data(application.user, request.POST, HAB_FIELDS)
 
-            if (application.vaccination_status == 'Single Dose') or (application.returning_from_state == 'Kerala'):
+            if (application.vaccination_status == 'Single Dose'):
                 return redirect('hab_portal:hab_1')
             else:
                 return redirect('hab_portal:hab_2')
@@ -571,7 +571,7 @@ def Download_Excel(request, num, Hostel):
         if num == 4 :
             columns = ['Name', 'Roll Number', 'Email', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
             rows1 = HABModel.objects.filter(Q(recieved_an_invite = "No"))
-            rows = rows1.filter(Q(vaccination_status = 'Single Dose') | Q(returning_from_state = 'Kerala')).values_list(
+            rows = rows1.filter(Q(vaccination_status = 'Single Dose')).values_list(
             'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
 
         elif num == 1  :
