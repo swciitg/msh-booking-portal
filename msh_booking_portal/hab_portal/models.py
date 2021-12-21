@@ -212,8 +212,8 @@ class HABModel(models.Model):
     flight_train_number = models.CharField('Flight / Train No.', blank=True, max_length=256, null=True)
 
     # Test Details
-    nature_of_test = models.CharField('Nature of Test', choices=NATURES_OF_TEST, max_length=256, null=True, default='RT-PCR')
-    date_of_testing = models.DateField('Date of Test', default=datetime.now, null=True)
+    nature_of_test = models.CharField('Nature of Test', choices=NATURES_OF_TEST, max_length=256, null=True, default='RT-PCR', blank=True)
+    date_of_testing = models.DateField('Date of Test', default=datetime.now, null=True, blank=True)
 
     # Hostel Related Information
     hostel = models.CharField('Hostel', max_length=256, choices=HOSTELS, null=True)
@@ -221,8 +221,8 @@ class HABModel(models.Model):
     check_in_date = models.DateTimeField('Check-in Date', default=datetime.now, null=True)
 
     # Status of Payment
-    mess_fee_paid = models.IntegerField('Fee Paid', null=True)
-    date_of_payment = models.DateField('Date of Payment', default=datetime.now, null=True)
+    mess_fee_paid = models.IntegerField('Fee Paid', null=True, blank=True)
+    date_of_payment = models.DateField('Date of Payment', default=datetime.now, null=True, blank=True)
 
     # Enclosures
     fee_receipt = models.FileField('Fee Receipt', upload_to=fee_upload_file_name, storage=OverwriteStorage(),
