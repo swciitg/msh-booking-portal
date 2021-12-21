@@ -255,12 +255,13 @@ def HABThanks(request):
         messages.error(request, 'Unsupported Format or Corrupt PDF')
         return redirect('hab_portal:hab_2')
 
-    try:
-        pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
-    except Exception:
-        pdf = pikepdf.open(obj.fee_receipt.path,allow_overwriting_input=True)
-        pdf.save(obj.fee_receipt.path)
-        pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
+    if obj.fee_receipt:
+        try:
+            pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
+        except Exception:
+            pdf = pikepdf.open(obj.fee_receipt.path,allow_overwriting_input=True)
+            pdf.save(obj.fee_receipt.path)
+            pdf_merger.append(obj.fee_receipt, import_bookmarks=False)
 
     try:
         pdf_merger.append(obj.vaccination_cert, import_bookmarks=False)
@@ -276,17 +277,17 @@ def HABThanks(request):
         pdf.save(obj.travel_ticket.path)
         pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
 
-    if obj.vaccination_status == "Single Dose":
-        if obj.rtpcr_report:
-            try:
-                pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
-            except Exception:
-                pdf = pikepdf.open(obj.rtpcr_report.path,allow_overwriting_input=True)
-                pdf.save(obj.rtpcr_report.path)
-                pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
-        else:
-            messages.error(request, 'Upload a non corrupted pdf of RTPCR Report')
-            return redirect('hab_portal:hab_2')
+    # if obj.vaccination_status == "Single Dose":
+    if obj.rtpcr_report:
+        try:
+            pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
+        except Exception:
+            pdf = pikepdf.open(obj.rtpcr_report.path,allow_overwriting_input=True)
+            pdf.save(obj.rtpcr_report.path)
+            pdf_merger.append(obj.rtpcr_report, import_bookmarks=False)
+    # else:
+    #     messages.error(request, 'Upload a non corrupted pdf of RTPCR Report')
+    #     return redirect('hab_portal:hab_2')
 
         # This can probably be improved
     pdf_merger.write(buffer)

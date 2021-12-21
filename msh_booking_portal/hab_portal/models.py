@@ -227,7 +227,7 @@ class HABModel(models.Model):
     # Enclosures
     fee_receipt = models.FileField('Fee Receipt', upload_to=fee_upload_file_name, storage=OverwriteStorage(),
                                    validators=[validate_file_size, validate_file_extension],
-                                   help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
+                                   help_text='Upload a .PDF file not greater than 10 MB in size.', null=True, blank=True)
 
     vaccination_cert = models.FileField('Vaccination Certificate', upload_to=vacc_upload_file_name,
                                         storage=OverwriteStorage(),
