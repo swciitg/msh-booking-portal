@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.microsoft'
+    'allauth.socialaccount.providers.microsoft',
+    'import_export',
 ]
 
 MIDDLEWARE = [
