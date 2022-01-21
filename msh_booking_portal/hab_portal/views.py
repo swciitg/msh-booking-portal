@@ -177,14 +177,14 @@ def HAB2(request):
                         return redirect('hab_portal:hab_2')
 
 
-                if request.FILES.get('vaccination_cert', None):
-                    application.vaccination_cert = request.FILES.get(
-                        'vaccination_cert', None)
-                    try:
-                        input_pdf = PdfFileReader(application.vaccination_cert)
-                    except utils.PdfReadError:
-                        messages.error(request, 'Unsupported Format or Corrupt PDF for Vaccination Certificate')
-                        return redirect('hab_portal:hab_2')
+                # if request.FILES.get('vaccination_cert', None):
+                #     application.vaccination_cert = request.FILES.get(
+                #         'vaccination_cert', None)
+                #     try:
+                #         input_pdf = PdfFileReader(application.vaccination_cert)
+                #     except utils.PdfReadError:
+                #         messages.error(request, 'Unsupported Format or Corrupt PDF for Vaccination Certificate')
+                #         return redirect('hab_portal:hab_2')
 
                 if request.FILES.get('travel_ticket', None):
                     application.travel_ticket = request.FILES.get(
