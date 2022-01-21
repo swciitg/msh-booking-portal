@@ -68,8 +68,10 @@ PROGRAMMES =[#('B.Tech','B.Tech'),
              #('M.A.','M.A.'),
              #('M.Sc.','M.Sc.'),
              #('MSR','MSR'),
-             ('PHD/IPDF','PHD/IPDF'),
-             #('Project Staff','Project Staff'),
+             #('PHD/IPDF','PHD/IPDF'),
+             ('PhD', 'PhD'),
+             ('IPDF', 'IPDF'),
+             ('Project Staff','Project Staff'),
 ]
 
 STATE_CHOICES = [("Other (Foreign Country)", "Other (Foreign Country)"),
