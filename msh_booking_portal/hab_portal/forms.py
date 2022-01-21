@@ -14,7 +14,8 @@ class HABForm1(ModelForm):
         'department',
         'supervisor',
         'email_of_supervisor',
-        'returning_from_state',]
+        'returning_from_state',
+        'vaccination_cert',]
 
 
         widgets = {

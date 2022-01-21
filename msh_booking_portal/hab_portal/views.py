@@ -82,14 +82,26 @@ def HABCreate(request):
         if form.is_valid():
             application = form.save(commit=False)
             application.user = SiteUser.objects.get(user_id=request.user.id)
+
+            if request.FILES.get('vaccination_cert', None):
+                application.vaccination_cert = request.FILES.get(
+                    'vaccination_cert', None)
+                try:
+                    input_pdf = PdfFileReader(application.vaccination_cert)
+                except utils.PdfReadError:
+                    messages.error(request, 'Unsupported Format or Corrupt PDF for Vaccination Certificate')
+                    return redirect('hab_portal:hab')
+
             application.save()
 
             save_to_user_data(application.user, request.POST, HAB_FIELDS)
 
-            if (application.vaccination_status == 'Single Dose'):
-                return redirect('hab_portal:hab_1')
-            else:
-                return redirect('hab_portal:hab_2')
+            # if (application.vaccination_status == 'Single Dose'):
+            #     return redirect('hab_portal:hab_1')
+            # else:
+            #     return redirect('hab_portal:hab_2')
+
+            return redirect('hab_portal:hab_1')
 
     else:
         try:

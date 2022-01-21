@@ -61,15 +61,16 @@ RECIEVED_AN_INVITE =[
      ('No', 'No'),
 ]
 
-PROGRAMMES =[ ('B.Tech','B.Tech'),
-             ('B.Des','B.Des'),
-             ('M.Tech','M.Tech'),
-             ('M.Des','M.Des'),
-             ('M.A.','M.A.'),
-             ('M.Sc.','M.Sc.'),
-             ('MSR','MSR'),
+PROGRAMMES =[#('B.Tech','B.Tech'),
+             #('B.Des','B.Des'),
+             #('M.Tech','M.Tech'),
+             #('M.Des','M.Des'),
+             #('M.A.','M.A.'),
+             #('M.Sc.','M.Sc.'),
+             #('MSR','MSR'),
              ('PHD/IPDF','PHD/IPDF'),
-             ('Project Staff','Project Staff'),]
+             #('Project Staff','Project Staff'),
+]
 
 STATE_CHOICES = [("Other (Foreign Country)", "Other (Foreign Country)"),
                  ("Andhra Pradesh","Andhra Pradesh"),
