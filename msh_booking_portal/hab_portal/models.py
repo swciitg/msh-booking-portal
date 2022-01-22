@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from users.models import SiteUser
 from .storage import OverwriteStorage
 from datetime import datetime
+import pytz
 
 
 
@@ -286,3 +287,7 @@ class HABModel(models.Model):
         except:
             print('-> Final PDF is missing for:', self.user.user.id, self.name)
             return ''
+
+    @property
+    def after_20_january_2022(self):
+        return self.time_of_submission > datetime(2022, 1, 20, 0, 0, 0, tzinfo=pytz.UTC)
