@@ -187,7 +187,7 @@ class HABModel(models.Model):
     # Personal Details
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True)
     name = models.CharField('Name', max_length=256)
-    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid 9 digit Roll Number.',validators=[validate_digit_length] )
+    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid Roll Number.')#,validators=[validate_digit_length] )
     gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male')
     email = models.CharField('Email', max_length=256)
     mobile = models.IntegerField('Mobile')
