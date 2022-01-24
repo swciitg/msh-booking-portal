@@ -23,7 +23,7 @@ class HABForm1(ModelForm):
                 'class': "form-control",
                 }),
 
-            'roll_number': NumberInput(attrs={
+            'roll_number': TextInput(attrs={
                 'class': "form-control",
                 }),
 
