@@ -582,8 +582,8 @@ def Download_Excel(request, num, Hostel):
 
         if num == 4 :
             columns = ['Name', 'Roll Number', 'Email', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
-            rows1 = HABModel.objects.filter(Q(recieved_an_invite = "No"))
-            rows = rows1.filter(Q(vaccination_status = 'Single Dose')).values_list(
+            rows = HABModel.objects.filter(recieved_an_invite = "No",
+                                            time_of_submission__gte=datetime.date(2022, 1, 20)).values_list(
             'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
 
         elif num == 1  :
