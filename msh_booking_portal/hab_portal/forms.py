@@ -1,5 +1,5 @@
 from django.forms import ModelForm, DateInput, HiddenInput, NumberInput, TextInput,Select, FileInput, RadioSelect
-from .models import HABModel
+from .models import HABModel, NewHABModel
 
 class HABForm1(ModelForm):
     class Meta:
@@ -241,3 +241,87 @@ class PdfgeneratedForm(ModelForm):
                      'class': "form-control",
                 }),
     }
+
+
+class NewHABForm1(ModelForm):
+    class Meta:
+        model = NewHABModel
+        fields = [
+            'name',
+            'roll_number',
+            'gender',
+            'email',
+            'mobile',
+            'vaccination_status',
+            'programme',
+            'department',
+            'supervisor',
+            'email_of_supervisor',
+            'returning_from_state',
+            'vaccination_cert',
+        ]
+
+
+        widgets = {
+            'name': TextInput(attrs={
+                'class': "form-control",
+                }),
+
+            'roll_number': TextInput(attrs={
+                'class': "form-control",
+                }),
+
+            'gender': Select(attrs={
+                    'class': "form-control",
+                }),
+
+            'department': TextInput(attrs={
+                    'class': "form-control",
+                }),
+
+            'programme': Select(attrs={
+                    'class': "form-control",
+                     'id':'prog',
+                }),
+
+            'email': TextInput(attrs={
+                    'readonly':'readonly',
+                    'class': "form-control",
+                    'id':'e_mail',
+                }),
+
+            'mobile': NumberInput(attrs={
+                'class': "form-control",
+                }),
+
+            'supervisor': TextInput(attrs={
+                    'class': "form-control",
+                }),
+
+            'email_of_supervisor': TextInput(attrs={
+                    'class': "form-control",
+                }),
+
+            'vaccination_status': Select(attrs={
+                    'class': "form-control",
+                    'id':'vs',
+                }),
+
+            'returning_from_state': Select(attrs={
+                'class': "form-control",
+                }),
+        }
+
+class NewHABdose1(ModelForm):
+    class Meta:
+        model = HABModel
+        fields = [
+            'recieved_an_invite',
+            'proof_of_invitation',
+        ]
+
+        widgets = {
+            'recieved_an_invite': Select(attrs={
+                'class': "form-control",
+            }),
+        }

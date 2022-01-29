@@ -2,11 +2,7 @@
 
     {% for item in HABforms %}
         {% if item.recieved_an_invite == "No" %}
-            {% if item.after_20_january_2022 %}
-
             {% include 'hab_portal/partial/partial_admin.html' %}
-
-            {% endif %}
         {% endif %}
     {% endfor %}
 

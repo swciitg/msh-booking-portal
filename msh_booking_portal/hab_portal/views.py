@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-from .forms import HABForm1, HABdose2, HABdose1, PdfgeneratedForm
 
 from .models import HABModel, HAB_FIELDS
+from .forms import HABForm1, HABdose2, HABdose1, PdfgeneratedForm
+from .models import NewHABModel
+from .forms import NewHABForm1, NewHABdose1
 
 from users.models import SiteUser
 from users.utils import load_from_user_data, save_to_user_data
-from .models import HABModel
 from django.template.loader import render_to_string
 from django.http import JsonResponse, FileResponse
 from django.views.generic import DetailView
@@ -48,7 +49,7 @@ def render_to_pdf(template_src, context_dict={}):
 
 
 def generate_obj_pdf(instance_id):
-    obj = HABModel.objects.get(id=instance_id)
+    obj = NewHABModel.objects.get(id=instance_id)
     # form = PdfgeneratedForm(instance=obj)
     context = {'form': obj}
     # print(form)
@@ -69,14 +70,14 @@ def HABCreate(request):
     user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
     if request.method == 'POST':
         try:
-            form_instance = HABModel.objects.get(
+            form_instance = NewHABModel.objects.get(
                 user__user__pk=request.user.id)
-            form = HABForm1(request.POST, request.FILES,
+            form = NewHABForm1(request.POST, request.FILES,
                             instance=form_instance)
 
 
         except:
-            form = HABForm1(request.POST, request.FILES)
+            form = NewHABForm1(request.POST, request.FILES)
 
 
         if form.is_valid():
@@ -105,13 +106,13 @@ def HABCreate(request):
 
     else:
         try:
-            form_instance = HABModel.objects.get(
+            form_instance = NewHABModel.objects.get(
                 user__user__pk=request.user.id)
             form = load_from_user_data(SiteUser.objects.get(
-                user_id=request.user.id), HABForm1(instance=form_instance), HAB_FIELDS)
+                user_id=request.user.id), NewHABForm1(instance=form_instance), HAB_FIELDS)
         except:
             form = load_from_user_data(SiteUser.objects.get(
-                user_id=request.user.id), HABForm1(), HAB_FIELDS)
+                user_id=request.user.id), NewHABForm1(), HAB_FIELDS)
 
 
 
@@ -123,9 +124,9 @@ def HABCreate(request):
 @login_required(login_url='/campus_return/accounts/login/')
 def HAB1(request):
     try:
-        form_instance = HABModel.objects.get(user__user__pk=request.user.id)
+        form_instance = NewHABModel.objects.get(user__user__pk=request.user.id)
         if request.method == 'POST':
-            form = HABdose1(request.POST, request.FILES,
+            form = NewHABdose1(request.POST, request.FILES,
                             instance=form_instance)
 
             if form.is_valid():
@@ -144,7 +145,7 @@ def HAB1(request):
                     return redirect('hab_portal:hab_dose1wait')
 
         else:
-            form = HABdose1(instance=form_instance)
+            form = NewHABdose1(instance=form_instance)
 
         return render(request,
                       'forms/hab1.html',
@@ -156,8 +157,8 @@ def HAB1(request):
 @login_required(login_url='/campus_return/accounts/login/')
 def HAB2(request):
     try:
-        form_instance = HABModel.objects.get(user__user__pk=request.user.id)
-        item2 = HABModel.objects.get(user__user__pk=request.user.id)
+        form_instance = NewHABModel.objects.get(user__user__pk=request.user.id)
+        item2 = NewHABModel.objects.get(user__user__pk=request.user.id)
         request.session['id'] = form_instance.id
         if request.method == 'POST':
             form = HABdose2(request.POST, request.FILES,
@@ -225,10 +226,10 @@ def HABDose1Wait(request):
 
 @login_required(login_url='/campus_return/accounts/login/')
 def HABEdit(request):
-    form_instance = HABModel.objects.get(user__user__pk=request.user.id)
+    form_instance = NewHABModel.objects.get(user__user__pk=request.user.id)
 
     if request.method == 'POST':
-        form = HABForm1(request.POST, request.FILES, instance=form_instance)
+        form = NewHABForm1(request.POST, request.FILES, instance=form_instance)
 
         if form.is_valid() and (not form_instance.locked):
             application = form.save(commit=False)
@@ -240,7 +241,7 @@ def HABEdit(request):
             return redirect('hab_portal:hab_thanks')
 
     else:
-        form = HABForm1(instance=form_instance)
+        form = NewHABForm1(instance=form_instance)
 
         if form_instance.locked:
             for field in form.fields:
@@ -254,7 +255,7 @@ def HABEdit(request):
 @login_required(login_url='/campus_return/accounts/login/')
 def HABThanks(request):
     instance_id = request.session.get('id')
-    obj = HABModel.objects.get(id=instance_id)
+    obj = NewHABModel.objects.get(id=instance_id)
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; inline; filename="somefilename.pdf"'
     buffer = BytesIO()
@@ -320,11 +321,11 @@ def AdminView(request):
         url_parameter = request.GET.get("q")
 
         if url_parameter:
-            HABforms = HABModel.objects.filter(
+            HABforms = NewHABModel.objects.filter(
                 roll_number__icontains=url_parameter)
 
         else:
-            HABforms = HABModel.objects.all()
+            HABforms = NewHABModel.objects.all()
 
         if request.is_ajax():
             html = render_to_string(
@@ -344,7 +345,7 @@ def MarkAsInvited(request, id=-1):
     if request.user.is_staff:
         if (id == -1):
             return JsonResponse({'success': False})
-        model = HABModel.objects.get(pk=id)
+        model = NewHABModel.objects.get(pk=id)
         model.invite_sent = 'Invited'
         model.save()
         return JsonResponse(data={'success': True})
@@ -356,7 +357,7 @@ def MarkAsNotInvited(request, id=-1):
     if request.user.is_staff:
         if (id == -1):
             return JsonResponse({'success': False})
-        model = HABModel.objects.get(pk=id)
+        model = NewHABModel.objects.get(pk=id)
         model.invite_sent = 'Not Invited'
         model.save()
         return JsonResponse(data={'success': True})
@@ -369,8 +370,8 @@ def HABView(request):
     if request.user.is_staff:
         return render(request,
                       'hab_portal/hab-view.html',
-                      {'applications': HABModel.objects.all().order_by('time_of_submission'),
-                       'hostels': HABModel.hostel})
+                      {'applications': NewHABModel.objects.all().order_by('time_of_submission'),
+                       'hostels': NewHABModel.hostel})
     else:
         return HttpResponseForbidden()
 
@@ -382,10 +383,10 @@ def HostelView(request,hostel):
         url_parameter = request.GET.get("q")
 
         if url_parameter:
-            HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+            HABforms = NewHABModel.objects.filter(roll_number__icontains=url_parameter)
 
         else:
-            HABforms = HABModel.objects.all()
+            HABforms = NewHABModel.objects.all()
 
         ctx["HABforms"] = HABforms
 
@@ -411,10 +412,10 @@ def HostelApproved(request, hostel):
         url_parameter = request.GET.get("q")
 
         if url_parameter:
-            HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+            HABforms = NewHABModel.objects.filter(roll_number__icontains=url_parameter)
 
         else:
-            HABforms = HABModel.objects.all()
+            HABforms = NewHABModel.objects.all()
 
         ctx["HABforms"] = HABforms
 
@@ -440,10 +441,10 @@ def HostelPending(request,hostel):
         url_parameter = request.GET.get("q")
 
         if url_parameter:
-            HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+            HABforms = NewHABModel.objects.filter(roll_number__icontains=url_parameter)
 
         else:
-            HABforms = HABModel.objects.all()
+            HABforms = NewHABModel.objects.all()
 
         ctx["HABforms"] = HABforms
 
@@ -469,10 +470,10 @@ def HostelRejected(request, hostel):
         url_parameter = request.GET.get("q")
 
         if url_parameter:
-            HABforms = HABModel.objects.filter(roll_number__icontains=url_parameter)
+            HABforms = NewHABModel.objects.filter(roll_number__icontains=url_parameter)
 
         else:
-            HABforms = HABModel.objects.all()
+            HABforms = NewHABModel.objects.all()
         ctx["HABforms"] = HABforms
         if request.is_ajax():
             html = render_to_string(
@@ -492,7 +493,7 @@ def HostelRejected(request, hostel):
 @login_required(login_url='/campus_return/accounts/login/')
 def HostelStatusAccept(request, hostel, id):
     if request.user.is_staff:
-        application = HABModel.objects.get(pk=id)
+        application = NewHABModel.objects.get(pk=id)
         application.status = 'Verified'
         application.save()
         return redirect("hab_portal:hostel-view", hostel=hostel)
@@ -503,7 +504,7 @@ def HostelStatusAccept(request, hostel, id):
 @login_required(login_url='/campus_return/accounts/login/')
 def HostelStatusDecline(request, hostel, id):
     if request.user.is_staff:
-        application = HABModel.objects.get(pk=id)
+        application = NewHABModel.objects.get(pk=id)
         application.status = 'Not Verified'
         application.save()
         return redirect("hab_portal:hostel-view", hostel=hostel)
@@ -520,42 +521,42 @@ def MediaView(request, file):
 
     try:
         if folder == 'proof_of_invitation':
-            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            instance = NewHABModel.objects.get(user__user__pk=request.user.id)
             if (instance.proof_of_invitation.name == 'hab_portal/' + file):
                 return FileResponse(open('media/hab_portal/' + file, 'rb'))
             else:
                 return HttpResponseForbidden()
 
         if folder == 'fee_recipt':
-            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            instance = NewHABModel.objects.get(user__user__pk=request.user.id)
             if (instance.fee_receipt.name == 'hab_portal/' + file):
                 return FileResponse(open('media/hab_portal/' + file, 'rb'))
             else:
                 return HttpResponseForbidden()
 
         if folder == 'vaccination':
-            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            instance = NewHABModel.objects.get(user__user__pk=request.user.id)
             if (instance.vaccination_cert.name == 'hab_portal/' + file):
                 return FileResponse(open('media/hab_portal/' + file, 'rb'))
             else:
                 return HttpResponseForbidden()
 
         if folder == 'rtpcr':
-            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            instance = NewHABModel.objects.get(user__user__pk=request.user.id)
             if (instance.rtpcr_report.name == 'hab_portal/' + file):
                 return FileResponse(open('media/hab_portal/' + file, 'rb'))
             else:
                 return HttpResponseForbidden()
 
         if folder == 'travel':
-            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            instance = NewHABModel.objects.get(user__user__pk=request.user.id)
             if (instance.travel_ticket.name == 'hab_portal/' + file) or request.user.is_staff:
                 return FileResponse(open('media/hab_portal/' + file, 'rb'))
             else:
                 return HttpResponseForbidden()
 
         if folder == 'final_pdf':
-            instance = HABModel.objects.get(user__user__pk=request.user.id)
+            instance = NewHABModel.objects.get(user__user__pk=request.user.id)
             if (instance.final_pdf.name == 'hab_portal/' + file) or request.user.is_staff:
                 return FileResponse(open('media/hab_portal/' + file, 'rb'))
             else:
@@ -582,25 +583,24 @@ def Download_Excel(request, num, Hostel):
 
         if num == 4 :
             columns = ['Name', 'Roll Number', 'Email', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
-            rows = HABModel.objects.filter(recieved_an_invite = "No",
-                                            time_of_submission__gte=datetime.date(2022, 1, 20)).order_by('time_of_submission').values_list(
+            rows = NewHABModel.objects.order_by('time_of_submission').values_list(
             'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
 
         elif num == 1  :
             columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
-            rows1 = HABModel.objects.filter(Q(hostel = Hostel))
+            rows1 = NewHABModel.objects.filter(Q(hostel = Hostel))
             rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
             'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
 
         elif num == 2  :
             columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
-            rows1 = HABModel.objects.filter(Q(hostel = Hostel) & Q(status='Verified'))
+            rows1 = NewHABModel.objects.filter(Q(hostel = Hostel) & Q(status='Verified'))
             rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
             'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
 
         elif num == 3  :
             columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
-            rows1 = HABModel.objects.filter(Q(hostel = Hostel) & Q(status='Not Verified'))
+            rows1 = NewHABModel.objects.filter(Q(hostel = Hostel) & Q(status='Not Verified'))
             rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
             'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
 
