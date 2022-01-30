@@ -1,9 +1,7 @@
 <div id="replaceable-content">
 
     {% for item in HABforms %}
-        {% if item.recieved_an_invite == "No" %}
-            {% include 'hab_portal/partial/partial_admin.html' %}
-        {% endif %}
+        {% include 'hab_portal/partial/partial_admin.html' %}
     {% endfor %}
 
 </div>
