@@ -133,6 +133,11 @@ def rtpcr_upload_file_name(instance, filename):
     return 'hab_portal/rtpcr/{0}.pdf'.format(instance.user.pk)
 
 
+def validate_digit_length(phone):
+    if not (phone.isdigit() and len(phone) == 9):
+        raise ValidationError('Roll Number must be of 9 digits')
+
+
 def validate_file_size(value):
     size = value.size
 
