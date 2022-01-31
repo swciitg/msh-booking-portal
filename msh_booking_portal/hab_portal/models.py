@@ -70,7 +70,7 @@ PROGRAMMES =[#('B.Tech','B.Tech'),
              #('M.Sc.','M.Sc.'),
              #('MSR','MSR'),
              #('PHD/IPDF','PHD/IPDF'),
-             #('B.Tech. 4th Year', 'B.Tech. 4th Year'),
+             ('B.Tech. 4th Year', 'B.Tech. 4th Year'),
              ('PhD', 'PhD'),
              ('IPDF', 'IPDF'),
              ('Project Staff','Project Staff'),
@@ -299,7 +299,7 @@ class NewHABModel(models.Model):
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True)
     name = models.CharField('Name', max_length=256)
     roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid Roll Number.')
-    gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male')
+    gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male', null=True)
     email = models.CharField('Email', max_length=256)
     mobile = models.IntegerField('Mobile')
     vaccination_status = models.CharField('Vaccination Status', max_length=256,
@@ -383,7 +383,8 @@ class NewHABModel(models.Model):
         )
 
     def __str__(self):
-        return self.user.user.first_name+" "+self.user.user.last_name
+        #return self.user.user.first_name+" "+self.user.user.last_name
+        return "None"
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in HABModel._meta.fields]
