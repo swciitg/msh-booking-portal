@@ -78,8 +78,8 @@ class HABdose2(ModelForm):
             'flight_train_number',
             'nature_of_test',
             'date_of_testing',
-            'hostel',
-            'room_no',
+            # 'hostel',
+            # 'room_no',
             'check_in_date',
             'mess_fee_paid',
             'date_of_payment',
@@ -113,12 +113,12 @@ class HABdose2(ModelForm):
             'nature_of_test': Select(attrs={
                      'class': "form-control",
                 }),
-            'hostel': Select(attrs={
-                'class': "form-control",
-                }),
-            'room_no': TextInput(attrs={
-                     'class': "form-control",
-                }),
+            # 'hostel': Select(attrs={
+            #     'class': "form-control",
+            #     }),
+            # 'room_no': TextInput(attrs={
+            #          'class': "form-control",
+            #     }),
             'mess_fee_paid': NumberInput(attrs={
                      'class': "form-control",
                 }),
@@ -256,6 +256,8 @@ class NewHABForm1(ModelForm):
             'programme',
             'department',
             'supervisor',
+            'hostel',
+            'room_no',
             'email_of_supervisor',
             'returning_from_state',
             'vaccination_cert',
@@ -300,6 +302,12 @@ class NewHABForm1(ModelForm):
 
             'email_of_supervisor': TextInput(attrs={
                     'class': "form-control",
+                }),
+            'hostel': Select(attrs={
+                'class': "form-control",
+                }),
+            'room_no': TextInput(attrs={
+                     'class': "form-control",
                 }),
 
             'vaccination_status': Select(attrs={
