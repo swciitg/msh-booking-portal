@@ -582,27 +582,27 @@ def Download_Excel(request, num, Hostel):
         font_style.font.bold = True
 
         if num == 4 :
-            columns = ['Name', 'Roll Number', 'Email', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
+            columns = ['Name', 'Roll Number', 'Email','Gender', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
             rows = NewHABModel.objects.order_by('time_of_submission').values_list(
-            'name', 'roll_number', 'email', 'programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
+            'name', 'roll_number', 'email', 'gender','programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
 
         elif num == 1  :
-            columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
+            columns = ['Name', 'Roll Number', 'Email','Gender', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
             rows1 = NewHABModel.objects.filter(Q(hostel = Hostel))
             rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
-            'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
+            'name', 'roll_number', 'email','gender', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
 
         elif num == 2  :
-            columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
+            columns = ['Name', 'Roll Number', 'Email','Gender', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
             rows1 = NewHABModel.objects.filter(Q(hostel = Hostel) & Q(status='Verified'))
             rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
-            'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
+            'name', 'roll_number', 'email','gender', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
 
         elif num == 3  :
-            columns = ['Name', 'Roll Number', 'Email', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
+            columns = ['Name', 'Roll Number', 'Email','Gender', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']
             rows1 = NewHABModel.objects.filter(Q(hostel = Hostel) & Q(status='Not Verified'))
             rows = rows1.filter(Q(recieved_an_invite='Yes') | Q(vaccination_status='Double Dose')).values_list(
-            'name', 'roll_number', 'email', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
+            'name', 'roll_number', 'email','gender', 'returning_from_state', 'hostel', 'programme', 'mess_fee_paid', 'vaccination_status', 'date_of_arrival', 'check_in_date', 'nature_of_test', 'mode_of_travel','status')
 
 
         for col_num in range(len(columns)):
