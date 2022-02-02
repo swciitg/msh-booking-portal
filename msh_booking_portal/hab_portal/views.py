@@ -322,10 +322,10 @@ def AdminView(request):
 
         if url_parameter:
             HABforms = NewHABModel.objects.filter(
-                roll_number__icontains=url_parameter)
+                roll_number__icontains=url_parameter).order_by('time_of_submission')
 
         else:
-            HABforms = NewHABModel.objects.all()
+            HABforms = NewHABModel.objects.all().order_by('time_of_submission')
 
         if request.is_ajax():
             html = render_to_string(
