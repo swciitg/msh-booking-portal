@@ -184,7 +184,7 @@ class HABModel(models.Model):
     # Personal Details
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True)
     name = models.CharField('Name', max_length=256)
-    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid Roll Number.',unique=True)
+    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid Roll Number.')
     gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male')
     email = models.CharField('Email', max_length=256)
     mobile = models.IntegerField('Mobile')
@@ -300,7 +300,7 @@ class NewHABModel(models.Model):
     # Personal Details
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True)
     name = models.CharField('Name', max_length=256)
-    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid Roll Number.', unique=True)
+    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid Roll Number.')
     gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male', null=True)
     # email = models.CharField('Email', max_length=256)
     mobile = models.IntegerField('Mobile')
