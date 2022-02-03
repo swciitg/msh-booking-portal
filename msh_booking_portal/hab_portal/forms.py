@@ -250,7 +250,7 @@ class NewHABForm1(ModelForm):
             'name',
             'roll_number',
             'gender',
-            'email',
+            # 'email',
             'mobile',
             'vaccination_status',
             'programme',
@@ -286,11 +286,11 @@ class NewHABForm1(ModelForm):
                      'id':'prog',
                 }),
 
-            'email': TextInput(attrs={
-                    'readonly':'readonly',
-                    'class': "form-control",
-                    'id':'e_mail',
-                }),
+            # 'email': TextInput(attrs={
+            #         'readonly':'readonly',
+            #         'class': "form-control",
+            #         'id':'e_mail',
+            #     }),
 
             'mobile': NumberInput(attrs={
                 'class': "form-control",

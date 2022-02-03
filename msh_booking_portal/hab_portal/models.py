@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from users.models import SiteUser
 from .storage import OverwriteStorage
 from datetime import datetime
+from django.utils import timezone
 import pytz
 
 
@@ -175,7 +176,7 @@ HAB_FIELDS = {'roll_number': 'roll_number',
 class HABModel(models.Model):
     # Invisible Fields
 
-    time_of_submission = models.DateTimeField(auto_now_add=True, null=True)
+    time_of_submission = models.DateTimeField(default=timezone.now, null=True)
     invite_sent = models.CharField(max_length=256, choices=INVITED, default='Not Invited', null=True)
     status = models.CharField(max_length=256, choices=STATUS, default='Not Verified', null=True)
     locked = models.BooleanField(default=False)
@@ -183,7 +184,7 @@ class HABModel(models.Model):
     # Personal Details
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True)
     name = models.CharField('Name', max_length=256)
-    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid Roll Number.')
+    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid Roll Number.',unique=True)
     gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male')
     email = models.CharField('Email', max_length=256)
     mobile = models.IntegerField('Mobile')
@@ -291,7 +292,7 @@ class HABModel(models.Model):
 
 class NewHABModel(models.Model):
     # Invisible Fields
-    time_of_submission = models.DateTimeField(auto_now_add=True, null=True)
+    time_of_submission = models.DateTimeField(default=timezone.now, null=True)
     invite_sent = models.CharField(max_length=256, choices=INVITED, default='Not Invited', null=True)
     status = models.CharField(max_length=256, choices=STATUS, default='Not Verified', null=True)
     locked = models.BooleanField(default=False)
@@ -299,9 +300,9 @@ class NewHABModel(models.Model):
     # Personal Details
     user = models.ForeignKey(SiteUser, on_delete=models.CASCADE, null=True)
     name = models.CharField('Name', max_length=256)
-    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid Roll Number.')
+    roll_number = models.CharField('Roll No.', max_length=100,help_text='Enter a valid Roll Number.', unique=True)
     gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male', null=True)
-    email = models.CharField('Email', max_length=256)
+    # email = models.CharField('Email', max_length=256)
     mobile = models.IntegerField('Mobile')
     vaccination_status = models.CharField('Vaccination Status', max_length=256,
                                           choices=VACCINATION_STATUS_CHOICES, null=True, default='Single Dose')
@@ -388,7 +389,10 @@ class NewHABModel(models.Model):
         return "None"
 
     def get_fields(self):
-        return [(field.name, field.value_to_string(self)) for field in HABModel._meta.fields]
+        ans = []
+        for field in NewHABModel._meta.fields:
+            ans.append((field.name, field.value_to_string(self))) 
+        return ans
 
     def clean(self):
         if (self.recieved_an_invite == 'Yes') and (self.proof_of_invitation.name == ''):

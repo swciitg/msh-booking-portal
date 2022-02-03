@@ -17,6 +17,11 @@
 <body>
     <table class="table-auto">
 
+      <tr>
+          <td><h1>email :</h1></td>
+          <td><h1>{{ form.user.user.email }}</h1></td>
+      </tr>
+
     {% for name, value in form.get_fields %}
       {% if name != 'fee_receipt' and name != 'proof_of_invitation' and name != 'recieved_an_invite' %}
         {% if value and forloop.counter > 5 and forloop.counter < 30 %}
