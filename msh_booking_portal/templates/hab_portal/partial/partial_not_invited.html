@@ -1,0 +1,25 @@
+<div id="replaceable-content">
+
+    {% for item in HABforms %}
+        {% if item.invite_sent == 'Not Invited' %}
+            {% include 'hab_portal/partial/partial_admin.html' %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="flex flex-row justify-between">
+        <div class="flex flex-row justify-around">        
+            <a href="{% url 'hab_portal:admin-view'%}"><button class="  text-white bg-green-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-green-600 rounded">All</button></a>
+
+            <a href="{% url 'hab_portal:admin-invited' %}"><button class="  text-white bg-green-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-green-600 rounded">Invited</button></a>
+    
+            <a href="{% url 'hab_portal:admin-not-invited' %}"><button class="  text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Not Invited</button></a>
+        </div>
+        <div class="flex flex-row justify-around">
+            <a href="../">
+                <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 mr-2 rounded">Go Back</button></a><br>
+        
+               <a href="{% url 'hab_portal:download_excel' num=6 Hostel='none' %}"><button class="  text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Download Excel</button></a>
+        </div>
+    </div>
+</div>
+</div>

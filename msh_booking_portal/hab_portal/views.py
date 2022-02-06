@@ -329,7 +329,7 @@ def AdminView(request):
 
         if request.is_ajax():
             html = render_to_string(
-                template_name="hab_portal/partial/partial_invite.html",
+                template_name="hab_portal/partial/partial_entries.html",
                 context={"HABforms": HABforms}
             )
 
@@ -337,7 +337,59 @@ def AdminView(request):
 
             return JsonResponse(data=data_dict, safe=False)
         context = {"HABforms": HABforms}
-        return render(request, 'hab_portal/complete/invite.html', context)
+        return render(request, 'hab_portal/complete/entries.html', context)
+    else:
+        return HttpResponseForbidden()
+
+@login_required(login_url='/campus_return/accounts/login/')
+def AdminInvited(request):
+    if request.user.is_staff:
+        url_parameter = request.GET.get("q")
+
+        if url_parameter:
+            HABforms = NewHABModel.objects.filter(
+                roll_number__icontains=url_parameter).order_by('time_of_submission')
+
+        else:
+            HABforms = NewHABModel.objects.all().order_by('time_of_submission')
+
+        if request.is_ajax():
+            html = render_to_string(
+                template_name="hab_portal/partial/partial_invited.html",
+                context={"HABforms": HABforms}
+            )
+
+            data_dict = {"html_from_view": html}
+
+            return JsonResponse(data=data_dict, safe=False)
+        context = {"HABforms": HABforms}
+        return render(request, 'hab_portal/complete/invited.html', context)
+    else:
+        return HttpResponseForbidden()
+
+@login_required(login_url='/campus_return/accounts/login/')
+def AdminNotInvited(request):
+    if request.user.is_staff:
+        url_parameter = request.GET.get("q")
+
+        if url_parameter:
+            HABforms = NewHABModel.objects.filter(
+                roll_number__icontains=url_parameter).order_by('time_of_submission')
+
+        else:
+            HABforms = NewHABModel.objects.all().order_by('time_of_submission')
+
+        if request.is_ajax():
+            html = render_to_string(
+                template_name="hab_portal/partial/partial_not_invited.html",
+                context={"HABforms": HABforms}
+            )
+
+            data_dict = {"html_from_view": html}
+
+            return JsonResponse(data=data_dict, safe=False)
+        context = {"HABforms": HABforms}
+        return render(request, 'hab_portal/complete/not_invited.html', context)
     else:
         return HttpResponseForbidden()
 
@@ -584,6 +636,18 @@ def Download_Excel(request, num, Hostel):
         if num == 4 :
             columns = ['Name', 'Roll Number', 'Email','Gender', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
             rows = NewHABModel.objects.order_by('time_of_submission').values_list(
+            'name', 'roll_number','user__user__email', 'gender','programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
+
+        elif num == 5 :
+            columns = ['Name', 'Roll Number', 'Email','Gender', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
+            rows1 = NewHABModel.objects.filter(Q(invite_sent='Invited'))
+            rows = rows1.order_by('time_of_submission').values_list(
+            'name', 'roll_number','user__user__email', 'gender','programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
+
+        elif num == 6 :
+            columns = ['Name', 'Roll Number', 'Email','Gender', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
+            rows1 = NewHABModel.objects.filter(Q(invite_sent='Not Invited'))
+            rows = rows1.order_by('time_of_submission').values_list(
             'name', 'roll_number','user__user__email', 'gender','programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
 
         elif num == 1  :
