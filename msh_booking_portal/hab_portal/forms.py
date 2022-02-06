@@ -247,14 +247,14 @@ class NewHABForm1(ModelForm):
     class Meta:
         model = NewHABModel
         fields = [
-            'name',
+            # 'name',
             'roll_number',
             'gender',
             # 'email',
             'mobile',
             'vaccination_status',
             'programme',
-            'department',
+            # 'department',
             'supervisor',
             'hostel',
             'room_no',
@@ -265,9 +265,9 @@ class NewHABForm1(ModelForm):
 
 
         widgets = {
-            'name': TextInput(attrs={
-                'class': "form-control",
-                }),
+            # 'name': TextInput(attrs={
+            #     'class': "form-control",
+            #     }),
 
             'roll_number': TextInput(attrs={
                 'class': "form-control",
@@ -277,9 +277,9 @@ class NewHABForm1(ModelForm):
                     'class': "form-control",
                 }),
 
-            'department': TextInput(attrs={
-                    'class': "form-control",
-                }),
+            # 'department': TextInput(attrs={
+            #         'class': "form-control",
+            #     }),
 
             'programme': Select(attrs={
                     'class': "form-control",

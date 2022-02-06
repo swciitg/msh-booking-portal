@@ -54,7 +54,8 @@
             <div class="relative mb-4 form-group">
             <label for="Name" class="leading-7 required-field text-Black-600">Name</label><br>
 
-        {{ form.name }}
+       <input class="min-w-full h-14 border-2 rounded bg-secondary leading-7 text-Black-600" disabled value={{ user.first_name }}>
+       <!-- {{ form.name }} -->
              </div>
 
              <div class="relative mb-4 form-group">
@@ -101,7 +102,8 @@
                  <div class="relative mb-4 form-group">
                  <label for="Roll Number" class="leading-7 required-field text-Black-600">Department</label><br>
 
-                 {{ form.department }}
+                 <!-- {{ form.department }} -->
+                 <input class="min-w-full h-14 border-2 rounded bg-secondary leading-7 text-Black-600" disabled value={{ user.department }} >
                   </div>
 
                  <div class="relative mb-4 form-group">
