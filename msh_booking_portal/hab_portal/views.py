@@ -83,8 +83,6 @@ def HABCreate(request):
         if form.is_valid():
             application = form.save(commit=False)
             application.user = SiteUser.objects.get(user_id=request.user.id)
-            application.name = user.first_name
-            application.department = user.department
 
             if request.FILES.get('vaccination_cert', None):
                 application.vaccination_cert = request.FILES.get(
