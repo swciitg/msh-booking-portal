@@ -4,14 +4,7 @@
         {% include 'hab_portal/partial/partial_admin.html' %}
     {% endfor %}
 
-    <div class="flex flex-row justify-between">
-        <div class="flex flex-row justify-around">        
-            <a href="{% url 'hab_portal:admin-view'%}"><button class="  text-white bg-green-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-green-600 rounded">All</button></a>
-
-            <a href="{% url 'hab_portal:admin-invited' %}"><button class="  text-white bg-green-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-green-600 rounded">Invited</button></a>
-    
-            <a href="{% url 'hab_portal:admin-not-invited' %}"><button class="  text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Not Invited</button></a>
-        </div>
+    <div class="flex flex-row justify-end">
         <div class="flex flex-row justify-around">
             <a href="../">
                 <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 mr-2 rounded">Go Back</button></a><br>

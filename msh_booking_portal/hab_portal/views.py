@@ -318,14 +318,23 @@ def HABThanks(request):
 @login_required(login_url='/campus_return/accounts/login/')
 def AdminView(request):
     if request.user.is_staff:
-        url_parameter = request.GET.get("q")
+
+        url_parameter = request.GET.get("user-input")
+        url_param = request.GET.get("sortid")
+        
+        if url_param:
+            url_param=url_param
+        else:
+            url_param="time_of_submission"
 
         if url_parameter:
             HABforms = NewHABModel.objects.filter(
-                roll_number__icontains=url_parameter).order_by('time_of_submission')
+                roll_number__icontains=url_parameter).order_by(url_param)
 
         else:
-            HABforms = NewHABModel.objects.all().order_by('time_of_submission')
+            HABforms = NewHABModel.objects.all().order_by(url_param)
+
+        context = {"HABforms": HABforms}
 
         if request.is_ajax():
             html = render_to_string(
@@ -336,7 +345,7 @@ def AdminView(request):
             data_dict = {"html_from_view": html}
 
             return JsonResponse(data=data_dict, safe=False)
-        context = {"HABforms": HABforms}
+
         return render(request, 'hab_portal/complete/entries.html', context)
     else:
         return HttpResponseForbidden()
@@ -344,14 +353,20 @@ def AdminView(request):
 @login_required(login_url='/campus_return/accounts/login/')
 def AdminInvited(request):
     if request.user.is_staff:
-        url_parameter = request.GET.get("q")
+        url_parameter = request.GET.get("user-input")
+        url_param = request.GET.get("sortid")
+
+        if url_param:
+            url_param=url_param
+        else:
+            url_param="time_of_submission"
 
         if url_parameter:
             HABforms = NewHABModel.objects.filter(
-                roll_number__icontains=url_parameter).order_by('time_of_submission')
+                roll_number__icontains=url_parameter).order_by(url_param)
 
         else:
-            HABforms = NewHABModel.objects.all().order_by('time_of_submission')
+            HABforms = NewHABModel.objects.all().order_by(url_param)
 
         if request.is_ajax():
             html = render_to_string(
@@ -370,14 +385,20 @@ def AdminInvited(request):
 @login_required(login_url='/campus_return/accounts/login/')
 def AdminNotInvited(request):
     if request.user.is_staff:
-        url_parameter = request.GET.get("q")
+        url_parameter = request.GET.get("user-input")
+        url_param = request.GET.get("sortid")
+
+        if url_param:
+            url_param=url_param
+        else:
+            url_param="time_of_submission"
 
         if url_parameter:
             HABforms = NewHABModel.objects.filter(
-                roll_number__icontains=url_parameter).order_by('time_of_submission')
+                roll_number__icontains=url_parameter).order_by(url_param)
 
         else:
-            HABforms = NewHABModel.objects.all().order_by('time_of_submission')
+            HABforms = NewHABModel.objects.all().order_by(url_param)
 
         if request.is_ajax():
             html = render_to_string(

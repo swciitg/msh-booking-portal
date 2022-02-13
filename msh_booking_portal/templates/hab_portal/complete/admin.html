@@ -48,45 +48,69 @@
                 }
             });
         }
+
     </script>
 
 </head>
 <body>
 
-  <section class="text-gray-600 body-font">
-    <div class="container px-5 py-24 mx-auto">
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
 
-        <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Return to Campus Submissions:</h1>
-            <div>
-              <br>
-              Search:  <input id="user-input" placeholder="Roll No.">
+            <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Return to Campus Submissions:</h1><br>
+            <a href="{% url 'signout' %}">Logout</a>
+            <div class="flex flex-row justify-start">        
+                <a href="{% url 'hab_portal:admin-view'%}"><button class="  text-white bg-green-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-green-600 rounded">All</button></a>
+        
+                <a href="{% url 'hab_portal:admin-invited' %}"><button class="  text-white bg-green-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-green-600 rounded">Invited</button></a>
+        
+                <a href="{% url 'hab_portal:admin-not-invited' %}"><button class="  text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Not Invited</button></a>
+            </div><br>
+
+            <div class="flex flex-row justify-between">
+                <div class="form-group">
+                    <label for="SortBy">Sort By</label>
+                    <select class="form-control" id="sort" style="border-color: black;">
+                        <option selected="true" value="time_of_submission">Time of Submission</option>
+                        <option value="name">Name</option>
+                        <option value="programme">Programme</option>
+                        <option value="returning_from_state">State</option>
+                        <option value="roll_number">Roll Number</option>
+                        <option value="vaccination_status">Vaccination Status</option>
+                        <option value="invite_sent">Invitation Status</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="search">Search:  </label>
+                    <input class="form-control" style="border-color: black;" id="user-input" placeholder="Roll No.">
+                </div>
             </div>
-           <br>
 
-           <table class="table-auto w-full text-left whitespace-no-wrap">
-           <tbody>
-           <tr>
-                 <th width="10%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Name</th>
-                 <th width="10%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Roll Number</th>
-                 <th width="10%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Email</th>
-                 <th width="5%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Programme</th>
-                 <th width="10%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">State</th>
-                 <th width="15%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Time of Submission</th>
-                 <th width="15%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Vaccination Status</th>
-                 <th width="10%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Invited</th>
-                 <th width="15%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Mark as</th>
-           </tr>
+            <table class="table-auto w-full text-left whitespace-no-wrap">
+                <tbody>
+                    <tr>
+                        <th width="10%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Name</th>
+                        <th width="10%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Roll Number</th>
+                        <th width="10%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Email</th>
+                        <th width="5%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Programme</th>
+                        <th width="10%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">State</th>
+                        <th width="15%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Time of Submission</th>
+                        <th width="15%" class="px-4 py-3 title-font  font-medium text-gray-900  bg-gray-100">Vaccination Status</th>
+                        <th width="10%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Invited</th>
+                        <th width="15%" class="px-4 py-3 title-font font-medium text-gray-900 bg-gray-100">Mark as</th>
+                    </tr>
+                </tbody>
+            </table>
 
-           {% block content %}
-           {% endblock %}
+            {% block content %}
+            {% endblock %}
 
-           </tbody>
-           </table>
+        </div>
+    </section>
 
-          </div>
-        </section>
+    <script src="{% static 'hab_portal/base2.js' %}"></script>
 
-        <script src="{% static 'hab_portal/base.js' %}"></script>
 
-      </body>
-      </html>
+</body>
+</html>

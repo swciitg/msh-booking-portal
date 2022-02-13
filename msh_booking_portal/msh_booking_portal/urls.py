@@ -5,10 +5,10 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from . import views
 
-
 urlpatterns = [
     path('campus_return/admin/', admin.site.urls),
     path('campus_return/accounts/login/',views.LoginAllAuthView.as_view()),
+    path('campus_return/accounts/logout/',views.LogoutAllAuthView.as_view(),name="signout"),
     path('campus_return/accounts/', include('allauth.urls')),
     path('campus_return/logout/', LogoutView.as_view()),
     path('campus_return/', include('hab_portal.urls')),
