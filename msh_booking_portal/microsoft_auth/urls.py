@@ -15,4 +15,5 @@ if config.MICROSOFT_AUTH_LOGIN_ENABLED:  # pragma: no branch
             views.AuthenticateCallbackView.as_view(),
             name="auth-callback",
         )
+
     ]

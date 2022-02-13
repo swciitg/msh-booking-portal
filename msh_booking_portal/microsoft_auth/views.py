@@ -1,7 +1,7 @@
 import json
 import logging
 import re
-
+from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.sites.models import Site
 from django.core.signing import BadSignature, SignatureExpired, TimestampSigner

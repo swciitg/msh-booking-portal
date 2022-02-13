@@ -58,13 +58,19 @@
         <div class="container px-5 py-24 mx-auto">
 
             <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Return to Campus Submissions:</h1><br>
-            <a href="{% url 'signout' %}">Logout</a>
-            <div class="flex flex-row justify-start">        
-                <a href="{% url 'hab_portal:admin-view'%}"><button class="  text-white bg-green-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-green-600 rounded">All</button></a>
+            
+            <div class="flex flex-row justify-between">      
+                <div class="flex flex-row justify-items-start">
+                    <a href="{% url 'hab_portal:admin-view'%}"><button class="  text-white bg-green-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-green-600 rounded">All</button></a>
         
-                <a href="{% url 'hab_portal:admin-invited' %}"><button class="  text-white bg-green-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-green-600 rounded">Invited</button></a>
-        
-                <a href="{% url 'hab_portal:admin-not-invited' %}"><button class="  text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Not Invited</button></a>
+                    <a href="{% url 'hab_portal:admin-invited' %}"><button class="  text-white bg-green-500 border-0 py-2 px-6 mr-2 focus:outline-none hover:bg-green-600 rounded">Invited</button></a>
+            
+                    <a href="{% url 'hab_portal:admin-not-invited' %}"><button class="  text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Not Invited</button></a>
+                </div> 
+                <div>
+
+                </div> 
+
             </div><br>
 
             <div class="flex flex-row justify-between">
