@@ -3,10 +3,11 @@
         <td width="10%" class="px-4 py-3">{{ item.name }}</td>
         <td width="10%" class="px-4 py-3 ">{{ item.roll_number }}</td>
         <td width="10%" class="px-4 py-3 ">{{ item.user.user.email }}</td>
+        <td width="5%" class="px-4 py-3 ">{{ item.gender }}</td>
         <td width="5%" class="px-4 py-3">{{ item.programme}}</td>
         <td width="10%" class="px-4 py-3">{{ item.returning_from_state }}</td>
         <td width="15%" class="px-4 py-3">{{ item.time_of_submission }}</td>
-        <td width="15%" class="px-4 py-3">{{ item.vaccination_status }}</td>
+        <td width="10%" class="px-4 py-3">{{ item.vaccination_status }}</td>
         <td width="10%" class="px-4 py-3" id="invite_details_{{item.pk}}">{{ item.invite_sent }}</td>
         {% if item.invite_sent == "Not Invited" %}
             <td width="15%" class="px-4 py-3" id="invite_button_{{item.pk}}">
