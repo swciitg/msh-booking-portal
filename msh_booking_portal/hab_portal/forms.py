@@ -1,5 +1,7 @@
 from django.forms import ModelForm, DateInput, HiddenInput, NumberInput, TextInput,Select, FileInput, RadioSelect
 from .models import HABModel, NewHABModel
+from .models import PROGRAMME_TO_DATE_RANGE
+from datetime import datetime
 
 class HABForm1(ModelForm):
     class Meta:
@@ -357,16 +359,16 @@ class NewHABForm2(ModelForm):
 
         widgets = {
             'date_of_arrival': DateInput(format='%Y-%m-%d',
-                                             attrs={'class':  "form-control",'id':'doa', 'placeholder': 'Select a date',
+                                            attrs={'class':  "form-control",'id':'doa', 'placeholder': 'Select a date',
                                                      'type': 'date'}),
             'date_of_payment': DateInput(format='%Y-%m-%d',
-                                             attrs={'class':  "form-control", 'placeholder': 'Select a date',
+                                            attrs={'class':  "form-control", 'placeholder': 'Select a date',
                                                      'type': 'date'}),
             'date_of_testing': DateInput(format='%Y-%m-%d',
-                                              attrs={'class':  "form-control", 'placeholder': 'Select a date',
+                                            attrs={'class':  "form-control", 'placeholder': 'Select a date',
                                                       'type': 'date'}),
             'check_in_date': DateInput(format='%Y-%m-%d',
-                                             attrs={'class':  "form-control", 'placeholder': 'Select a date',
+                                            attrs={'class':  "form-control", 'placeholder': 'Select a date',
                                                      'type': 'date'}),
 
             'mode_of_travel': TextInput(attrs={
@@ -388,3 +390,12 @@ class NewHABForm2(ModelForm):
                      'class': "form-control",
                 }),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        check_in_date = datetime.date(cleaned_data['check_in_date'])
+        programme = self.instance.programme
+        date_range = PROGRAMME_TO_DATE_RANGE[programme]
+        if not (date_range[0] <= check_in_date <= date_range[1]):
+            self.add_error('check_in_date',
+                           'According to your programme, your check-in date must be between ' + date_range[0].strftime("%d/%m/%Y") + ' to ' + date_range[1].strftime("%d/%m/%Y") + '.')

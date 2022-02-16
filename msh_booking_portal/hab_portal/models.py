@@ -3,10 +3,9 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from users.models import SiteUser
 from .storage import OverwriteStorage
-from datetime import datetime
+import datetime
 from django.utils import timezone
 import pytz
-
 
 
 HOSTELS = [
@@ -63,71 +62,109 @@ RECIEVED_AN_INVITE =[
      ('No', 'No'),
 ]
 
-PROGRAMMES =[#('B.Tech','B.Tech'),
-             #('B.Des','B.Des'),
-             ('M.Tech. 2nd Year','M.Tech. 2nd Year'),
-             ('M.Tech. 1st Year','M.Tech. 1st Year'),
-             ('M.Des. 2nd Year','M.Des. 2nd Year'),
-             ('M.Des. 1st Year','M.Des. 1st Year'),
-             ('M.A. 2nd Year','M.A. 2nd Year'),
-             ('M.A. 1st Year','M.A. 1st Year'),
-             ('M.Sc. 2nd Year','M.Sc. 2nd Year'),
-             ('M.Sc. 1st Year','M.Sc. 1st Year'),
-             ('MS(R) 2nd Year','MS(R) 2nd Year'),
-             ('MS(R) 1st Year','MS(R) 1st Year'),
-             #('PHD/IPDF','PHD/IPDF'),
-             ('B.Tech. 4th Year', 'B.Tech. 4th Year'),
-             ('B.Tech. 3rd Year', 'B.Tech. 3rd Year'),
-             ('B.Tech. 2nd Year', 'B.Tech. 2nd Year'),
-             ('B.Tech. 1st Year', 'B.Tech. 1st Year'),
-             ('B.Des. 4th Year', 'B.Des. 4th Year'),
-             ('B.Des. 3rd Year', 'B.Des. 3rd Year'),
-             ('B.Des. 2nd Year', 'B.Des. 2nd Year'),
-             ('B.Des. 1st Year', 'B.Des. 1st Year'),
-             ('Dual Degree 2nd Year','Dual Degree 2nd Year'),
-             ('Dual Degree 1st Year','Dual Degree 1st Year'),
-             ('PhD', 'PhD'),
-             ('IPDF', 'IPDF'),
-             ('Project Staff','Project Staff'),
+PROGRAMMES = [
+    ('M.Tech. 2nd Year','M.Tech. 2nd Year'),
+    ('M.Tech. 1st Year','M.Tech. 1st Year'),
+    ('M.Des. 2nd Year','M.Des. 2nd Year'),
+    ('M.Des. 1st Year','M.Des. 1st Year'),
+    ('M.A. 2nd Year','M.A. 2nd Year'),
+    ('M.A. 1st Year','M.A. 1st Year'),
+    ('M.Sc. 2nd Year','M.Sc. 2nd Year'),
+    ('M.Sc. 1st Year','M.Sc. 1st Year'),
+    ('MS(R) 2nd Year','MS(R) 2nd Year'),
+    ('MS(R) 1st Year','MS(R) 1st Year'),
+    ('B.Tech. 4th Year', 'B.Tech. 4th Year'),
+    ('B.Tech. 3rd Year', 'B.Tech. 3rd Year'),
+    ('B.Tech. 2nd Year', 'B.Tech. 2nd Year'),
+    ('B.Tech. 1st Year', 'B.Tech. 1st Year'),
+    ('B.Des. 4th Year', 'B.Des. 4th Year'),
+    ('B.Des. 3rd Year', 'B.Des. 3rd Year'),
+    ('B.Des. 2nd Year', 'B.Des. 2nd Year'),
+    ('B.Des. 1st Year', 'B.Des. 1st Year'),
+    ('Dual Degree 2nd Year','Dual Degree 2nd Year'),
+    ('Dual Degree 1st Year','Dual Degree 1st Year'),
+    ('PhD', 'PhD'),
+    ('IPDF', 'IPDF'),
+    ('Project Staff','Project Staff'),
 ]
 
-STATE_CHOICES = [("Other (Foreign Country)", "Other (Foreign Country)"),
-                 ("Andhra Pradesh","Andhra Pradesh"),
-                 ("Arunachal Pradesh ","Arunachal Pradesh "),
-                 ("Assam","Assam"),
-                 ("Bihar","Bihar"),
-                 ("Chhattisgarh","Chhattisgarh"),
-                 ("Goa","Goa"),
-                 ("Gujarat","Gujarat"),
-                 ("Haryana","Haryana"),
-                 ("Himachal Pradesh","Himachal Pradesh"),
-                 ("Jammu and Kashmir ","Jammu and Kashmir "),
-                 ("Jharkhand","Jharkhand"),
-                 ("Karnataka","Karnataka"),
-                 ("Kerala","Kerala"),
-                 ("Madhya Pradesh","Madhya Pradesh"),
-                 ("Maharashtra","Maharashtra"),
-                 ("Manipur","Manipur"),
-                 ("Meghalaya","Meghalaya"),
-                 ("Mizoram","Mizoram"),
-                 ("Nagaland","Nagaland"),
-                 ("Odisha","Odisha"),
-                 ("Punjab","Punjab"),
-                 ("Rajasthan","Rajasthan"),
-                 ("Sikkim","Sikkim"),
-                 ("Tamil Nadu","Tamil Nadu"),
-                 ("Telangana","Telangana"),
-                 ("Tripura","Tripura"),
-                 ("Uttar Pradesh","Uttar Pradesh"),
-                 ("Uttarakhand","Uttarakhand"),
-                 ("West Bengal","West Bengal"),
-                 ("Andaman and Nicobar Islands","Andaman and Nicobar Islands"),
-                 ("Chandigarh","Chandigarh"),
-                 ("Dadra and Nagar Haveli","Dadra and Nagar Haveli"),
-                 ("Daman and Diu","Daman and Diu"),
-                 ("Lakshadweep","Lakshadweep"),
-                 ("Delhi","Delhi"),
-                 ("Puducherry","Puducherry")]
+PROGRAMME_TO_PHASE = dict([
+    ('M.Tech. 2nd Year', 2),
+    ('M.Tech. 1st Year', 3),
+    ('M.Des. 2nd Year', 2),
+    ('M.Des. 1st Year', 3),
+    ('M.A. 2nd Year', 2),
+    ('M.A. 1st Year', 3),
+    ('M.Sc. 2nd Year', 2),
+    ('M.Sc. 1st Year', 3),
+    ('MS(R) 2nd Year', 2),
+    ('MS(R) 1st Year', 3),
+    ('B.Tech. 4th Year', 1),
+    ('B.Tech. 3rd Year', 4),
+    ('B.Tech. 2nd Year', 4),
+    ('B.Tech. 1st Year', 4),
+    ('B.Des. 4th Year', 4),
+    ('B.Des. 3rd Year', 4),
+    ('B.Des. 2nd Year', 4),
+    ('B.Des. 1st Year', 4),
+    ('Dual Degree 2nd Year', 2),
+    ('Dual Degree 1st Year', 3),
+    ('PhD', 1),
+    ('IPDF', 1),
+    ('Project Staff', 1),
+])
+
+PHASE_TO_DATE_RANGE = {
+    1: (datetime.date(2022, 2, 19), datetime.date(2022, 3, 10)),
+    2: (datetime.date(2022, 2, 23), datetime.date(2022, 3, 10)),
+    3: (datetime.date(2022, 2, 28), datetime.date(2022, 3, 10)),
+    4: (datetime.date(2022, 3, 14), datetime.date(2022, 3, 20)),
+}
+
+
+PROGRAMME_TO_DATE_RANGE = {programme: PHASE_TO_DATE_RANGE[phase]
+                                    for programme, phase in PROGRAMME_TO_PHASE.items()}
+
+
+STATE_CHOICES = [
+    ("Other (Foreign Country)", "Other (Foreign Country)"),
+    ("Andhra Pradesh","Andhra Pradesh"),
+    ("Arunachal Pradesh ","Arunachal Pradesh "),
+    ("Assam","Assam"),
+    ("Bihar","Bihar"),
+    ("Chhattisgarh","Chhattisgarh"),
+    ("Goa","Goa"),
+    ("Gujarat","Gujarat"),
+    ("Haryana","Haryana"),
+    ("Himachal Pradesh","Himachal Pradesh"),
+    ("Jammu and Kashmir ","Jammu and Kashmir "),
+    ("Jharkhand","Jharkhand"),
+    ("Karnataka","Karnataka"),
+    ("Kerala","Kerala"),
+    ("Madhya Pradesh","Madhya Pradesh"),
+    ("Maharashtra","Maharashtra"),
+    ("Manipur","Manipur"),
+    ("Meghalaya","Meghalaya"),
+    ("Mizoram","Mizoram"),
+    ("Nagaland","Nagaland"),
+    ("Odisha","Odisha"),
+    ("Punjab","Punjab"),
+    ("Rajasthan","Rajasthan"),
+    ("Sikkim","Sikkim"),
+    ("Tamil Nadu","Tamil Nadu"),
+    ("Telangana","Telangana"),
+    ("Tripura","Tripura"),
+    ("Uttar Pradesh","Uttar Pradesh"),
+    ("Uttarakhand","Uttarakhand"),
+    ("West Bengal","West Bengal"),
+    ("Andaman and Nicobar Islands","Andaman and Nicobar Islands"),
+    ("Chandigarh","Chandigarh"),
+    ("Dadra and Nagar Haveli","Dadra and Nagar Haveli"),
+    ("Daman and Diu","Daman and Diu"),
+    ("Lakshadweep","Lakshadweep"),
+    ("Delhi","Delhi"),
+    ("Puducherry","Puducherry"),
+]
 
 def proof_of_invitation_file_name(instance, filename):
     return 'hab_portal/proof_of_invitation/{0}{1}'.format(instance.user.pk, os.path.splitext(filename)[-1])
@@ -178,7 +215,7 @@ def validate_file_extension_image(value):
 
 
 def get_current_date():
-    return datetime.now().strftime('%Y-%m-%d')
+    return datetime.datetime.now().strftime('%Y-%m-%d')
 
 
 HAB_FIELDS = {'roll_number': 'roll_number',}
@@ -218,22 +255,22 @@ class HABModel(models.Model):
                                             null=True, blank=True)
 
     # Return Details
-    date_of_arrival = models.DateTimeField('Date of Arrival', default=datetime.now, null=True)
+    date_of_arrival = models.DateTimeField('Date of Arrival', default=datetime.datetime.now, null=True)
     mode_of_travel = models.CharField('Mode of Travel', blank=True, max_length=256, null=True)
     flight_train_number = models.CharField('Flight / Train No.', blank=True, max_length=256, null=True)
 
     # Test Details
     nature_of_test = models.CharField('Nature of Test', choices=NATURES_OF_TEST, max_length=256, null=True, default='RT-PCR', blank=True)
-    date_of_testing = models.DateField('Date of Test', default=datetime.now, null=True, blank=True)
+    date_of_testing = models.DateField('Date of Test', default=datetime.datetime.now, null=True, blank=True)
 
     # Hostel Related Information
     hostel = models.CharField('Hostel', max_length=256, choices=HOSTELS, null=True)
     room_no = models.CharField('Room Number', max_length=256, blank=True, null=True)
-    check_in_date = models.DateTimeField('Check-in Date', default=datetime.now, null=True)
+    check_in_date = models.DateTimeField('Check-in Date', default=datetime.datetime.now, null=True)
 
     # Status of Payment
     mess_fee_paid = models.IntegerField('Fee Paid', null=True, blank=True)
-    date_of_payment = models.DateField('Date of Payment', default=datetime.now, null=True, blank=True)
+    date_of_payment = models.DateField('Date of Payment', default=datetime.datetime.now, null=True, blank=True)
 
     # Enclosures
     fee_receipt = models.FileField('Fee Receipt', upload_to=fee_upload_file_name, storage=OverwriteStorage(),
@@ -333,22 +370,22 @@ class NewHABModel(models.Model):
                                             null=True, blank=True)
 
     # Return Details
-    date_of_arrival = models.DateTimeField('Date of Arrival', default=datetime.now, null=True)
+    date_of_arrival = models.DateTimeField('Date of Arrival', default=datetime.datetime.now, null=True)
     mode_of_travel = models.CharField('Mode of Travel', blank=True, max_length=256, null=True)
     flight_train_number = models.CharField('Flight / Train No.', blank=True, max_length=256, null=True)
 
     # Test Details
     nature_of_test = models.CharField('Nature of Test', choices=NATURES_OF_TEST, max_length=256, null=True, default='RT-PCR', blank=True)
-    date_of_testing = models.DateField('Date of Test', default=datetime.now, null=True, blank=True)
+    date_of_testing = models.DateField('Date of Test', default=datetime.datetime.now, null=True, blank=True)
 
     # Hostel Related Information
     hostel = models.CharField('Hostel', max_length=256, choices=HOSTELS, null=True)
     room_no = models.CharField('Room Number', max_length=256, blank=True, null=True)
-    check_in_date = models.DateTimeField('Check-in Date', default=datetime.now, null=True)
+    check_in_date = models.DateTimeField('Check-in Date', default=datetime.datetime.now, null=True)
 
     # Status of Payment
     mess_fee_paid = models.IntegerField('Fee Paid', null=True, blank=True)
-    date_of_payment = models.DateField('Date of Payment', default=datetime.now, null=True, blank=True)
+    date_of_payment = models.DateField('Date of Payment', default=datetime.datetime.now, null=True, blank=True)
 
     # Enclosures
     fee_receipt = models.FileField('Fee Receipt', upload_to=fee_upload_file_name, storage=OverwriteStorage(),
@@ -394,8 +431,7 @@ class NewHABModel(models.Model):
         )
 
     def __str__(self):
-        #return self.user.user.first_name+" "+self.user.user.last_name
-        return "None"
+        return self.user.user.first_name+" "+self.user.user.last_name
 
     def get_fields(self):
         ans = []
@@ -406,6 +442,7 @@ class NewHABModel(models.Model):
     def clean(self):
         if (self.recieved_an_invite == 'Yes') and (self.proof_of_invitation.name == ''):
             raise ValidationError({'proof_of_invitation': 'Proof of invitation not submitted.'})
+
 
     def get_final_pdf_url(self):
         try:
