@@ -86,7 +86,7 @@ class HABdose2(ModelForm):
             'fee_receipt',
             'vaccination_cert',
             'travel_ticket',
-            'rtpcr_report',
+            # 'rtpcr_report',
         ]
 
 
@@ -332,4 +332,59 @@ class NewHABdose1(ModelForm):
             'recieved_an_invite': Select(attrs={
                 'class': "form-control",
             }),
+        }
+
+class NewHABForm2(ModelForm):
+    class Meta:
+        model = HABModel
+        fields = [
+            'date_of_arrival',
+            'mode_of_travel',
+            'flight_train_number',
+            'nature_of_test',
+            'date_of_testing',
+            # 'hostel',
+            # 'room_no',
+            'check_in_date',
+            'mess_fee_paid',
+            'date_of_payment',
+            'fee_receipt',
+            # 'vaccination_cert',
+            'travel_ticket',
+            # 'rtpcr_report',
+        ]
+
+
+        widgets = {
+            'date_of_arrival': DateInput(format='%Y-%m-%d',
+                                             attrs={'class':  "form-control",'id':'doa', 'placeholder': 'Select a date',
+                                                     'type': 'date'}),
+            'date_of_payment': DateInput(format='%Y-%m-%d',
+                                             attrs={'class':  "form-control", 'placeholder': 'Select a date',
+                                                     'type': 'date'}),
+            'date_of_testing': DateInput(format='%Y-%m-%d',
+                                              attrs={'class':  "form-control", 'placeholder': 'Select a date',
+                                                      'type': 'date'}),
+            'check_in_date': DateInput(format='%Y-%m-%d',
+                                             attrs={'class':  "form-control", 'placeholder': 'Select a date',
+                                                     'type': 'date'}),
+
+            'mode_of_travel': TextInput(attrs={
+                     'class': "form-control",
+                }),
+            'flight_train_number': TextInput(attrs={
+                     'class': "form-control",
+                }),
+            'nature_of_test': Select(attrs={
+                     'class': "form-control",
+                }),
+            # 'hostel': Select(attrs={
+            #     'class': "form-control",
+            #     }),
+            # 'room_no': TextInput(attrs={
+            #          'class': "form-control",
+            #     }),
+            'mess_fee_paid': NumberInput(attrs={
+                     'class': "form-control",
+                }),
         }

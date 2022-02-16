@@ -3,9 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 
 from .models import HABModel, HAB_FIELDS
-from .forms import HABForm1, HABdose2, HABdose1, PdfgeneratedForm
+from .forms import HABForm1, HABdose1, HABdose2, PdfgeneratedForm
 from .models import NewHABModel
-from .forms import NewHABForm1, NewHABdose1
+from .forms import NewHABForm1, NewHABdose1, NewHABForm2
 
 from users.models import SiteUser
 from users.utils import load_from_user_data, save_to_user_data
@@ -102,7 +102,7 @@ def HABCreate(request):
             # else:
             #     return redirect('hab_portal:hab_2')
 
-            return redirect('hab_portal:hab_1')
+            return redirect('hab_portal:hab_2')
 
     else:
         try:
@@ -121,37 +121,37 @@ def HABCreate(request):
                   {'form': form, 'url': 'add'})
 
 
-@login_required(login_url='/campus_return/accounts/login/')
-def HAB1(request):
-    try:
-        form_instance = NewHABModel.objects.get(user__user__pk=request.user.id)
-        if request.method == 'POST':
-            form = NewHABdose1(request.POST, request.FILES,
-                            instance=form_instance)
-
-            if form.is_valid():
-                application = form.save(commit=False)
-                application.user = SiteUser.objects.get(
-                    user__pk=request.user.id)
-                if request.FILES.get('proof_of_invitation'):
-                    application.proof_of_invitation = request.FILES.get(
-                        'proof_of_invitation')
-
-                application.save()
-                #save_to_user_data(application.user, request.POST, HAB_FIELDS)
-                if application.recieved_an_invite == 'Yes':
-                    return redirect('hab_portal:hab_2')
-                else:
-                    return redirect('hab_portal:hab_dose1wait')
-
-        else:
-            form = NewHABdose1(instance=form_instance)
-
-        return render(request,
-                      'forms/hab1.html',
-                      {'form': form, 'url': 'form1'})
-    except ObjectDoesNotExist:
-        return redirect('hab_portal:hab_create')
+# @login_required(login_url='/campus_return/accounts/login/')
+# def HAB1(request):
+#     try:
+#         form_instance = NewHABModel.objects.get(user__user__pk=request.user.id)
+#         if request.method == 'POST':
+#             form = NewHABdose1(request.POST, request.FILES,
+#                             instance=form_instance)
+#
+#             if form.is_valid():
+#                 application = form.save(commit=False)
+#                 application.user = SiteUser.objects.get(
+#                     user__pk=request.user.id)
+#                 if request.FILES.get('proof_of_invitation'):
+#                     application.proof_of_invitation = request.FILES.get(
+#                         'proof_of_invitation')
+#
+#                 application.save()
+#                 #save_to_user_data(application.user, request.POST, HAB_FIELDS)
+#                 if application.recieved_an_invite == 'Yes':
+#                     return redirect('hab_portal:hab_2')
+#                 else:
+#                     return redirect('hab_portal:hab_dose1wait')
+#
+#         else:
+#             form = NewHABdose1(instance=form_instance)
+#
+#         return render(request,
+#                       'forms/hab1.html',
+#                       {'form': form, 'url': 'form1'})
+#     except ObjectDoesNotExist:
+#         return redirect('hab_portal:hab_create')
 
 
 @login_required(login_url='/campus_return/accounts/login/')
@@ -161,7 +161,7 @@ def HAB2(request):
         item2 = NewHABModel.objects.get(user__user__pk=request.user.id)
         request.session['id'] = form_instance.id
         if request.method == 'POST':
-            form = HABdose2(request.POST, request.FILES,
+            form = NewHABForm2(request.POST, request.FILES,
                             instance=form_instance)
 
             if form.is_valid():
@@ -177,6 +177,14 @@ def HAB2(request):
                         messages.error(request, 'Unsupported Format or Corrupt PDF for Fee Receipt')
                         return redirect('hab_portal:hab_2')
 
+                if request.FILES.get('travel_ticket', None):
+                    application.travel_ticket = request.FILES.get(
+                        'travel_ticket', None)
+                    try:
+                        input_pdf = PdfFileReader(application.travel_ticket)
+                    except utils.PdfReadError:
+                        messages.error(request, 'Unsupported Format or Corrupt PDF for Travel Ticket')
+                        return redirect('hab_portal:hab_2')
 
                 # if request.FILES.get('vaccination_cert', None):
                 #     application.vaccination_cert = request.FILES.get(
@@ -187,29 +195,20 @@ def HAB2(request):
                 #         messages.error(request, 'Unsupported Format or Corrupt PDF for Vaccination Certificate')
                 #         return redirect('hab_portal:hab_2')
 
-                if request.FILES.get('travel_ticket', None):
-                    application.travel_ticket = request.FILES.get(
-                        'travel_ticket', None)
-                    try:
-                        input_pdf = PdfFileReader(application.travel_ticket)
-                    except utils.PdfReadError:
-                        messages.error(request, 'Unsupported Format or Corrupt PDF for Travel Ticket')
-                        return redirect('hab_portal:hab_2')
-
-                if request.FILES.get('rtpcr_report', None):
-                    application.rtpcr_report = request.FILES.get(
-                        'rtpcr_report', None)
-                    try:
-                        input_pdf = PdfFileReader(application.rtpcr_report)
-                    except utils.PdfReadError:
-                        messages.error(request, 'Unsupported Format or Corrupt PDF for RTPCR Report')
-                        return redirect('hab_portal:hab_2')
+                # if request.FILES.get('rtpcr_report', None):
+                #     application.rtpcr_report = request.FILES.get(
+                #         'rtpcr_report', None)
+                #     try:
+                #         input_pdf = PdfFileReader(application.rtpcr_report)
+                #     except utils.PdfReadError:
+                #         messages.error(request, 'Unsupported Format or Corrupt PDF for RTPCR Report')
+                #         return redirect('hab_portal:hab_2')
 
                 application.save()
                 generate_obj_pdf(form_instance.id)
                 return redirect('hab_portal:hab_thanks')
         else:
-            form = HABdose2(instance=form_instance)
+            form = NewHABForm2(instance=form_instance)
 
         return render(request,
                       'forms/hab2.html',
@@ -219,9 +218,9 @@ def HAB2(request):
         return redirect('hab_portal:hab_create')
 
 
-@login_required(login_url='/campus_return/accounts/login/')
-def HABDose1Wait(request):
-    return render(request, 'forms/habdose1wait.html')
+# @login_required(login_url='/campus_return/accounts/login/')
+# def HABDose1Wait(request):
+#     return render(request, 'forms/habdose1wait.html')
 
 
 @login_required(login_url='/campus_return/accounts/login/')

@@ -181,10 +181,7 @@ def get_current_date():
     return datetime.now().strftime('%Y-%m-%d')
 
 
-HAB_FIELDS = {'roll_number': 'roll_number',
-               }
-
-
+HAB_FIELDS = {'roll_number': 'roll_number',}
 
 class HABModel(models.Model):
     # Invisible Fields
