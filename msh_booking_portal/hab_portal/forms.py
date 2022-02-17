@@ -2,6 +2,7 @@ from django.forms import ModelForm, DateInput, HiddenInput, NumberInput, TextInp
 from .models import HABModel, NewHABModel
 from .models import PROGRAMME_TO_DATE_RANGE
 from datetime import datetime
+from django.core.exceptions import ValidationError
 
 class HABForm1(ModelForm):
     class Meta:
@@ -397,5 +398,6 @@ class NewHABForm2(ModelForm):
         programme = self.instance.programme
         date_range = PROGRAMME_TO_DATE_RANGE[programme]
         if not (date_range[0] <= check_in_date <= date_range[1]):
-            self.add_error('check_in_date',
-                           'According to your programme, your check-in date must be between ' + date_range[0].strftime("%d/%m/%Y") + ' to ' + date_range[1].strftime("%d/%m/%Y") + '.')
+            raise ValidationError({'check_in_date': 'According to your programme, your check-in date must be between ' + date_range[0].strftime("%d/%m/%Y") + ' to ' + date_range[1].strftime("%d/%m/%Y") + '.'})
+            # self.add_error('check_in_date',
+            #                'According to your programme, your check-in date must be between ' + date_range[0].strftime("%d/%m/%Y") + ' to ' + date_range[1].strftime("%d/%m/%Y") + '.')

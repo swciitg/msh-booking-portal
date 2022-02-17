@@ -133,12 +133,13 @@
             <div class="relative mb-4 form-group">
             <label for="Hostel Name" class="leading-7 required-field text-Black-600">Check-in Date</label><br>
             {{ form.check_in_date }}
-            <p>If you are single dose vaccinated, there will be a 7-day mandatory quarantine and you will be allowed to go on the 8th day after RAT Test. So, fill check-date accordingly.</p>
-            <p>If you are a boarder of Disang, Lohit hostel will be temporarily allocated. You can leave the room number blank. It will be allotted at the hostel.</p>
+            {% for error in form.check_in_date.errors %}
+                <br>
+                <div class = "alert alert-danger">{{ error }}</div>
+            {% endfor %}
             </div>
             </div>
             </div>
-            <br>
             <br>
             <br>
 <!--            <div class="container">-->
