@@ -37,9 +37,9 @@ from PyPDF2 import PdfFileReader, utils
 def render_to_pdf(template_src, context_dict={}):
     template = get_template(template_src)
 
-    IST_timezone = timezone('Asia/Kolkata')
+    # IST_timezone = timezone('Asia/Kolkata')
 
-    context_dict['form'].date_of_arrival = context_dict['form'].date_of_arrival
+    # context_dict['form'].date_of_arrival = context_dict['form'].date_of_arrival
     # context_dict['form'].check_in_date = context_dict['form'].check_in_date.astimezone(IST_timezone)
 
     html = template.render(context_dict)
