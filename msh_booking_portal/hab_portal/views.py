@@ -223,32 +223,32 @@ def HAB2(request):
 #     return render(request, 'forms/habdose1wait.html')
 
 
-@login_required(login_url='/campus_return/accounts/login/')
-def HABEdit(request):
-    form_instance = NewHABModel.objects.get(user__user__pk=request.user.id)
-
-    if request.method == 'POST':
-        form = NewHABForm1(request.POST, request.FILES, instance=form_instance)
-
-        if form.is_valid() and (not form_instance.locked):
-            application = form.save(commit=False)
-            application.user = SiteUser.objects.get(user__pk=request.user.id)
-            application.fee_receipt = request.FILES['fee_receipt']
-            application.save()
-            save_to_user_data(application.user, request.POST, HAB_FIELDS)
-
-            return redirect('hab_portal:hab_thanks')
-
-    else:
-        form = NewHABForm1(instance=form_instance)
-
-        if form_instance.locked:
-            for field in form.fields:
-                form.fields[field].disabled = True
-
-    return render(request,
-                  'forms/hab.html',
-                  {'form': form, 'url': 'edit', 'locked': form_instance.locked})
+# @login_required(login_url='/campus_return/accounts/login/')
+# def HABEdit(request):
+#     form_instance = NewHABModel.objects.get(user__user__pk=request.user.id)
+#
+#     if request.method == 'POST':
+#         form = NewHABForm1(request.POST, request.FILES, instance=form_instance)
+#
+#         if form.is_valid() and (not form_instance.locked):
+#             application = form.save(commit=False)
+#             application.user = SiteUser.objects.get(user__pk=request.user.id)
+#             application.fee_receipt = request.FILES['fee_receipt']
+#             application.save()
+#             save_to_user_data(application.user, request.POST, HAB_FIELDS)
+#
+#             return redirect('hab_portal:hab_thanks')
+#
+#     else:
+#         form = NewHABForm1(instance=form_instance)
+#
+#         if form_instance.locked:
+#             for field in form.fields:
+#                 form.fields[field].disabled = True
+#
+#     return render(request,
+#                   'forms/hab.html',
+#                   {'form': form, 'url': 'edit', 'locked': form_instance.locked})
 
 
 @login_required(login_url='/campus_return/accounts/login/')
