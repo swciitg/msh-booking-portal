@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 
-from .forms import HABForm1, HABdose1, HABdose2, PdfgeneratedForm
+from .forms import PdfgeneratedForm
 from .models import HABModel, NewHABModel, CampusReturn2022
 from .models import HAB_FIELDS
-from .forms import NewHABForm1, NewHABdose1, NewHABForm2
+# from .forms import HABForm1, HABdose1, HABdose2
+# from .forms import NewHABForm1, NewHABdose1, NewHABForm2
 from .forms import CampusReturn2022Form1, CampusReturn2022Form2
 
 from users.models import SiteUser
@@ -71,25 +72,22 @@ def HABCreate(request):
     user, created = SiteUser.objects.get_or_create(user_id=request.user.id)
     if request.method == 'POST':
         try:
-            form_instance = CampusReturn2022.objects.get(
-                user__user__pk=request.user.id)
-            form = CampusReturn2022Form1(request.POST, request.FILES,
-                            instance=form_instance)
-
+            form_instance = CampusReturn2022.objects.get(user__user__pk=request.user.id)
+            form = CampusReturn2022Form1(request.POST, request.FILES, instance=form_instance)
 
         except:
             form = CampusReturn2022Form1(request.POST, request.FILES)
 
-
         if form.is_valid():
             application = form.save(commit=False)
             application.user = SiteUser.objects.get(user_id=request.user.id)
+            application.email = user.user.email
 
             if request.FILES.get('vaccination_cert', None):
                 application.vaccination_cert = request.FILES.get(
                     'vaccination_cert', None)
                 try:
-                    input_pdf = PdfFileReader(application.vaccination_cert)
+                    PdfFileReader(application.vaccination_cert)
                 except utils.PdfReadError:
                     messages.error(request, 'Unsupported Format or Corrupt PDF for Vaccination Certificate')
                     return redirect('hab_portal:hab')
@@ -107,15 +105,14 @@ def HABCreate(request):
 
     else:
         try:
-            form_instance = CampusReturn2022.objects.get(
-                user__user__pk=request.user.id)
-            form = load_from_user_data(SiteUser.objects.get(
-                user_id=request.user.id), CampusReturn2022Form1(instance=form_instance), HAB_FIELDS)
+            form_instance = CampusReturn2022.objects.get(user__user__pk=request.user.id)
+            form = load_from_user_data(SiteUser.objects.get(user_id=request.user.id),
+                                       CampusReturn2022Form1(instance=form_instance),
+                                       HAB_FIELDS)
         except:
-            form = load_from_user_data(SiteUser.objects.get(
-                user_id=request.user.id), CampusReturn2022Form1(), HAB_FIELDS)
-
-
+            form = load_from_user_data(SiteUser.objects.get(user_id=request.user.id),
+                                       CampusReturn2022Form1(),
+                                       HAB_FIELDS)
 
     return render(request,
                   'forms/hab.html',
@@ -172,20 +169,18 @@ def HAB2(request):
                     application.fee_receipt = request.FILES.get(
                         'fee_receipt', None)
                     try:
-                        input_pdf = PdfFileReader(application.fee_receipt)
+                        PdfFileReader(application.fee_receipt)
                     except utils.PdfReadError:
                         messages.error(request, 'Unsupported Format or Corrupt PDF for Fee Receipt')
-                        print(179)
                         return redirect('hab_portal:hab_2')
 
                 if request.FILES.get('travel_ticket', None):
                     application.travel_ticket = request.FILES.get(
                         'travel_ticket', None)
                     try:
-                        input_pdf = PdfFileReader(application.travel_ticket)
+                        PdfFileReader(application.travel_ticket)
                     except utils.PdfReadError:
                         messages.error(request, 'Unsupported Format or Corrupt PDF for Travel Ticket')
-                        print(189)
                         return redirect('hab_portal:hab_2')
 
                 # if request.FILES.get('vaccination_cert', None):
@@ -208,12 +203,10 @@ def HAB2(request):
 
                 application.save()
                 generate_obj_pdf(form_instance.id)
-                print(212)
                 return redirect('hab_portal:hab_thanks')
             else:
                 print(form.errors)
         else:
-            print(215)
             form = CampusReturn2022Form2(instance=form_instance)
 
         return render(request,

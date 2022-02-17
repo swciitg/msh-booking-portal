@@ -464,6 +464,7 @@ class CampusReturn2022(models.Model):
     name = models.CharField('Name', max_length=256)
     roll_number = models.CharField('Roll No.', max_length=100, help_text='Enter a valid Roll Number.')
     gender = models.CharField('Gender', choices=GENDERS, max_length=256, default='Male')
+    email = models.EmailField('Email')
     mobile = models.IntegerField('Mobile')
     vaccination_status = models.CharField('Vaccination Status', max_length=256,
                                           choices=VACCINATION_STATUS_CHOICES)
