@@ -40,7 +40,7 @@
             </div>
           </div>
         </div>
-        <center>
+        <center id="mobile">
             <svg width="414" height="54" viewBox="0 0 414 54" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="414" height="54" fill="white"/>
 <rect x="51.5" y="17" width="21" height="20" fill="url(#pattern0)"/>
@@ -126,11 +126,15 @@
             .box{
                 display:none;
             }
+            #mobile{
+                display:none;
+            }
 
             @media only screen and (min-width:600px){
                 #box1{
                     display:block;
                 }
+
             }
             @media only screen and (max-width:600px){
                 #box2{
@@ -142,6 +146,10 @@
                 #footer{
                     display:none;
                 }
+                #mobile{
+                    display:block;
+                }
+
             }
 
 
