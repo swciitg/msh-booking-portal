@@ -14,7 +14,7 @@ HOSTELS = [
     ('siang', 'Siang'),
     ('manas', 'Manas'),
     ('dibang', 'Dibang'),
-    ('disang', '*Disang'),
+    ('disang', 'Disang'),
     ('kameng', 'Kameng'),
     ('umiam', 'Umiam'),
     ('barak', 'Barak'),
