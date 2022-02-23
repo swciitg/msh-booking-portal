@@ -319,6 +319,7 @@ def AdminView(request):
 
         url_parameter = request.GET.get("user-input")
         url_param = request.GET.get("sortid")
+        url_param2 = request.GET.get("dateOfArrival")
         
         if url_param:
             url_param=url_param
@@ -326,11 +327,21 @@ def AdminView(request):
             url_param="time_of_submission"
 
         if url_parameter:
-            HABforms = CampusReturn2022.objects.filter(
-                roll_number__icontains=url_parameter).order_by(url_param)
+            if url_param2: 
+                HABforms2 = CampusReturn2022.objects.filter(
+                    roll_number__icontains=url_parameter).order_by(url_param)
+                HABforms = HABforms2.filter(date_of_arrival__range=[url_param2, url_param2])
+            else:
+                HABforms = CampusReturn2022.objects.filter(
+                    roll_number__icontains=url_parameter).order_by(url_param)
 
         else:
-            HABforms = CampusReturn2022.objects.all().order_by(url_param)
+            if url_param2:
+                HABforms2 = CampusReturn2022.objects.all().order_by(url_param)
+                HABforms = HABforms2.filter(date_of_arrival__range=[url_param2, url_param2])
+
+            else:
+                HABforms = CampusReturn2022.objects.all().order_by(url_param)
 
         context = {"HABforms": HABforms}
 
@@ -638,7 +649,7 @@ def MediaView(request, file):
 
 
 @login_required(login_url='/campus_return/accounts/login/')
-def Download_Excel(request, num, Hostel):
+def Download_Excel(request, num, Hostel, roll, sort, date):
     if request.user.is_staff:
         response = HttpResponse(content_type='application/ms-excel')
 
@@ -651,23 +662,45 @@ def Download_Excel(request, num, Hostel):
         font_style = xlwt.XFStyle()
 
         font_style.font.bold = True
+        
+        if sort:
+            sort=sort
+        else:
+            sort="time_of_submission"
+
+        if roll != 'none':
+            if date != 'none': 
+                HABforms2 = CampusReturn2022.objects.filter(
+                    roll_number__icontains=roll).order_by(sort)
+                HABforms = HABforms2.filter(date_of_arrival__range=[date, date])
+            else:
+                HABforms = CampusReturn2022.objects.filter(
+                    roll_number__icontains=roll).order_by(sort)
+
+        else:
+            if date != 'none':
+                HABforms2 = CampusReturn2022.objects.all().order_by(sort)
+                HABforms = HABforms2.filter(date_of_arrival__range=[date, date])
+
+            else:
+                HABforms = CampusReturn2022.objects.all().order_by(sort)
 
         if num == 4 :
-            columns = ['Name', 'Roll Number', 'Email','Gender', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
-            rows = CampusReturn2022.objects.order_by('time_of_submission').values_list(
-            'name', 'roll_number','user__user__email', 'gender','programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
+            columns = ['Name', 'Roll Number', 'Email','Gender', 'Programme', 'State', 'Time of Submission', 'Arrival Date']
+            rows = HABforms.values_list(
+            'name', 'roll_number','user__user__email', 'gender','programme', 'returning_from_state', 'time_of_submission', 'date_of_arrival')
 
-        elif num == 5 :
-            columns = ['Name', 'Roll Number', 'Email','Gender', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
-            rows1 = CampusReturn2022.objects.filter(Q(invite_sent='Invited'))
-            rows = rows1.order_by('time_of_submission').values_list(
-            'name', 'roll_number','user__user__email', 'gender','programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
+        # elif num == 5 :
+        #     columns = ['Name', 'Roll Number', 'Email','Gender', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
+        #     rows1 = CampusReturn2022.objects.filter(Q(invite_sent='Invited'))
+        #     rows = rows1.order_by('time_of_submission').values_list(
+        #     'name', 'roll_number','user__user__email', 'gender','programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
 
-        elif num == 6 :
-            columns = ['Name', 'Roll Number', 'Email','Gender', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
-            rows1 = CampusReturn2022.objects.filter(Q(invite_sent='Not Invited'))
-            rows = rows1.order_by('time_of_submission').values_list(
-            'name', 'roll_number','user__user__email', 'gender','programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
+        # elif num == 6 :
+        #     columns = ['Name', 'Roll Number', 'Email','Gender', 'Programme', 'State', 'Time of Submission', 'Invitation Status']
+        #     rows1 = CampusReturn2022.objects.filter(Q(invite_sent='Not Invited'))
+        #     rows = rows1.order_by('time_of_submission').values_list(
+        #     'name', 'roll_number','user__user__email', 'gender','programme', 'returning_from_state', 'time_of_submission', 'invite_sent')
 
         elif num == 1  :
             columns = ['Name', 'Roll Number', 'Email','Gender', 'State', 'Hostel', 'Programme', 'Fees', 'Vaccination Status', 'Arrival Date', 'Check-In Date', 'Nature of Testing', 'Mode of Travel', 'Verification Status']

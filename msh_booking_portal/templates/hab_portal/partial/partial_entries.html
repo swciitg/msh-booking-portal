@@ -4,13 +4,4 @@
         {% include 'hab_portal/partial/partial_admin.html' %}
     {% endfor %}
 
-    <div class="flex flex-row justify-end">
-        <div class="flex flex-row justify-around">
-            <a href="../">
-                <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 mr-2 rounded">Go Back</button></a><br>
-        
-               <a href="{% url 'hab_portal:download_excel' num=4 Hostel='none' %}"><button class="  text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Download Excel</button></a>
-        </div>
-    </div>
-
 </div>
