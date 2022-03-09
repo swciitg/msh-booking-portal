@@ -515,7 +515,7 @@ class CampusReturn2022(models.Model):
     travel_ticket = models.FileField('Travel Ticket', upload_to=travel_upload_file_name,
                                     storage=OverwriteStorage(),
                                     validators=[validate_file_size, validate_file_extension],
-                                    help_text='Upload a .PDF file not greater than 10 MB in size.', null=True)
+                                    help_text='If you are travelling via flight or train upload a .PDF file of your ticket not greater than 10 MB in size.', null=True, blank=True)
 
     rtpcr_report = models.FileField('RTPCR Report', upload_to=rtpcr_upload_file_name,
                                     storage=OverwriteStorage(),

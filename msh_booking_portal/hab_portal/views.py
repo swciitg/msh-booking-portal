@@ -281,12 +281,13 @@ def HABThanks(request):
         pdf.save(obj.vaccination_cert.path)
         pdf_merger.append(obj.vaccination_cert, import_bookmarks=False)
 
-    try:
-        pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
-    except Exception:
-        pdf = pikepdf.open(obj.travel_ticket.path,allow_overwriting_input=True)
-        pdf.save(obj.travel_ticket.path)
-        pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
+    if obj.travel_ticket:
+        try:
+            pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
+        except Exception:
+            pdf = pikepdf.open(obj.travel_ticket.path,allow_overwriting_input=True)
+            pdf.save(obj.travel_ticket.path)
+            pdf_merger.append(obj.travel_ticket, import_bookmarks=False)
 
     # if obj.vaccination_status == "Single Dose":
     if obj.rtpcr_report:
