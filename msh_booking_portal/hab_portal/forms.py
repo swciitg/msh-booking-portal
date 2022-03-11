@@ -432,14 +432,14 @@ class CampusReturn2022Form2(ModelForm):
                 }),
         }
 
-    def clean(self):
-        cleaned_data = super().clean()
-        date_of_arrival = cleaned_data['date_of_arrival']
-        programme = self.instance.programme
-        date_range = PROGRAMME_TO_DATE_RANGE[programme]
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     date_of_arrival = cleaned_data['date_of_arrival']
+    #     programme = self.instance.programme
+    #     date_range = PROGRAMME_TO_DATE_RANGE[programme]
 
-        if not (date_range[0] <= date_of_arrival <= date_range[1]):
-            raise ValidationError({'date_of_arrival': 'According to your programme, your check-in date must be between ' + date_range[0].strftime("%d/%m/%Y") + ' to ' + date_range[1].strftime("%d/%m/%Y") + '.'})
+    #     if not (date_range[0] <= date_of_arrival <= date_range[1]):
+    #         raise ValidationError({'date_of_arrival': 'According to your programme, your check-in date must be between ' + date_range[0].strftime("%d/%m/%Y") + ' to ' + date_range[1].strftime("%d/%m/%Y") + '.'})
 
 class PdfgeneratedForm(ModelForm):
     class Meta:
